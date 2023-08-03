@@ -9,53 +9,53 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../sidebar/Sidebar';
 const Navbar = () => {
-  
 
-function ButtonAppBar() {
+
+  function ButtonAppBar() {
     const [state, setState] = React.useState({
 
-        left: false,
+      left: false,
 
     });
     const toggleDrawer = (anchor, open) => (event) => {
-        if (
-            event &&
-            event.type === 'keydown' &&
-            (event.key === 'Tab' || event.key === 'Shift')
-        ) {
-            return;
-        }
+      if (
+        event &&
+        event.type === 'keydown' &&
+        (event.key === 'Tab' || event.key === 'Shift')
+      ) {
+        return;
+      }
 
-        setState({ ...state, [anchor]: open });
+      setState({ ...state, [anchor]: open });
     };
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar 
-      style={{background:'black'}}
-      position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={toggleDrawer('left',true)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Dashboard
-          </Typography>
-          <Button 
-          onClick={toggleDrawer('left',true)}
-          color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-      <Sidebar toggle={toggleDrawer}/>
-    </Box>
-  );
-}
+    return (
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          style={{ background: 'black' }}
+          position="static">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={toggleDrawer('left', true)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Dashboard
+            </Typography>
+            <Button
+
+              color="inherit">Login</Button>
+          </Toolbar>
+        </AppBar>
+        <Sidebar toggle={toggleDrawer} state={state} setState={setState} />
+      </Box>
+    );
+  }
   return (
     <div>{ButtonAppBar()}</div>
   )

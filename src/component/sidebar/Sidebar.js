@@ -4,35 +4,19 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
 
 import Divider from '@mui/material/Divider';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
-export default function Sidebar() {
-    const [state, setState] = React.useState({
+export default function Sidebar({ toggle, state, setState }) {
 
-        left: false,
-
-    });
-
-
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (
-            event &&
-            event.type === 'keydown' &&
-            (event.key === 'Tab' || event.key === 'Shift')
-        ) {
-            return;
-        }
-
-        setState({ ...state, [anchor]: open });
-    };
+    const navigate = useNavigate()
     const list = (anchor) => {
         return (
             <Box
                 sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
                 role="presentation"
-                onClick={toggleDrawer(anchor, true)}
-                onKeyDown={toggleDrawer(anchor, true)}
+                onClick={toggle(anchor, true)}
+                onKeyDown={toggle(anchor, true)}
             >
                 <Menu>
                     <MenuItem>
@@ -46,7 +30,7 @@ export default function Sidebar() {
                         >
                             <MenuItem style={{ fontSize: '0.9rem' }}
                                 onClick={() => {
-                                    alert("hello")
+                                    navigate('/accountmaster')
                                 }}>Account Master</MenuItem>
 
                             <MenuItem
@@ -116,7 +100,19 @@ export default function Sidebar() {
                             <MenuItem>
                                 Purchase Term and Conditions
                             </MenuItem>
+                            <MenuItem>
+                                Purchase Term and Conditions
+                            </MenuItem>
                         </SubMenu>
+                    </SubMenu>
+                    <SubMenu
+                        label="Direct Milk Purchase"
+                    >
+                        <MenuItem
+                        onClick={()=>navigate('/chilingcenter')}
+                        >
+                            Direct Milk Purchase
+                        </MenuItem>
                     </SubMenu>
                 </Menu>
 
@@ -130,12 +126,12 @@ export default function Sidebar() {
         <div>
             {['left'].map((anchor) => (
                 <React.Fragment key={anchor}>
-                    <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+                    {/* <Button onClick={toggle(anchor, true)}>{anchor}</Button> */}
                     <SwipeableDrawer
                         anchor={anchor}
                         open={state[anchor]}
-                        onClose={toggleDrawer(anchor, false)}
-                        onOpen={toggleDrawer(anchor, true)}
+                        onClose={toggle(anchor, false)}
+                        onOpen={toggle(anchor, true)}
                     >
                         {list(anchor)}
                     </SwipeableDrawer>

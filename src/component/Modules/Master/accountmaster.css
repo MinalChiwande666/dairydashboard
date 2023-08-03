@@ -1,0 +1,9 @@
+.accountmastercon{
+    box-shadow: 10px 10px 10px 0px black;
+}
+.focus:focus{
+  outline: none !important;
+}
+.txtsize{
+    font-size: 0.3rem;
+}
