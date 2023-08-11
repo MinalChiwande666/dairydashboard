@@ -6,6 +6,7 @@ import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 
 const customTheme = (outerTheme) =>
+
   createTheme({
     palette: {
       mode: outerTheme.palette.mode,
@@ -76,6 +77,7 @@ const AccountmasCom = () => {
   const [status, setstatus] = useState('')
   const [costecenter, setcostcenter] = useState('No')
   const [showtable, setshowtable] = useState(false)
+  
   const [selaccountgroup, setselaccountgroup] = useState('')
   const [selopentype, setopentype] = useState('')
   const [allusers, setallusers] = useState([])
@@ -581,6 +583,7 @@ const AccountmasCom = () => {
             </button>
           </div>
         </div>
+        
       </div>
     </div>
   )
