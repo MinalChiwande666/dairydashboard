@@ -20,7 +20,7 @@ export default function Sidebar({ toggle, state, setState }) {
             >
                 <Menu>
                     <MenuItem>
-                        <h1>Hello</h1>
+                        <h1>Dairy</h1>
                     </MenuItem>
                     <SubMenu
                         label="Masters Modules"
@@ -36,9 +36,9 @@ export default function Sidebar({ toggle, state, setState }) {
                             <MenuItem
                                 style={{ fontSize: '0.9rem' }}
                                 onClick={() => {
-                                    alert("hello")
+                                    navigate('/customermaster')
                                 }}>
-                                <Link to={'/'}>Customer Master</Link>
+                                Customer Master
                             </MenuItem>
 
                             <MenuItem style={{ fontSize: '0.9rem' }}>
@@ -109,10 +109,20 @@ export default function Sidebar({ toggle, state, setState }) {
                         label="Direct Milk Purchase"
                     >
                         <MenuItem
-                        onClick={()=>navigate('/chilingcenter')}
+                            onClick={() => navigate('/chilingcenter')}
                         >
                             Direct Milk Purchase
                         </MenuItem>
+                        <MenuItem onClick={() => navigate('/milkchalan')}>
+                            Milk Chalan
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate('/milkpurchase')}>
+                            Milk Purchase
+                        </MenuItem>
+                    </SubMenu>
+                    <SubMenu label="Milk Chalan">
+                        
+
                     </SubMenu>
                 </Menu>
 
