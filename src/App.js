@@ -13,6 +13,9 @@ import Purchaseratecontract from './pages/masterModule/sansthamilk/sansthamaster
 import Milkcollectionexcelupload from './pages/masterModule/sansthamilk/Milkcollection/Milkcollectionexcelupload'
 import Downloadsanthamilkcollection from './pages/masterModule/sansthamilk/Milkcollection/Downloadsansthamilkcollection'
 import Milkcollectionwithqc from './pages/masterModule/sansthamilk/Milkcollection/Milkcollectionwithqc'
+import Milkcollectionmanualkg from './pages/masterModule/sansthamilk/Milkcollection/Milkcollectionmanualkg'
+import Milkcollectionltr from './pages/masterModule/sansthamilk/Milkcollection/Milkcollectionltr'
+import Billgeneration from './pages/masterModule/Billgeneration'
 
 const App = () => {
   return (
@@ -31,6 +34,9 @@ const App = () => {
     <Route path='/milkcollectionexcelupload' element={<><Milkcollectionexcelupload/></>}/>
     <Route path='/downloadsanthamilkcollection'  element={<><Downloadsanthamilkcollection/></>}/>
     <Route path='/Milkcollectionwithqc' element={<><Milkcollectionwithqc/></>}/>
+    <Route path='/Milkcollectionmanualkg' element={<><Milkcollectionmanualkg/></>}/>
+    <Route path= 'Milkcollectionltr' element={<>< Milkcollectionltr/></>}/>
+    <Route path='Billgeneration' element={<><Billgeneration/></>}/>
    </Routes>
    </BrowserRouter>
     </>

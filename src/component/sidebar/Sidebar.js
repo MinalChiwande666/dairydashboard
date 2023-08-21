@@ -109,12 +109,65 @@ export default function Sidebar({ toggle, state, setState }) {
                         label="Direct Milk Purchase"
                     >
                         <MenuItem
-                        onClick={()=>navigate('/chilingcenter')}
+                        onClick={()=>navigate('/sansthamaster')}
                         >
                             Direct Milk Purchase
                         </MenuItem>
                     </SubMenu>
                 </Menu>
+
+                <Menu>
+                    <SubMenu label = "Sanstha Milk Module">
+                        <SubMenu label = "Sanstha Master">
+                         <MenuItem 
+                         onClick={()=> navigate('/sansthamaster')}>
+                           Sanstha master
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/purchaseratecontractmaster')}>
+                            Purchase rate contract master
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/purchaseratecontract')}>
+                           Purchase rate contract
+                         </MenuItem>
+                    </SubMenu>
+                    <SubMenu label = "Milk Collection">
+                         <MenuItem 
+                         onClick={()=> navigate('/milkcollectionexcelupload')}>
+                           Milk collection with Excel upload
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/downloadsanthamilkcollection')}>
+                           Download sanstha Milk Collection 
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/Milkcollectionwithqc')}>
+                           Combine Collection with QC
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/Milkcollectionmanualkg')}>
+                           Milk Collection Manual:kg
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/Milkcollectionltr')}>
+                           Milk Collection Ltr
+                         </MenuItem>
+                    </SubMenu>
+                    </SubMenu>
+                </Menu>
+
+                <Menu >
+                    <SubMenu label = 'Bill Generation'
+                     onClick={()=> navigate('/Billgeneration')}
+                           >
+                      
+                    </SubMenu>
+                </Menu>
+                        
+                 
+
+                
 
                 <Divider />
 
