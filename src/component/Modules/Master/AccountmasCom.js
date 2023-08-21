@@ -97,7 +97,7 @@ const AccountmasCom = () => {
     }
   )
   useEffect(() => {
-    axios.get('http://192.168.0.123:8080/getAllAccountMasterData').then((data) => {
+    axios.get('http://103.38.50.113:8080/DairyApp/getAllAccountMasterData').then((data) => {
       console.log(data.data)
       setallusers(data.data)
     }).catch((e) => {

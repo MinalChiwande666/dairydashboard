@@ -7,3 +7,48 @@
 .txtsize{
     font-size: 0.3rem;
 }
+.customerdrop{
+ animation: 2s con;
+ height:60%;
+}
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  margin:  auto;
+ 
+  background: rgba(248, 241, 241, 0.658)
+      url("https://media.giphy.com/media/8agqybiK5LW8qrG3vJ/giphy.gif") center
+      no-repeat;
+  z-index: 999;
+}
+@keyframes con{
+  0%{
+    height:10.9%
+  }
+  25%{
+    height:11%
+  }
+  40%{
+    height:12%
+  }
+  55%{
+    height: 14%;
+  }
+}
+
+.dropicon{
+  position: 'absolute';
+  top: 200;
+  left: 90;
+ 
+}
+
+@media screen and (max-width: 480px) {
+  .dropicon {
+
+   
+  }
+}

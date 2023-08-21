@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import '@grapecity/spread-sheets/styles/gc.spread.sheets.excel2013white.css';
 import {ProSidebarProvider} from 'react-pro-sidebar'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

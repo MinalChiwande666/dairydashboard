@@ -1,0 +1,50 @@
+.logincon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin:  auto;
+    min-height: 100vh;
+    background-image: linear-gradient(to right, rgb(238, 229, 229) , rgb(168, 168, 153));
+}
+.loginbox{
+    width:26vw;
+    height:80vh;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.loginbtn{
+    background: lightblue;
+    width:90%;
+    border:none;
+    color: white;
+    border-radius: 5px;
+    padding: 0.4rem;
+}
+.bthcon{
+    width:100%;
+    
+}
+.password{
+    
+}
+@media only screen and (max-width: 900px) {
+    .loginbox{
+        height: 60vh;
+        width: 80vw;
+    }
+    .input{
+       
+        width: 50vw;
+    }
+  }
+@media only screen and (max-width: 480px) {
+    .loginbox{
+        height:60vh;
+        width: 60vw;
+    }
+  }
+  

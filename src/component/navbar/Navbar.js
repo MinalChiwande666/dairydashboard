@@ -8,8 +8,14 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../sidebar/Sidebar';
+import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
 
+  const navigate = useNavigate()
+  const logoutuser = ()=>{
+    localStorage.setItem('username',null)
+    navigate('/')
+  }
 
   function ButtonAppBar() {
     const [state, setState] = React.useState({
@@ -48,8 +54,8 @@ const Navbar = () => {
               Dashboard
             </Typography>
             <Button
-
-              color="inherit">Login</Button>
+              onClick={()=>logoutuser()}
+              color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
         <Sidebar toggle={toggleDrawer} state={state} setState={setState} />
