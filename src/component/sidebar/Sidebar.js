@@ -119,6 +119,9 @@ export default function Sidebar({ toggle, state, setState }) {
                         <MenuItem onClick={() => navigate('/milkpurchase')}>
                             Milk Purchase
                         </MenuItem>
+                        <MenuItem onClick={() => navigate('/milklist')}>
+                            Milk List
+                        </MenuItem>
                     </SubMenu>
                     <SubMenu label="Milk Chalan">
                         

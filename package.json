@@ -5,6 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@grapecity/spread-sheets": "^16.2.0",
+    "@grapecity/spread-sheets-react": "^16.2.0",
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.14.2",
     "@mui/x-date-pickers": "^6.10.2",

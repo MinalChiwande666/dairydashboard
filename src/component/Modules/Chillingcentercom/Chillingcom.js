@@ -265,13 +265,7 @@ const Chillingcom = () => {
 
     }, [fatcla, slrcalc])
 
-    // useEffect(() => {
-    //     if (dates.fdate && dates.tdate) {
-    //         findbydate()
-    //     }
 
-    // }, [dates])
-    // alert(snfcal)
     const save = () => {
         try {
 

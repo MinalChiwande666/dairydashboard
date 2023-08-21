@@ -11,6 +11,7 @@ import Customermaster from './pages/Modules/MasterModule/maimaster/Customermaste
 import Login from './pages/Login/Login'
 import Milkchalan from './pages/Modules/MilkchalanModule/Milkchalan'
 import Milkpurchase from './pages/Modules/Chillingcenter/MIlkpurchase/Milkpurchase'
+import Milklist from './pages/Modules/Chillingcenter/MIlkpurchase/Milklist'
 
 const App = () => {
   const useractive = JSON.parse(localStorage.getItem('username'))
@@ -29,6 +30,7 @@ const App = () => {
  <Route path='/chilingcenter' element={<><PurchaseMilk /></>} />
  <Route path='/milkchalan' element={<><Milkchalan/></>}/>
  <Route path='/milkpurchase' element={<><Milkpurchase/></>}/>
+ <Route path='/milklist' element={<><Milklist/></>}/>
    </Routes>
    </BrowserRouter>
     </>
