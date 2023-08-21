@@ -127,6 +127,12 @@ export default function Sidebar({ toggle, state, setState }) {
                         
 
                     </SubMenu>
+
+                    <SubMenu label= "Bulk Milk Entry">
+                        <MenuItem onClick={() => navigate('/purratecontractmaster')}>
+                            PurRate Contract Master
+                        </MenuItem>
+                    </SubMenu>  
                 </Menu>
 
                 <Divider />
