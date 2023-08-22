@@ -11,7 +11,7 @@ const PurRateContractMasterCom = () => {
   const [data, setData] = useState([])
 
   const deleteData = (i) =>{
-    setData(data.slice(0,i))
+    setData(data.slice(i,1))
   }
 
 
