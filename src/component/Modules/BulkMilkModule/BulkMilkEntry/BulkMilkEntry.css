@@ -6,3 +6,17 @@
     box-shadow: 10px 10px 10px 0px gray;
     padding: 1rem;
 }
+
+.loader-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    margin:  auto;
+   
+    background: rgba(248, 241, 241, 0.658)
+        url("https://media.giphy.com/media/8agqybiK5LW8qrG3vJ/giphy.gif") center
+        no-repeat;
+    z-index: 999;
+}

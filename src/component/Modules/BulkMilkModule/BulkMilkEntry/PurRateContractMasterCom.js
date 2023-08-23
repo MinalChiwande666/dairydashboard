@@ -9,6 +9,8 @@ import './BulkMilkEntry.css'
 const PurRateContractMasterCom = () => {
 
   const [data, setData] = useState([])
+  const [showtableData, setshowtableData] = useState(false)
+
 
   // const deleteData = (index) =>{
   //   // const newData = [...data]
@@ -145,7 +147,7 @@ const PurRateContractMasterCom = () => {
       <div className='mt-5'>
         <div className='row'>
           <div className='col-12 col-md-4 col-sm-12'>
-            <button className='bg-primary border border-none border-radius-rounded text-white'>show Table</button>
+            <button onClick={() => setshowtableData(!showtableData)} className='bg-primary border border-none border-radius-rounded text-white'>show Table</button>
           </div>
 
           <div className='col-12 col-md-4 col-sm-12'>
@@ -159,7 +161,9 @@ const PurRateContractMasterCom = () => {
           </div>
         </div>
 
-        <div style={{ height: "35vh", overflow: 'scroll', marginTop: "10px" }}>
+        {
+          showtableData ?
+          <div style={{ height: "35vh", overflow: 'scroll', marginTop: "10px" }}>
           <table className='table table-bordered border-primary' style={{ width: "100%", fontSize: "0.8rem" }}>
             <thead>
               <tr>
@@ -183,7 +187,9 @@ const PurRateContractMasterCom = () => {
             </thead>
           </table>
 
-        </div>
+          </div> :null
+        }
+        
       </div>
 
       <div className='mt-3'>

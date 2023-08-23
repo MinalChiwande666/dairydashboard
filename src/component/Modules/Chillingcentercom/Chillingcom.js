@@ -324,15 +324,13 @@ const Chillingcom = () => {
             }).catch((e) => {
                 console.log("error => ", e)
             })
-
-
-
-
-
         } catch (e) {
             console.log("Error => ", e)
         }
     }
+
+
+
     const saveupdate = () => {
 
         let updateform = {
@@ -386,6 +384,7 @@ const Chillingcom = () => {
             console.log("Error => ", e)
         })
     }
+    
     const customTheme = (outerTheme) =>
         createTheme({
             palette: {
@@ -1684,10 +1683,6 @@ const Chillingcom = () => {
                                                         <td>{item.mobileNo}</td>
                                                         <td>{item.milkType}</td>
                                                         <td>{item.date}</td>
-
-
-
-
                                                         <td>{item.itemName}</td>
                                                         <td>{item.unit}</td>
                                                         <td>{item.batch}</td>
