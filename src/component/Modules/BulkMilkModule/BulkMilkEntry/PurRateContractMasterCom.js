@@ -10,9 +10,19 @@ const PurRateContractMasterCom = () => {
 
   const [data, setData] = useState([])
 
-  const deleteData = (i) =>{
-    setData(data.slice(i,1))
-  }
+  // const deleteData = (index) =>{
+  //   // const newData = [...data]
+  //   // newData.splice(index,1)
+  //   // setData(newData)
+
+  //   const newData = data.filter((_, i) => i !== index);
+  //   setData(newData);
+  // }
+
+  const deleteData = (index) => {
+    const newData = data.filter((_, i) => i !== index);
+    setData(newData);
+  };
 
 
   return (
