@@ -376,15 +376,11 @@ const Chillingcom = () => {
         axios.post('http://103.38.50.113:8080/DairyApp/savePurchesInvoice', updateform).then((data) => {
             console.log(data.data)
             getalldata()
-
-
-
-
         }).catch((e) => {
             console.log("Error => ", e)
         })
     }
-    
+
     const customTheme = (outerTheme) =>
         createTheme({
             palette: {

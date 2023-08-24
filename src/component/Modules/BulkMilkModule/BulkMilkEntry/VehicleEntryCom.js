@@ -19,6 +19,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const VehicleEntryCom = () => {
 
     const [loader, setLoader] = useState(false)
+    const [updateId, setUpdateId] = useState('')
     const [showTableData, setShowTableData] = useState(false)
     const [vehicleEntryData, setVehicleEntryData] = useState([])
     const [openDailogDel, setOpenDailogDel] = useState(false)
@@ -27,6 +28,7 @@ const VehicleEntryCom = () => {
         Fromdate: '',
         Todate: ''
     })
+    const [updateForm, setUpdateForm] = useState({})
 
 
     const vendorname = [
@@ -147,6 +149,7 @@ const VehicleEntryCom = () => {
 
     const getTableData = async () => {
         try {
+            setLoader(true)
             await axios.get('http://103.38.50.113:8080/DairyApp/getallVehicleEntry').then((data) => {
                 console.log(data.data)
                 if (data.data) {
@@ -168,19 +171,24 @@ const VehicleEntryCom = () => {
         setDelId(id)
     }
 
+    const editForm = (data, typeId) =>{
+        setUpdateId(typeId)
+        setUpdateForm(data)
+    }
+
     useEffect(() => {
         getTableData()
     }, [])
 
 
-    const saveData =  () =>{
+    const saveData = () => {
         try {
-            let newForm ={
+            let newForm = {
                 "milkType": vehicleEntryForm.milkType,
                 "vendorFAT": vehicleEntryForm.vendorFAT,
                 "vehicleNumber": vehicleEntryForm.vehicleNumber,
                 "remark": vehicleEntryForm.remark,
-                "date" : vehicleEntryForm.date,
+                "date": vehicleEntryForm.date,
                 "collection": vehicleEntryForm.collection,
                 "vendorSNF": vehicleEntryForm.vendorSNF,
                 "driverName": vehicleEntryForm.driverName,
@@ -193,7 +201,7 @@ const VehicleEntryCom = () => {
                 "challanNo": vehicleEntryForm.challanNo
             }
             console.log(newForm, "save Form Data")
-            axios.post('http://103.38.50.113:8080/DairyApp/saveVehicleEntry', newForm).then((newFormData)=>{
+            axios.post('http://103.38.50.113:8080/DairyApp/saveVehicleEntry', newForm).then((newFormData) => {
                 alert(newFormData.data.message)
                 toast.success(`${newFormData.data.message}`, {
                     position: "top-center",
@@ -205,12 +213,42 @@ const VehicleEntryCom = () => {
                     progress: undefined,
                     theme: "light",
                 })
-            }).catch((e)=>{
+                getTableData()
+            }).catch((e) => {
                 console.log("something went wrong when saving data", e)
             })
         } catch (error) {
             console.log("Data not saved properly", error)
         }
+    }
+
+
+    const saveUpdate = () => {
+        let updateform = {
+            "id": String(updateForm.id),
+            "milkType": String(updateForm.milkType),
+            "vendorFAT": String(updateForm.vendorFAT),
+            "vehicleNumber": String(updateForm.vehicleNumber),
+            "remark": String(updateForm.remark),
+            "date": String(updateForm.date),
+            "collection": String(updateForm.collection),
+            "vendorSNF": String(updateForm.vendorSNF),
+            "driverName": String(updateForm.driverName),
+            "vendorName": String(updateForm.vendorName),
+            "netWeight": String(updateForm.netWeight),
+            "vendorAcidity": String(updateForm.vendorAcidity),
+            "driverMobNo": String(updateForm.driverMobNo),
+            "vendorDate": String(updateForm.vendorDate),
+            "grossWeight": String(updateForm.grossWeight),
+            "challanNo": String(updateForm.challanNo)
+        }
+
+        axios.post('http://103.38.50.113:8080/DairyApp/saveVehicleEntry', updateform).then((data)=>{
+            console.log(data.data)
+            getTableData()
+        }).catch((e)=>{
+            console.log("Data not updated properly", e)
+        })
     }
 
 
@@ -232,7 +270,7 @@ const VehicleEntryCom = () => {
                         pauseOnHover
                         theme="light">
                     </ToastContainer>
-                    
+
                     <h3 className='text-center' style={{ fontSize: '2rem' }}>Vehicle Entry</h3>
                     <div className='vehicleEntryStyle'>
                         {dailoge()}
@@ -243,13 +281,20 @@ const VehicleEntryCom = () => {
                             </div>
                             <div className='col-12 col-md-3 col-sm-12 mt-3'>
                                 <label>Date</label>
-                                <input type="date" className='mx-3' value={vehicleEntryForm.date}
-                                onChange={(e)=>{
-                                    setVehicleEntryForm({
-                                        ...vehicleEntryForm,
-                                        date: e.target.value
-                                    })
-                                }}
+                                <input type="date" className='mx-3' value={updateId === "2" ? updateForm.date : vehicleEntryForm.date}
+                                    onChange={(e) => {
+                                        if(updateId !== '2'){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                date:e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                date: e.target.value
+                                            })
+                                        } 
+                                    }}
                                 />
                             </div>
                             <div className='col-12 col-md-3 col-sm-12 mt-1'>
@@ -259,24 +304,33 @@ const VehicleEntryCom = () => {
                                         <button
                                             style={{ width: '95%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.9rem' }}
                                             className="btn bg-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {vehicleEntryForm.vendorName === '' ? 'Select' : vehicleEntryForm.vendorName}
+                                            {updateId === '2' ? updateForm.vendorName : (vehicleEntryForm.vendorName === '' ? 'Select' : vehicleEntryForm.vendorName)}
                                             <div className='dropdown-toggle'>
                                             </div>
                                         </button>
                                         <ul className="dropdown-menu" style={{ cursor: "pointer", width: "95%" }}>
                                             {
-                                                vendorname.map((ele,i)=>{
-                                                    return(
-                                                    <>
-                                                        <li 
-                                                            onClick={()=>{
-                                                                setVehicleEntryForm({
-                                                                ...vehicleEntryForm,
-                                                                vendorName: ele.name
-                                                            })}}
-                                                            className='dropdown-item'>{ele.name}
-                                                        </li>
-                                                    </>
+                                                vendorname.map((ele, i) => {
+                                                    return (
+                                                        <>
+                                                            <li
+                                                                onClick={() => {
+                                                                    if(updateId !== '2'){
+                                                                        setVehicleEntryForm({
+                                                                            ...vehicleEntryForm,
+                                                                            vendorName: ele.name
+                                                                        })
+                                                                    }else{
+                                                                        setUpdateForm({
+                                                                            ...updateForm,
+                                                                            vendorName : ele.name
+                                                                        })
+                                                                    }
+                                                                    
+                                                                }}
+                                                                className='dropdown-item'>{ele.name}
+                                                            </li>
+                                                        </>
                                                     )
                                                 })
                                             }
@@ -286,13 +340,21 @@ const VehicleEntryCom = () => {
                             </div>
                             <div className='col-12 col-md-3 col-sm-12 mt-3'>
                                 <label>Vendor Date</label>
-                                <input type="date" className='mx-3' value={vehicleEntryForm.vendorDate}
-                                onChange={(e)=>{
-                                    setVehicleEntryForm({
-                                        ...vehicleEntryForm,
-                                        vendorDate: e.target.value
-                                    })
-                                }}
+                                <input type="date" className='mx-3' value={updateId === '2' ? updateForm.vendorDate : vehicleEntryForm.vendorDate}
+                                    onChange={(e) => {
+                                        if(updateId !== '2'){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                vendorDate: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                vendorDate: e.target.value
+                                            })
+                                        }
+                                        
+                                    }}
                                 />
                             </div>
                         </div>
@@ -305,23 +367,32 @@ const VehicleEntryCom = () => {
                                         <button
                                             style={{ width: '95%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.9rem' }}
                                             className="btn bg-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {vehicleEntryForm.milkType === '' ? 'Select' : vehicleEntryForm.milkType}
+                                            {updateId === '2' ? updateForm.milkType : (vehicleEntryForm.milkType === '' ? 'Select' : vehicleEntryForm.milkType)}
                                             <div className='dropdown-toggle'>
                                             </div>
                                         </button>
                                         <ul className="dropdown-menu" style={{ cursor: "pointer", width: "95%" }}>
                                             {
-                                                milktype.map((ele,i)=>{
-                                                    return(
-                                                    <>
-                                                        <li
-                                                        onClick={()=>{
-                                                            setVehicleEntryForm({
-                                                            ...vehicleEntryForm,
-                                                            milkType: ele.name
-                                                        })}}
-                                                        className='dropdown-item'>{ele.name}</li>
-                                                    </>)
+                                                milktype.map((ele, i) => {
+                                                    return (
+                                                        <>
+                                                            <li
+                                                                onClick={() => {
+                                                                    if(updateId !== '2'){
+                                                                        setVehicleEntryForm({
+                                                                            ...vehicleEntryForm,
+                                                                            milkType: ele.name
+                                                                        })
+                                                                    }else{
+                                                                        setUpdateForm({
+                                                                            ...updateForm,
+                                                                            milkType: ele.name
+                                                                        })
+                                                                    }
+                                                                    
+                                                                }}
+                                                                className='dropdown-item'>{ele.name}</li>
+                                                        </>)
                                                 })
                                             }
                                         </ul>
@@ -335,23 +406,32 @@ const VehicleEntryCom = () => {
                                         <button
                                             style={{ width: '95%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.9rem' }}
                                             className="btn bg-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {vehicleEntryForm.collection === '' ? 'Select' : vehicleEntryForm.collection}
+                                            {updateId === '2' ? updateForm.collection : (vehicleEntryForm.collection === '' ? 'Select' : vehicleEntryForm.collection)}
                                             <div className='dropdown-toggle'>
                                             </div>
                                         </button>
                                         <ul className="dropdown-menu" style={{ cursor: "pointer", width: "95%" }}>
                                             {
-                                                collection.map((ele,i)=>{
-                                                    return(
-                                                    <>
-                                                        <li 
-                                                        onClick={()=>{
-                                                            setVehicleEntryForm({
-                                                            ...vehicleEntryForm,
-                                                            collection: ele.name
-                                                        })}}
-                                                        className='dropdown-item'>{ele.name}</li>
-                                                    </>)
+                                                collection.map((ele, i) => {
+                                                    return (
+                                                        <>
+                                                            <li
+                                                                onClick={() => {
+                                                                    if(updateId !== '2'){
+                                                                        setVehicleEntryForm({
+                                                                            ...vehicleEntryForm,
+                                                                            collection: ele.name
+                                                                        })
+                                                                    }else{
+                                                                        setUpdateForm({
+                                                                            ...updateForm,
+                                                                            collection: ele.name
+                                                                        })
+                                                                    }
+                                                                    
+                                                                }}
+                                                                className='dropdown-item'>{ele.name}</li>
+                                                        </>)
                                                 })
                                             }
                                         </ul>
@@ -364,12 +444,21 @@ const VehicleEntryCom = () => {
                                     style={{ width: '95%' }}
                                     label={'Net Weight'}
                                     className='txtsize' variant="standard"
-                                    value={vehicleEntryForm.netWeight}
-                                    onChange={(e)=>{
-                                        setVehicleEntryForm({
-                                            ...vehicleEntryForm,
-                                            netWeight: e.target.value
-                                        })                                     
+                                    value={updateId === "2" ? updateForm.netWeight : vehicleEntryForm.netWeight}
+                                    onChange={(e) => {
+                                        if(updateId !== '2'){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                netWeight: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                netWeight: e.target.value
+                                            })
+                                        }
+
+                                        
                                     }}
                                 />
                             </div>
@@ -379,12 +468,20 @@ const VehicleEntryCom = () => {
                                     style={{ width: '95%' }}
                                     label={'Gross Weight'}
                                     className='txtsize' variant="standard"
-                                    value={vehicleEntryForm.grossWeight}
-                                    onChange={(e)=>{
-                                        setVehicleEntryForm({
-                                            ...vehicleEntryForm,
-                                            grossWeight: e.target.value
-                                        })                                     
+                                    value={updateId === "2" ? updateForm.grossWeight : vehicleEntryForm.grossWeight}
+                                    onChange={(e) => {
+                                        if(updateId !== '2'){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                grossWeight: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                grossWeight: e.target.value
+                                            })
+                                        }
+                                        
                                     }}
                                 />
                             </div>
@@ -397,12 +494,20 @@ const VehicleEntryCom = () => {
                                     style={{ width: '95%' }}
                                     label={'Vendor FAT'}
                                     className='txtsize' variant="standard"
-                                    value={vehicleEntryForm.vendorFAT}
-                                    onChange={(e)=>{
-                                        setVehicleEntryForm({
-                                            ...vehicleEntryForm,
-                                            vendorFAT: e.target.value
-                                        })                                     
+                                    value={updateId === "2" ? updateForm.vendorFAT : vehicleEntryForm.vendorFAT}
+                                    onChange={(e) => {
+                                        if(updateId !== '2'){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                vendorFAT: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                vendorFAT: e.target.value
+                                            })
+                                        }
+                                        
                                     }}
                                 />
                             </div>
@@ -412,12 +517,20 @@ const VehicleEntryCom = () => {
                                     style={{ width: '95%' }}
                                     label={'Vendor SNF'}
                                     className='txtsize' variant="standard"
-                                    value={vehicleEntryForm.vendorSNF}
-                                    onChange={(e)=>{
-                                        setVehicleEntryForm({
-                                            ...vehicleEntryForm,
-                                            vendorSNF: e.target.value
-                                        })                                     
+                                    value={updateId === "2" ? updateForm.vendorSNF : vehicleEntryForm.vendorSNF}
+                                    onChange={(e) => {
+                                        if(updateId !== '2'){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                vendorSNF: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                vendorSNF: e.target.value
+                                            })
+                                        }
+                                        
                                     }}
                                 />
                             </div>
@@ -427,12 +540,20 @@ const VehicleEntryCom = () => {
                                     style={{ width: '95%' }}
                                     label={'Vendor Acidity'}
                                     className='txtsize' variant="standard"
-                                    value={vehicleEntryForm.vendorAcidity}
-                                    onChange={(e)=>{
-                                        setVehicleEntryForm({
-                                            ...vehicleEntryForm,
-                                            vendorAcidity: e.target.value
-                                        })                                     
+                                    value={updateId === "2" ? updateForm.vendorAcidity : vehicleEntryForm.vendorAcidity}
+                                    onChange={(e) => {
+                                        if(updateId !== '2'){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                vendorAcidity: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                vendorAcidity: e.target.value
+                                            })
+                                        }
+                                        
                                     }}
                                 />
                             </div>
@@ -442,12 +563,20 @@ const VehicleEntryCom = () => {
                                     style={{ width: '95%' }}
                                     label={'Challan No'}
                                     className='txtsize' variant="standard"
-                                    value={vehicleEntryForm.challanNo}
-                                    onChange={(e)=>{
-                                        setVehicleEntryForm({
-                                            ...vehicleEntryForm,
-                                            challanNo: e.target.value
-                                        })                                     
+                                    value={updateId === "2" ? updateForm.challanNo : vehicleEntryForm.challanNo}
+                                    onChange={(e) => {
+                                        if(updateId !== "2"){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                challanNo: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                challanNo: e.target.value
+                                            })
+                                        }
+                                        
                                     }}
                                 />
                             </div>
@@ -456,53 +585,85 @@ const VehicleEntryCom = () => {
                         <div className='row mt-5'>
                             <div className='col-12 col-md-3 col-sm-12 mt-1'>
                                 <TextField style={{ width: "95%" }}
-                                    id="standard-basic" label="Vehicle Number" variant="standard" 
-                                    value={vehicleEntryForm.vehicleNumber}
-                                    onChange={(e)=>{
-                                        setVehicleEntryForm({
-                                            ...vehicleEntryForm,
-                                            vehicleNumber: e.target.value
-                                        })
+                                    id="standard-basic" label="Vehicle Number" variant="standard"
+                                    value={updateId === '2' ? updateForm.vehicleNumber : vehicleEntryForm.vehicleNumber}
+                                    onChange={(e) => {
+                                        if(updateId !== '2'){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                vehicleNumber: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                vehicleNumber: e.target.value
+                                            })
+                                        }
+                                        
                                     }}
-                                    />
+                                />
                             </div>
                             <div className='col-12 col-md-3 col-sm-12 mt-1'>
                                 <TextField style={{ width: "95%" }}
-                                    id="standard-basic" label="Driver Name" variant="standard" 
-                                    value={vehicleEntryForm.driverName}
-                                    onChange={(e)=>{
-                                        setVehicleEntryForm({
-                                            ...vehicleEntryForm,
-                                            driverName: e.target.value
-                                        })
+                                    id="standard-basic" label="Driver Name" variant="standard"
+                                    value={updateId === "2" ? updateForm.driverName : vehicleEntryForm.driverName}
+                                    onChange={(e) => {
+                                        if(updateId !== '2'){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                driverName: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                driverName: e.target.value
+                                            })
+                                        }
+                                        
                                     }}
-                                    />
+                                />
                             </div>
                             <div className='col-12 col-md-3 col-sm-12 mt-1'>
                                 <TextField style={{ width: "95%" }}
-                                    id="standard-basic" label="Driver Mobile No." variant="standard" 
-                                    value={vehicleEntryForm.driverMobNo}
-                                    onChange={(e)=>{
-                                        setVehicleEntryForm({
-                                            ...vehicleEntryForm,
-                                            driverMobNo: e.target.value
-                                        })
+                                    id="standard-basic" label="Driver Mobile No." variant="standard"
+                                    value={updateId === "2" ? updateForm.driverMobNo : vehicleEntryForm.driverMobNo}
+                                    onChange={(e) => {
+                                        if(updateId !== "2"){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                driverMobNo: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                driverMobNo: e.target.value
+                                            })
+                                        }
+                                        
                                     }}
-                                    />
+                                />
                             </div>
                         </div>
 
                         <div className='row'>
                             <div className='col-12 col-md-3 col-sm-12 mt-3'>
                                 <label>Remark</label>
-                                <textarea cols="40" rows="4" 
-                                value={vehicleEntryForm.remark}
-                                onChange={(e)=>{
-                                    setVehicleEntryForm({
-                                        ...vehicleEntryForm,
-                                        remark: e.target.value
-                                    })
-                                }}
+                                <textarea cols="40" rows="4"
+                                    value={updateId === "2" ? updateForm.remark : vehicleEntryForm.remark}
+                                    onChange={(e) => {
+                                        if(updateId !== "2"){
+                                            setVehicleEntryForm({
+                                                ...vehicleEntryForm,
+                                                remark: e.target.value
+                                            })
+                                        }else{
+                                            setUpdateForm({
+                                                ...updateForm,
+                                                remark: e.target.value
+                                            })
+                                        }
+                                        
+                                    }}
                                 />
                             </div>
                         </div>
@@ -517,12 +678,12 @@ const VehicleEntryCom = () => {
 
                             <div className='col-12 col-md-4 col-sm-12'>
                                 <label>From Date</label>
-                                <input type="date" className='mx-3' onChange={(e)=>{setDates({...dates, Fromdate: e.target.value})}}/>
+                                <input type="date" className='mx-3' onChange={(e) => { setDates({ ...dates, Fromdate: e.target.value }) }} />
                             </div>
 
                             <div className='col-12 col-md-4 col-sm-12'>
                                 <label>To Date</label>
-                                <input type="date" className='mx-3' onChange={(e)=>{setDates({...dates, Todate: e.target.value})}}/>
+                                <input type="date" className='mx-3' onChange={(e) => { setDates({ ...dates, Todate: e.target.value }) }} />
                             </div>
                         </div>
 
@@ -554,7 +715,7 @@ const VehicleEntryCom = () => {
                                         </thead>
                                         <tbody>
                                             {
-                                                vehicleEntryData.filter((ele)=>{
+                                                vehicleEntryData.filter((ele) => {
                                                     if (dates.Fromdate === '' || dates.Todate === '') {
                                                         return ele
                                                     } else if (ele.date >= dates.Fromdate && ele.date <= dates.Todate) {
@@ -579,7 +740,7 @@ const VehicleEntryCom = () => {
                                                         <td>{item.driverMobNo}</td>
                                                         <td>{item.remark}</td>
                                                         <td className='text-center mt-2'><DeleteIcon onClick={() => delet(item.id)} style={{ color: 'red', fontSize: '1rem', cursor: 'pointer' }} /></td>
-                                                        <td className='text-center mt-2'><EditIcon style={{ color: 'green', fontSize: '1rem', cursor: 'pointer' }} /></td>
+                                                        <td className='text-center mt-2'><EditIcon onClick={()=>editForm(item, "2")} style={{ color: 'green', fontSize: '1rem', cursor: 'pointer' }} /></td>
                                                     </tr>
 
                                                     )
@@ -594,9 +755,17 @@ const VehicleEntryCom = () => {
 
                     <div className='mt-3'>
                         <div className='row'>
-                            <div className='col-2'>
-                                <button onClick={()=>saveData()} className='btn btn-primary'>Save</button>
-                            </div>
+                            { 
+                                updateId === "2" ? 
+                                <div className='col-2'>
+                                    <button onClick={() => saveUpdate()} className='btn btn-primary'>Update</button>
+                                </div>:
+                                <div className='col-2'>
+                                    <button onClick={() => saveData()} className='btn btn-primary'>Save</button>
+                                </div>
+                            }
+                           
+                            
                             <div className='col-2'>
                                 <button className='btn btn-primary'>Print</button>
                             </div>
