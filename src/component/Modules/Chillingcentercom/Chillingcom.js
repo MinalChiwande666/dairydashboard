@@ -328,15 +328,13 @@ const Chillingcom = () => {
             }).catch((e) => {
                 console.log("error => ", e)
             })
-
-
-
-
-
         } catch (e) {
             console.log("Error => ", e)
         }
     }
+
+
+
     const saveupdate = () => {
 
         let updateform = {
@@ -382,14 +380,11 @@ const Chillingcom = () => {
         axios.post('http://103.38.50.113:8080/DairyApp/savePurchesInvoice', updateform).then((data) => {
             console.log(data.data)
             getalldata()
-
-
-
-
         }).catch((e) => {
             console.log("Error => ", e)
         })
     }
+
     const customTheme = (outerTheme) =>
         createTheme({
             palette: {
@@ -1688,10 +1683,6 @@ const Chillingcom = () => {
                                                         <td>{item.mobileNo}</td>
                                                         <td>{item.milkType}</td>
                                                         <td>{item.date}</td>
-
-
-
-
                                                         <td>{item.itemName}</td>
                                                         <td>{item.unit}</td>
                                                         <td>{item.batch}</td>
