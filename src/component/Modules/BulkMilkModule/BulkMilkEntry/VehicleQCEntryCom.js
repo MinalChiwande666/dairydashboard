@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import "./BulkMilkEntry.css"
 import TextField from '@mui/material/TextField';
+import axios from 'axios'
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Dialog from '@mui/material/Dialog'
+import { DialogActions, DialogTitle, Button, IconButton } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
+import Slide from '@mui/material/Slide';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const VehicleQCEntryCom = () => {
+
+    const [showTableData, setShowTableData] = useState(false)
+
     return (
         <div className='container'>
             <h3 className='text-center' style={{ fontSize: '2rem' }}>Vehicle Entry QC</h3>
@@ -373,7 +386,7 @@ const VehicleQCEntryCom = () => {
             <div className='mt-5'>
                 <div className='row'>
                     <div className='col-12 col-md-4 col-sm-12'>
-                        <button className='bg-primary border border-none border-radius-rounded text-white'>show Table</button>
+                        <button onClick={() => setShowTableData(!showTableData)} className='btn btn-primary'>Show Table</button>
                     </div>
 
                     <div className='col-12 col-md-4 col-sm-12'>
@@ -387,38 +400,41 @@ const VehicleQCEntryCom = () => {
                     </div>
                 </div>
 
-                <div style={{ height: "35vh", overflow: 'scroll', marginTop: "10px" }}>
-                    <table className='table table-bordered border-primary' style={{ width: "100%", fontSize: "0.8rem" }}>
-                        <thead>
-                            <tr>
-                                <th scope='col'>ID</th>
-                                <th scope='col'>Date</th>
-                                <th scope='col'>Vender Name</th>
-                                <th scope='col'>Vender No.</th>
-                                <th scope='col'>Vehicle Date</th>
-                                <th scope='col'>Milk Type</th>
-                                <th scope='col'>FAT</th>
-                                <th scope='col'>SNF</th>
-                                <th scope='col'>Acidity</th>
-                                <th scope='col'>Our FAT</th>
-                                <th scope='col'>Our SNF</th>
-                                <th scope='col'>Our Acidity</th>
-                                <th scope='col'>Degree</th>
-                                <th scope='col'>Temperature</th>
-                                <th scope='col'>MBRT</th>
-                                <th scope='col'>Sampler Name</th>
-                                <th scope='col'>Chemist Name</th>
-                                <th scope='col'>Status</th>
-                                <th scope='col'>QC Approved Id</th>
-                                <th scope='col'>Milk GRN</th>
-                                <th scope='col'>Remark</th>
-                                <th scope='col'>Entry</th>
-                                <th scope='col'>Date of Entry</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-                <button className='btn btn-primary'>Export to Excel</button>
+                {
+                    showTableData ?
+                        <div style={{ height: "35vh", overflow: 'scroll', marginTop: "10px" }}>
+                            <table className='table table-bordered border-primary' style={{ width: "100%", fontSize: "0.8rem" }}>
+                                <thead>
+                                    <tr>
+                                        <th scope='col'>ID</th>
+                                        <th scope='col'>Date</th>
+                                        <th scope='col'>Vender Name</th>
+                                        <th scope='col'>Vender No.</th>
+                                        <th scope='col'>Vehicle Date</th>
+                                        <th scope='col'>Milk Type</th>
+                                        <th scope='col'>FAT</th>
+                                        <th scope='col'>SNF</th>
+                                        <th scope='col'>Acidity</th>
+                                        <th scope='col'>Our FAT</th>
+                                        <th scope='col'>Our SNF</th>
+                                        <th scope='col'>Our Acidity</th>
+                                        <th scope='col'>Degree</th>
+                                        <th scope='col'>Temperature</th>
+                                        <th scope='col'>MBRT</th>
+                                        <th scope='col'>Sampler Name</th>
+                                        <th scope='col'>Chemist Name</th>
+                                        <th scope='col'>Status</th>
+                                        <th scope='col'>QC Approved Id</th>
+                                        <th scope='col'>Milk GRN</th>
+                                        <th scope='col'>Remark</th>
+                                        <th scope='col'>Entry</th>
+                                        <th scope='col'>Date of Entry</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div> : null
+                }
+                <button className='btn btn-primary mt-3'>Export to Excel</button>
             </div>
 
             <div className='mt-3'>
