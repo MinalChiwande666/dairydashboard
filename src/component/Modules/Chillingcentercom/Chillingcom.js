@@ -320,6 +320,10 @@ const Chillingcom = () => {
                     theme: "light",
                 })
                 console.log(data.data)
+                if(data.data)
+                {
+                    getalldata()
+                }
 
             }).catch((e) => {
                 console.log("error => ", e)

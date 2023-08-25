@@ -12,6 +12,8 @@ import Login from './pages/Login/Login'
 import Milkchalan from './pages/Modules/MilkchalanModule/Milkchalan'
 import Milkpurchase from './pages/Modules/Chillingcenter/MIlkpurchase/Milkpurchase'
 import Milklist from './pages/Modules/Chillingcenter/MIlkpurchase/Milklist'
+import Suppliermaster from './pages/Modules/MasterModule/maimaster/Suppliermaster'
+import Employeemaster from './pages/Modules/MasterModule/maimaster/Employeemaster'
 
 const App = () => {
   const useractive = JSON.parse(localStorage.getItem('username'))
@@ -31,6 +33,8 @@ const App = () => {
  <Route path='/milkchalan' element={<><Milkchalan/></>}/>
  <Route path='/milkpurchase' element={<><Milkpurchase/></>}/>
  <Route path='/milklist' element={<><Milklist/></>}/>
+ <Route path='/supplier' element={<><Suppliermaster/></>}/>
+ <Route path='/employeemaster' element={<><Employeemaster/></>}/>
    </Routes>
    </BrowserRouter>
     </>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import './accountmaster.css'
 import TextField from '@mui/material/TextField'
+import * as FileSaver from 'file-saver'
+import * as XLSX from "xlsx";
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 
@@ -141,7 +143,15 @@ const AccountmasCom = () => {
 
   }
   const exporttoexcel = async () => {
-    await fetch('http://192.168.0.123:8080/accountMasterExportToExcel')
+    const fileName = "myfile"; 
+    const fileType =
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+    const ws = XLSX.utils.json_to_sheet(allusers)
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
   }
   const opentype = [
     {

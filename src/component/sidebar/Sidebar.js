@@ -41,11 +41,19 @@ export default function Sidebar({ toggle, state, setState }) {
                                 Customer Master
                             </MenuItem>
 
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>Supplier Master</Link>
+                            <MenuItem
+                            onClick={()=>{
+                                navigate('/supplier')
+                            }}
+                            style={{ fontSize: '0.9rem' }}>
+                                Supplier Master
                             </MenuItem>
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>Employee Master</Link>
+                            <MenuItem 
+                            onClick={()=>{
+                                navigate('/employeemaster')
+                            }}
+                            style={{ fontSize: '0.9rem' }}>
+                                Employee Master
                             </MenuItem>
                             <MenuItem style={{ fontSize: '0.9rem' }}>
                                 <Link to={'/dashboard'}>Item Master</Link>
