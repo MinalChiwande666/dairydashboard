@@ -32,8 +32,7 @@ const App = () => {
 
   return (
     <>
-      {/* <Navbar/>
-   <Sidebar/> */}
+     
       <BrowserRouter>
         <Routes>
           <Route path={'/'} element={<Login />} />
