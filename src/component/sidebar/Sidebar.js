@@ -41,11 +41,19 @@ export default function Sidebar({ toggle, state, setState }) {
                                 Customer Master
                             </MenuItem>
 
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>Supplier Master</Link>
+                            <MenuItem
+                            onClick={()=>{
+                                navigate('/supplier')
+                            }}
+                            style={{ fontSize: '0.9rem' }}>
+                                Supplier Master
                             </MenuItem>
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>Employee Master</Link>
+                            <MenuItem 
+                            onClick={()=>{
+                                navigate('/employeemaster')
+                            }}
+                            style={{ fontSize: '0.9rem' }}>
+                                Employee Master
                             </MenuItem>
                             <MenuItem style={{ fontSize: '0.9rem' }}>
                                 <Link to={'/dashboard'}>Item Master</Link>
@@ -171,6 +179,59 @@ export default function Sidebar({ toggle, state, setState }) {
 
 
                 </Menu>
+
+                <Menu>
+                    <SubMenu label = "Sanstha Milk Module">
+                        <SubMenu label = "Sanstha Master">
+                         <MenuItem 
+                         onClick={()=> navigate('/sansthamaster')}>
+                           Sanstha master
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/purchaseratecontractmaster')}>
+                            Purchase rate contract master
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/purchaseratecontract')}>
+                           Purchase rate contract
+                         </MenuItem>
+                    </SubMenu>
+                    <SubMenu label = "Milk Collection">
+                         <MenuItem 
+                         onClick={()=> navigate('/milkcollectionexcelupload')}>
+                           Milk collection with Excel upload
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/downloadsanthamilkcollection')}>
+                           Download sanstha Milk Collection 
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/Milkcollectionwithqc')}>
+                           Combine Collection with QC
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/Milkcollectionmanualkg')}>
+                           Milk Collection Manual:kg
+                         </MenuItem>
+                         <MenuItem 
+                         onClick={()=> navigate('/Milkcollectionltr')}>
+                           Milk Collection Ltr
+                         </MenuItem>
+                    </SubMenu>
+                    </SubMenu>
+                </Menu>
+
+                <Menu >
+                    <SubMenu label = 'Bill Generation'
+                     onClick={()=> navigate('/Billgeneration')}
+                           >
+                      
+                    </SubMenu>
+                </Menu>
+                        
+                 
+
+                
 
                 <Divider />
 

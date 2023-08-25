@@ -1,7 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SpreadSheets, Worksheet, Column } from '@grapecity/spread-sheets-react';
 import GC from '@grapecity/spread-sheets';
 const Milklistcom = () => {
+    const [milk, setmilk] = useState('')
+    const [gettype, settype] = useState('')
+    const [snfra, setsnfra] = useState({})
+    const [fatra,setfatra] = useState({})
+    const milktype = [
+        {
+            id: 1,
+            name: 'Cow'
+        },
+        {
+            id: 2,
+            name: 'Buffaloo'
+        }
+    ]
+    const type = [
+        {
+            id: 1,
+            name: 'SNF'
+        },
+        {
+            id: 2,
+            name: 'FAT'
+        }
+    ]
     let spreadBackColor = 'aliceblue';
     let sheetName = 'Goods List';
     let hostStyle = {
@@ -9,54 +33,24 @@ const Milklistcom = () => {
         height: '600px'
     };
 
-    const data = [
+    const [snffat, setsnffat] = useState(
         {
-            Name: "FAT/SNF",
-            snfval:7.00,
-            snfval2:7.10,
-            snfval3:7.20,
-            snfval4:7.30,
-            snfval5:7.40,
-            snfval6:7.50,
-            snfval7:7.60,
-            snfval8:7.70,
-            snfval9:7.80,
-            snfval10:7.90,
-            snfval11:8.00
+            id: 1,
+            snf: [{sn:1}, {sn:1.2},{sn:1.3},{sn:1.4} ,{sn: 1.5}, {sn:1.6}, {sn:1.7}, {sn:1.8}, {sn:1.9},{sn: 2}],
+            fat:  [{sn:1}, {sn:1.2},{sn:1.3},{sn:1.4} ,{sn: 1.5}, {sn:1.6}, {sn:1.7}, {sn:1.8}, {sn:1.9},{sn: 2}],
         },
-        {
-            Name: "Potato",
-            
-            Price: 2.01,
-            
-        },
-        {
-            Name: "Tomato",
-            Category: "Vegetable",
-            Price: 3.21,
-            "Shopping Place": "Other",
-        },
-        {
-            Name: "Sandwich",
-            Category: "Food",
-            Price: 2,
-            "Shopping Place": "Wal-Mart",
-        },
-        {
-            Name: "Hamburger",
-            Category: "Food",
-            Price: 2,
-            "Shopping Place": "Wal-Mart",
-        },
-        {
-            Name: "Grape",
-            Category: "Fruit",
-            Price: 4,
-            "Shopping Place": "Sun Store",
-        },
-    ];
 
-    let columnWidth = 100;
+    )
+
+    let snfrange = [{ snff: '1-1.4', from: 1, to: 1.4 }]
+    let fatrange = [{ fatf: '1-1.4', from: 1, to: 1.4 }]
+
+    useEffect(() => {
+        console.log(snfra)
+    }, [snfra])
+    
+
+
     return (
         <div className='container-fluid'>
             <div className='row'>
@@ -78,32 +72,42 @@ const Milklistcom = () => {
                                     </div>
                                 </div>
                                 <div className='col-6 col-md-3'>
-                                    <div className='text-white'>
+                                    <div style={{ fontSize: '0.8rem' }} className='text-white'>
                                         Milk Type
                                     </div>
                                     <div class="dropdown">
                                         <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Dropdown button
+                                            {milk === "" ? "Select" : milk}
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            {
+                                                milktype.map((item, i) => (
+
+                                                    <li onClick={() => setmilk(item.name)} class="dropdown-item">{item.name}</li>
+                                                ))
+                                            }
+
+
                                         </ul>
                                     </div>
                                 </div>
                                 <div className='col-6 col-md-3'>
-                                    <div className='text-white'>
+                                    <div style={{ fontSize: '0.8rem' }} className='text-white'>
                                         On the Basis of
                                     </div>
                                     <div class="dropdown">
                                         <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Dropdown button
+                                            {gettype === "" ? "Select" : gettype}
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            {
+                                                type.map((item, i) => (
+                                                    <li onClick={() => {
+                                                        settype(item.name)
+                                                    }}><a class="dropdown-item" href="#">{item.name}</a></li>
+                                                ))
+                                            }
+
                                         </ul>
                                     </div>
                                 </div>
@@ -111,16 +115,7 @@ const Milklistcom = () => {
                                     <div className='text-white'>
                                         List No
                                     </div>
-                                    <div class="dropdown">
-                                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Dropdown button
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
-                                    </div>
+                                    <input type='number' style={{ width: '100%' }} />
                                 </div>
 
                             </div>
@@ -130,263 +125,106 @@ const Milklistcom = () => {
             </div>
 
             <div className='container'>
-                <table class="table table-bordered">
-                    <thead className='table-primary'>
-                        <tr >
-                            <th scope="col">FAT/SNF</th>
-                            <th scope="col">7.0</th>
-                            <th scope="col">7.10</th>
-                            <th scope="col">7.20</th>
-                            <th scope="col">7.30</th>
-                            <th scope="col">7.40</th>
-                            <th scope="col">7.50</th>
-                            <th scope="col">7.60</th>
-                            <th scope="col">7.70</th>
-                            <th scope="col">7.80</th>
-                            <th scope="col">7.90</th>
-                            <th scope="col">8.00</th>
+                <div className='col-6 col-md-3'>
+                    <div style={{ fontSize: '0.8rem' }} >
+                        SNF Range
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select
+                        </button>
+                        <ul class="dropdown-menu">
+                            {
+                                snfrange.map((item, i) => (
+                                    <li onClick={() => {
+                                        setsnfra(item)
+                                    }} className="dropdown-item">{item.snff}</li>
+                                ))
+                            }
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
+                        </ul>
+                    </div>
+                </div>
+                <div className='col-6 col-md-3'>
+                    <div style={{ fontSize: '0.8rem' }} >
+                        FAT Range
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select
+                        </button>
+                        <ul class="dropdown-menu">
+                            {
+                                fatrange.map((item, i) => (
+                                    <li onClick={() => {
+                                        setfatra(item)
+                                    }} className="dropdown-item">{item.fatf}</li>
+                                ))
+                            }
 
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ width: '80vw', overflowX: 'scroll' }}>
+                    <table class="table table-bordered">
+                        <thead className='table-primary'>
+                            <tr >
+                                <th scope="col">{'FAT/SNF'}</th>
+                                {
+                                    snffat.snf.filter((ta, i) => {
+                                        let k;
+                                        let l;
+                                        if(!snfra.from && !snfra.to)
+                                        {
+                                         return ta
+                                        }
+                                        else if(ta.sn >= snfra.from && ta.sn <=snfra.to){
+                                            return ta
+                                        }
+                                      
+                                        
+                                    }).map((item, i) => (
+                                        <th>{item.sn}</th>
+                                    ))
+                                }
 
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                snffat.fat.filter((fa,i)=>{
+                                    if(!fatra.from && !fatra.to)
+                                    {
+                                        return fa
+                                    }else if(fa.sn >= fatra.from && fa.sn <= fatra.to)
+                                    {
+                                        return fa
+                                    }
+                                }).map((item, i) => (
+                                    <tr>
+                                        <td>{item.sn}</td>
 
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
+                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
 
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
 
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-                            <td>
-                                <input style={{ width: '100%', border: 'none', outline: 'none', textAlign: 'center' }} type='text' />
-                            </td>
-
-                        </tr>
-                    </tbody>
-                </table>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div className='container'>
-                <SpreadSheets
-                    allowUserZoom={true}
 
-                    backColor={spreadBackColor} hostStyle={hostStyle}>
-                    <Worksheet
-                        colCount={1000}
-                        rowCount={1000}
-                        name={sheetName} dataSource={data}>
-                        <Column dataField='Name' width={300}></Column>
-                        <Column dataField='Category' width={columnWidth}></Column>
-                    </Worksheet>
-                </SpreadSheets>
             </div>
         </div>
     )

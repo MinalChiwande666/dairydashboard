@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import './accountmaster.css'
 import TextField from '@mui/material/TextField'
+import * as FileSaver from 'file-saver'
+import * as XLSX from "xlsx";
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 
 const customTheme = (outerTheme) =>
+
   createTheme({
     palette: {
       mode: outerTheme.palette.mode,
@@ -76,6 +79,7 @@ const AccountmasCom = () => {
   const [status, setstatus] = useState('')
   const [costecenter, setcostcenter] = useState('No')
   const [showtable, setshowtable] = useState(false)
+  
   const [selaccountgroup, setselaccountgroup] = useState('')
   const [selopentype, setopentype] = useState('')
   const [allusers, setallusers] = useState([])
@@ -141,7 +145,15 @@ const AccountmasCom = () => {
 
   }
   const exporttoexcel = async () => {
-    await fetch('http://192.168.0.123:8080/accountMasterExportToExcel')
+    const fileName = "myfile"; 
+    const fileType =
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+    const ws = XLSX.utils.json_to_sheet(allusers)
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
   }
   const opentype = [
     {
@@ -581,6 +593,7 @@ const AccountmasCom = () => {
             </button>
           </div>
         </div>
+        
       </div>
     </div>
   )
