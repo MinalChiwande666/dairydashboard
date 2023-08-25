@@ -132,47 +132,49 @@ export default function Sidebar({ toggle, state, setState }) {
                         </MenuItem>
                     </SubMenu>
                     <SubMenu label="Milk Chalan">
-                        
+
 
                     </SubMenu>
 
-                    <SubMenu label= "Bulk Milk Entry">
-                        <MenuItem onClick={() => navigate('/purratecontractmaster')}>
-                            PurRate Contract Master
-                        </MenuItem>
-                        <MenuItem onClick={() => navigate('/vehicleentry')}>
-                            Vehicle Entry
-                        </MenuItem>
-                        <MenuItem onClick={() => navigate('/vehicleqcentry')}>
-                            Vehicle QC Entry
-                        </MenuItem>
-                        <MenuItem onClick={() => navigate('/vehicleqcapproval')}>
-                            Vehicle QC Approval
-                        </MenuItem>
-                        <MenuItem onClick={() => navigate('/milkgrn')}>
-                            Milk GRN
-                        </MenuItem>
-                        <MenuItem onClick={() => navigate('/milkgrntopurchase')}>
-                            Milk GRN to Purchase
-                        </MenuItem>
-                    </SubMenu>
+                    <SubMenu label="Bulk Milk Module">
+                        <SubMenu label="Bulk Milk Entry">
+                            <MenuItem onClick={() => navigate('/purratecontractmaster')}>
+                                PurRate Contract Master
+                            </MenuItem>
+                            <MenuItem onClick={() => navigate('/vehicleentry')}>
+                                Vehicle Entry
+                            </MenuItem>
+                            <MenuItem onClick={() => navigate('/vehicleqcentry')}>
+                                Vehicle QC Entry
+                            </MenuItem>
+                            <MenuItem onClick={() => navigate('/vehicleqcapproval')}>
+                                Vehicle QC Approval
+                            </MenuItem>
+                            <MenuItem onClick={() => navigate('/milkgrn')}>
+                                Milk GRN
+                            </MenuItem>
+                            <MenuItem onClick={() => navigate('/milkgrntopurchase')}>
+                                Milk GRN to Purchase
+                            </MenuItem>
+                        </SubMenu>
 
-                    <SubMenu label= "Purchase Bulk Milk Report">
-                        <MenuItem onClick={() => navigate('/bulkmilkporchaserep')}>
-                            Bulk Milk Purchase Report
-                        </MenuItem>
-                        <MenuItem onClick={() => navigate('/purchaseinwardrep')}>
-                            Purchase Inward Report
-                        </MenuItem>
-                        <MenuItem onClick={() => navigate('/vehicleqcrep')}>
-                            Vehicle QC Report
-                        </MenuItem>
-                    </SubMenu>
+                        <SubMenu label="Purchase Bulk Milk Report">
+                            <MenuItem onClick={() => navigate('/bulkmilkporchaserep')}>
+                                Bulk Milk Purchase Report
+                            </MenuItem>
+                            <MenuItem onClick={() => navigate('/purchaseinwardrep')}>
+                                Purchase Inward Report
+                            </MenuItem>
+                            <MenuItem onClick={() => navigate('/vehicleqcrep')}>
+                                Vehicle QC Report
+                            </MenuItem>
+                        </SubMenu>
 
-                    <SubMenu label= "Bulk Customised">
-                        <MenuItem onClick={() => navigate('/rptbulkmilkreport')}>
-                            RPT Bulk Milk Report
-                        </MenuItem>
+                        <SubMenu label="Bulk Customised">
+                            <MenuItem onClick={() => navigate('/rptbulkmilkreport')}>
+                                RPT Bulk Milk Report
+                            </MenuItem>
+                        </SubMenu>
                     </SubMenu>
 
 
