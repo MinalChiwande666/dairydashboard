@@ -170,6 +170,7 @@ const Purchaseratecontractmastercom = () => {
         </table>
         <div className="mt-5">
           
+          
           <button onClick={() => setshowtable(! showTable)} 
           className='bg-primary border border-none border-radius-rounded text-white'>
             show Table
