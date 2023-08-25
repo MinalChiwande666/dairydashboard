@@ -23,6 +23,19 @@ import Login from './pages/Login/Login'
 import Milkchalan from './pages/Modules/MilkchalanModule/Milkchalan'
 import Milkpurchase from './pages/Modules/Chillingcenter/MIlkpurchase/Milkpurchase'
 import Milklist from './pages/Modules/Chillingcenter/MIlkpurchase/Milklist'
+import Suppliermaster from './pages/Modules/MasterModule/maimaster/Suppliermaster'
+import Employeemaster from './pages/Modules/MasterModule/maimaster/Employeemaster'
+import PurRateContractMaster from './pages/Modules/BulkMilkModule/BulkMilkEntry/PurRateContractMaster'
+import VehicleEntry from './pages/Modules/BulkMilkModule/BulkMilkEntry/VehicleEntry'
+import VehicleQCEntry from './pages/Modules/BulkMilkModule/BulkMilkEntry/VehicleQCEntry'
+import VehicleQCApproval from './pages/Modules/BulkMilkModule/BulkMilkEntry/VehicleQCApproval'
+import MilkGRN from './pages/Modules/BulkMilkModule/BulkMilkEntry/MilkGRN'
+import MilkGRNtoPurchase from './pages/Modules/BulkMilkModule/BulkMilkEntry/MilkGRNtoPurchase'
+import PurchaseMilkPurchaseRep from './pages/Modules/BulkMilkModule/PurchaseBulkMilkEntry/PurchaseMilkPurchaseRep'
+import PurchaseInwardReport from './pages/Modules/BulkMilkModule/PurchaseBulkMilkEntry/PurchaseInwardReport'
+import VehicleQCReport from './pages/Modules/BulkMilkModule/PurchaseBulkMilkEntry/VehicleQCReport'
+import RPTBulkMilkReportCom from './component/Modules/BulkMilkModule/BulkCustomized/RPTBulkMilkReportCom'
+import RPTBulkMilkReport from './pages/Modules/BulkMilkModule/BulkCustomize/RPTBulkMilkReport'
 
 const App = () => {
   const useractive = JSON.parse(localStorage.getItem('username'))
@@ -51,10 +64,29 @@ const App = () => {
           <Route path={'/dashboard'} element={<Dashboard />} />
           <Route path='/accountmaster' element={<><Accountmaster /></>} />
           <Route path='/customermaster' element={<><Customermaster /></>} />
+          <Route path="/supplier" element={<><Suppliermaster/></>}/>
+          <Route path='/employee' element={<><Employeemaster/></>}/>
           <Route path='/chilingcenter' element={<><PurchaseMilk /></>} />
           <Route path='/milkchalan' element={<><Milkchalan /></>} />
           <Route path='/milkpurchase' element={<><Milkpurchase /></>} />
           <Route path='/milklist' element={<><Milklist /></>} />
+
+
+          <Route path='/purratecontractmaster' element={<><PurRateContractMaster /></>} />
+          <Route path='/vehicleentry' element={<><VehicleEntry /></>} />
+          <Route path='/vehicleqcentry' element={<><VehicleQCEntry /></>} />
+          <Route path='/vehicleqcapproval' element={<><VehicleQCApproval /></>} />
+          <Route path='/milkgrn' element={<><MilkGRN /></>} />
+          <Route path='/milkgrntopurchase' element={<><MilkGRNtoPurchase /></>} />
+
+          <Route path='/bulkmilkporchaserep' element={<><PurchaseMilkPurchaseRep /></>} />
+          <Route path='/purchaseinwardrep' element={<><PurchaseInwardReport /></>} />
+          <Route path='/vehicleqcrep' element={<><VehicleQCReport /></>} />
+
+          <Route path='/rptbulkmilkreport' element={<><RPTBulkMilkReport /></>} />
+
+
+
         </Routes>
       </BrowserRouter>
     </>

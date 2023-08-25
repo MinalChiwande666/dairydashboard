@@ -41,11 +41,19 @@ export default function Sidebar({ toggle, state, setState }) {
                                 Customer Master
                             </MenuItem>
 
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>Supplier Master</Link>
+                            <MenuItem
+                            onClick={()=>{
+                                navigate('/supplier')
+                            }}
+                            style={{ fontSize: '0.9rem' }}>
+                                Supplier Master
                             </MenuItem>
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>Employee Master</Link>
+                            <MenuItem 
+                            onClick={()=>{
+                                navigate('/employeemaster')
+                            }}
+                            style={{ fontSize: '0.9rem' }}>
+                                Employee Master
                             </MenuItem>
                             <MenuItem style={{ fontSize: '0.9rem' }}>
                                 <Link to={'/dashboard'}>Item Master</Link>
@@ -127,6 +135,47 @@ export default function Sidebar({ toggle, state, setState }) {
                         
 
                     </SubMenu>
+
+                    <SubMenu label= "Bulk Milk Entry">
+                        <MenuItem onClick={() => navigate('/purratecontractmaster')}>
+                            PurRate Contract Master
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate('/vehicleentry')}>
+                            Vehicle Entry
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate('/vehicleqcentry')}>
+                            Vehicle QC Entry
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate('/vehicleqcapproval')}>
+                            Vehicle QC Approval
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate('/milkgrn')}>
+                            Milk GRN
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate('/milkgrntopurchase')}>
+                            Milk GRN to Purchase
+                        </MenuItem>
+                    </SubMenu>
+
+                    <SubMenu label= "Purchase Bulk Milk Report">
+                        <MenuItem onClick={() => navigate('/bulkmilkporchaserep')}>
+                            Bulk Milk Purchase Report
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate('/purchaseinwardrep')}>
+                            Purchase Inward Report
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate('/vehicleqcrep')}>
+                            Vehicle QC Report
+                        </MenuItem>
+                    </SubMenu>
+
+                    <SubMenu label= "Bulk Customised">
+                        <MenuItem onClick={() => navigate('/rptbulkmilkreport')}>
+                            RPT Bulk Milk Report
+                        </MenuItem>
+                    </SubMenu>
+
+
                 </Menu>
 
                 <Menu>
