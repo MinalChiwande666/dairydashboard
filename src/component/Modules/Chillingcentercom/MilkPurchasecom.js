@@ -1,8 +1,51 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 const MilkPurchasecom = () => {
+  const [getalldata, setalldata] = useState([])
+  const [milkpurchaseform, setmilkpurchaseform] = useState({
+    "supplier": "",
+    "qty": "",
+    "fat": "",
+    "snf": "",
+    "milk": "",
+    "milkRate": JSON.parse(localStorage.getItem('milkrate'))||"",
+    "netAmount": "",
+    "date": "",
+    "shift": "",
+    "collector": "",
+    "fDate": null,
+    "tDate": null,
+    "farmerId": null,
+    "route": ""
+  })
+  const shift = [
+    {
+      id: 1,
+      name: 'Morning'
+    },
+    {
+      id: 2,
+      name: 'Evening'
+    }
+  ]
+  const getallmilkpurchase = () => {
+    try {
+      fetch('http://192.168.0.102:8080/getAllMilkPurchase').then((data) => {
+        return data.json()
+      }).then((resp) => {
+        console.log(resp)
+        setalldata(resp)
+      })
+    } catch (e) {
+      console.log(e, "error")
+    }
+  }
+
+  useEffect(() => {
+    getallmilkpurchase()
+  }, [])
   return (
     <div className='container-fluid'>
       <div className='row bg-primary'>
@@ -11,7 +54,14 @@ const MilkPurchasecom = () => {
             Date
           </div>
           <div>
-            <input style={{ width: '90%' }} type='date' />
+            <input
+              onChange={(e) => {
+                setmilkpurchaseform({
+                  ...milkpurchaseform,
+                  date: e.target.value
+                })
+              }}
+              style={{ width: '90%' }} type='date' />
           </div>
         </div>
         <div className='col-12 col-md-2'>
@@ -23,24 +73,37 @@ const MilkPurchasecom = () => {
               <button
                 style={{ width: '90%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
                 className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Morning
+                 {milkpurchaseform.shift ===""?"Select":milkpurchaseform.shift}
                 <div className='dropdown-toggle'>
 
                 </div>
               </button>
               <ul className="dropdown-menu">
-                <li>Hello</li>
+                {
+                  shift.map((item, i) => (
+                    <li 
+                    onClick={()=>{
+                      setmilkpurchaseform({
+                        ...milkpurchaseform,
+                        shift:item.name
+                      })
+                    }}
+                    className='dropdown-item'>{item.name}</li>
+                  ))
+
+                }
+
               </ul>
             </div>
           </div>
         </div>
         <div className='col-12 my-3 col-md-4 text-center text-white'>
-         <h5>Milk Purchase</h5>
+          <h5>Milk Purchase</h5>
         </div>
-        
+
       </div>
       <div>
-      <div className='mx-2 my-2' style={{width:'95vw',overflowX:'scroll'}}>
+        <div className='mx-2 my-2' style={{ width: '95vw', overflowX: 'scroll' }}>
           <table className="table my-2">
             <thead>
               <tr>
@@ -52,25 +115,69 @@ const MilkPurchasecom = () => {
                 <th scope="col">Milk</th>
                 <th scope="col">Milk Rate</th>
                 <th scope="col">Net Amount</th>
+                <th scope='col'>Save</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">1</th>
-                <td><input type='text'/></td>
-                <td><input type='text'/></td>
-                <td><input type='text'/></td>
-                <td><input type='text'/></td>
-                <td><input type='text'/></td>
-                <td><input type='text'/></td>
-                <td><input type='text'/></td>
+                <td><input onChange={(e) => {
+                  setmilkpurchaseform({
+                    ...milkpurchaseform,
+                    supplier: e.target.value
+                  })
+                }} type='text' /></td>
+                <td><input
+                  onChange={(e) => {
+                    setmilkpurchaseform({
+                      ...milkpurchaseform,
+                      qty: e.target.value
+                    })
+                  }}
+                  type='text' /></td>
+                <td><input
+                  onChange={(e) => {
+                    setmilkpurchaseform({
+                      ...milkpurchaseform,
+                      fat: e.target.value
+                    })
+                  }}
+                  type='text' /></td>
+                <td><input
+                  onChange={(e) => {
+                    setmilkpurchaseform({
+                      ...milkpurchaseform,
+                      snf: e.target.value
+                    })
+                  }}
+                  type='text' /></td>
+                <td><input
+                  onChange={(e) => {
+                    setmilkpurchaseform({
+                      ...milkpurchaseform,
+                      milk: e.target.value
+                    })
+                  }}
+                  type='text' /></td>
+                <td><input 
+                value={milkpurchaseform.milkRate || JSON.parse(localStorage.getItem('milkrate'))}
+                  onChange={(e) => {
+                    console.log("some value",e.target.value)
+                    setmilkpurchaseform({
+                      ...milkpurchaseform,
+                      milkRate: JSON.parse(localStorage.getItem('milkrate')) || e.target.value
+                    })
+                  }}
+                  type='text' /></td>
+                <td><input type='text' /></td>
+                <td><button onClick={() => console.log(milkpurchaseform)} className='bg-primary border border-none rounded text-white'>Save</button></td>
               </tr>
-             
+
             </tbody>
           </table>
         </div>
 
-        <div>
+        <div style={{ width: '95vw', overflowX: 'scroll' }}>
           <table class="table my-5">
             <thead>
               <tr>
@@ -93,15 +200,15 @@ const MilkPurchasecom = () => {
                 <td></td>
                 <td>0.000</td>
                 <td>0.0000</td>
-             
+
                 <td>0.0000</td>
               </tr>
-              
+
             </tbody>
           </table>
         </div>
 
-        <div>
+        <div style={{ width: "95vw", overflowX: 'scroll' }}>
           <table class="table">
             <thead>
               <tr>
@@ -124,29 +231,34 @@ const MilkPurchasecom = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">
-                  <div style={{width:'1vw',height:'2vh',border:'1px solid black'}}>
+              {
+                getalldata.map((item, i) => (
+                  <tr>
+                    <th scope="row">
+                      <div style={{ width: '1vw', height: '2vh', border: '1px solid black' }}>
 
-                  </div>
-                </th>
-                <td>1</td>
-                <td>Harpreet</td>
-                <td>BM</td>
-                <td>4.000</td>
-                <td>5.00</td>
-                <td>0.00</td>
-                <td>5.00</td>
-                <td>8.000</td>
-                <td>0.320</td>
-                <td>0.200</td>
-                <td>26.00</td>
-                <td>00.00</td>
-                <td>00.00</td>
-                <td><IconButton><EditIcon/></IconButton></td>
-                <td><IconButton><DeleteIcon/></IconButton></td>
-              </tr>
-              
+                      </div>
+                    </th>
+                    <td>{item.id}</td>
+                    <td>{item.supplier}</td>
+                    <td>BM</td>
+                    <td>{item.qty}</td>
+                    <td>{item.fat}</td>
+                    <td>0.00</td>
+                    <td>{item.snf}</td>
+                    <td>8.000</td>
+                    <td>0.320</td>
+                    <td>0.200</td>
+                    <td>26.00</td>
+                    <td>00.00</td>
+                    <td>00.00</td>
+                    <td><IconButton><EditIcon /></IconButton></td>
+                    <td><IconButton><DeleteIcon /></IconButton></td>
+                  </tr>
+                ))
+
+              }
+
             </tbody>
           </table>
         </div>

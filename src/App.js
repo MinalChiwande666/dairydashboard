@@ -36,6 +36,7 @@ import PurchaseInwardReport from './pages/Modules/BulkMilkModule/PurchaseBulkMil
 import VehicleQCReport from './pages/Modules/BulkMilkModule/PurchaseBulkMilkEntry/VehicleQCReport'
 import RPTBulkMilkReportCom from './component/Modules/BulkMilkModule/BulkCustomized/RPTBulkMilkReportCom'
 import RPTBulkMilkReport from './pages/Modules/BulkMilkModule/BulkCustomize/RPTBulkMilkReport'
+import Vendorname from './pages/Modules/MasterModule/maimaster/Vendorname'
 
 const App = () => {
   const useractive = JSON.parse(localStorage.getItem('username'))
@@ -66,11 +67,10 @@ const App = () => {
           <Route path="/supplier" element={<><Suppliermaster/></>}/>
           <Route path='/employee' element={<><Employeemaster/></>}/>
           <Route path='/chilingcenter' element={<><PurchaseMilk /></>} />
+          <Route path='/vendor' element={<><Vendorname/></>}/>
           <Route path='/milkchalan' element={<><Milkchalan /></>} />
           <Route path='/milkpurchase' element={<><Milkpurchase /></>} />
           <Route path='/milklist' element={<><Milklist /></>} />
-
-
           <Route path='/purratecontractmaster' element={<><PurRateContractMaster /></>} />
           <Route path='/vehicleentry' element={<><VehicleEntry /></>} />
           <Route path='/vehicleqcentry' element={<><VehicleQCEntry /></>} />

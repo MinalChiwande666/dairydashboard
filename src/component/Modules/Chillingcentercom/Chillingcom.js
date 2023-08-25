@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useRef } from 'react'
 
 import EditIcon from '@mui/icons-material/Edit';
 import './chilling.css'
+import { useReactToPrint } from 'react-to-print';
 import axios from 'axios'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react'
@@ -20,7 +21,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 const Chillingcom = () => {
     const outerTheme = useTheme()
-
+    const componentref = useRef()
     const [opendailogdel, setopendailogdel] = useState(false)
     const [updateid, setupadteid] = useState('')
     const [items, setitem] = useState('')
@@ -450,6 +451,11 @@ const Chillingcom = () => {
                 },
             },
         });
+
+        const print = ()=>{
+            
+        }
+          
     return (
         <>
 
@@ -586,6 +592,17 @@ const Chillingcom = () => {
                         </div>
 
                         <div className='row  mt-3 p-1'>
+                        <div className='col-12  col-md-3 col-sm-12'>
+                                <ThemeProvider theme={customTheme(outerTheme)}>
+                                    <TextField
+                                        
+                                        style={{ width: '95%' }}
+                                        label={'Vendor Code'}
+                                        className='txtsize' variant="standard"
+                                    />
+                                </ThemeProvider>
+
+                            </div>
                             <div className='col-12 mt-1 col-md-3 col-sm-12'>
                                 <div>
                                     Vendor Name
@@ -1255,7 +1272,7 @@ const Chillingcom = () => {
 
 
                     {/* second section */}
-                    <div className='container' style={{ boxShadow: '10px 10px 10px 0px gray', padding: '0.5rem 0.9rem', marginTop: '3rem' }}>
+                    {/* <div className='container' style={{ boxShadow: '10px 10px 10px 0px gray', padding: '0.5rem 0.9rem', marginTop: '3rem' }}>
                         <div className='row'>
                             <div className='col-12 col-md-3 col-sm-12'>
                                 <ThemeProvider theme={customTheme(outerTheme)}>
@@ -1304,21 +1321,7 @@ const Chillingcom = () => {
 
                                     }}
                                     type='date' />
-                                {/* <ThemeProvider theme={customTheme(outerTheme)}>
-                            <TextField
-                                value={chillingform.vendorInvoiceDate}
-                                onChange={(e) => {
-
-                                    setchillingform({
-                                        ...chillingform,
-                                        vendorInvoiceDate: e.target.value
-                                    })
-                                }}
-                                style={{ width: '95%' }}
-                                label={'Vendor Invoice Date'}
-                                className='txtsize' variant="standard"
-                            />
-                        </ThemeProvider> */}
+                              
 
                             </div>
                             <div className='col-12 col-md-3 col-sm-12'>
@@ -1430,7 +1433,7 @@ const Chillingcom = () => {
 
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* third section */}
                     <div className='container' style={{ boxShadow: '10px 10px 10px 0px gray', padding: '0.5rem 0.9rem', marginTop: '3rem' }}>
@@ -1480,6 +1483,18 @@ const Chillingcom = () => {
                                         }}
                                         style={{ width: '95%' }}
                                         label={'Vehicle No'}
+                                        className='txtsize' variant="standard"
+                                    />
+                                </ThemeProvider>
+
+                            </div>
+                            <div className='col-12 col-md-3 col-sm-12'>
+                                <ThemeProvider theme={customTheme(outerTheme)}>
+                                    <TextField
+                                        
+                                        
+                                        style={{ width: '95%' }}
+                                        label={'Head Load'}
                                         className='txtsize' variant="standard"
                                     />
                                 </ThemeProvider>
@@ -1739,7 +1754,9 @@ const Chillingcom = () => {
                                 <button
                                     onClick={() => save()}
                                     className='bg-primary border border-none text-white mx-3'>Save</button>}
-                        <button className='bg-primary border border-none text-white mx-3'>Print</button>
+                        <button
+                        onClick={()=>print()}
+                        className='bg-primary border border-none text-white mx-3'>Print</button>
                         <button className='bg-primary border border-none text-white mx-3'>Clear</button>
                     </div>
                 </div>

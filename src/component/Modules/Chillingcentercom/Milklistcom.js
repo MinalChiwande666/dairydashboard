@@ -204,7 +204,11 @@ const Milklistcom = () => {
                                     <tr>
                                         <td>{item.sn}</td>
 
-                                        <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input 
+                                        onChange={(e)=>{
+                                            localStorage.setItem('milkrate',JSON.stringify(e.target.value))
+                                        }}
+                                        style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
                                         <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
                                         <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
                                         <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
