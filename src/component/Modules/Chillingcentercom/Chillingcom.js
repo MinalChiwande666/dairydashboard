@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 
 import EditIcon from '@mui/icons-material/Edit';
-
 import './chilling.css'
 import axios from 'axios'
 import DeleteIcon from '@mui/icons-material/Delete';
