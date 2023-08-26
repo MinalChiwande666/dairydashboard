@@ -228,7 +228,29 @@ const Milklistcom = () => {
                 </div>
             </div>
             <div className='container'>
-
+             <div className='row my-4'>
+              <div className='col-1 col-md-1'>
+                <button className='bg-danger border border-none text-white'>Delete</button>
+              </div>
+              <div className='col-1 col-md-1'>
+                <button className='bg-light border border-none '>Serach</button>
+              </div>
+              <div className='col-1 col-md-1'>
+                <button className='bg-light border border-none '>Export</button>
+              </div>
+              <div className='col-1 col-md-1'>
+                <button className='bg-light border border-none '>Import</button>
+              </div>
+              <div className='col-1 col-md-1'>
+                <button className='bg-light border border-none '>Settings</button>
+              </div>
+              <div className='col-1 col-md-1'>
+                <button className='bg-light border border-none '>Save</button>
+              </div>
+              <div className='col-1 col-md-1'>
+                <button className='bg-light border border-none '>clear</button>
+              </div>
+             </div>
             </div>
         </div>
     )

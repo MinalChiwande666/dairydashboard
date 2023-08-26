@@ -1,4 +1,4 @@
-import React, { useEffect,useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import EditIcon from '@mui/icons-material/Edit';
 import './chilling.css'
@@ -20,6 +20,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 const Chillingcom = () => {
+    const [vendorcode, setvendorcode] = useState({
+        id: null
+    })
+    const [vendorobj, setvendorobj] = useState()
     const outerTheme = useTheme()
     const componentref = useRef()
     const [opendailogdel, setopendailogdel] = useState(false)
@@ -320,8 +324,7 @@ const Chillingcom = () => {
                     theme: "light",
                 })
                 console.log(data.data)
-                if(data.data)
-                {
+                if (data.data) {
                     getalldata()
                 }
 
@@ -452,10 +455,40 @@ const Chillingcom = () => {
             },
         });
 
-        const print = ()=>{
-            
+    const print = () => {
+
+    }
+    const obj = () => {
+        console.log(vendorcode)
+        try {
+            fetch('http://192.168.0.102:8080/findVendorMasterById', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(vendorcode)
+            }).then((data)=>{
+                return data.json()
+            }).then((resp)=>{
+                console.log(resp.data)
+                setvendorobj(resp.data)
+            })
+        } catch (e) {
+            console.log(e, 'Error')
         }
-          
+    }
+    useEffect(() => {
+        obj()
+        console.log(vendorobj,"hello")
+        //  fetch('http://192.168.0.102:8080/findVendorMasterById',{
+        //     method:'POST',
+        //     headers:{
+        //         'Content-Type':'application/json'
+        //     },
+        //     body:JSON
+        //  })
+    }, [vendorcode])
+
     return (
         <>
 
@@ -592,11 +625,18 @@ const Chillingcom = () => {
                         </div>
 
                         <div className='row  mt-3 p-1'>
-                        <div className='col-12  col-md-3 col-sm-12'>
+                            <div className='col-12  col-md-3 col-sm-12'>
                                 <ThemeProvider theme={customTheme(outerTheme)}>
                                     <TextField
-                                        
+
+                                        onChange={(e) => {
+                                            console.log(e.target.value)
+                                            setvendorcode({
+                                                id: e.target.value
+                                            })
+                                        }}
                                         style={{ width: '95%' }}
+                                        type='text'
                                         label={'Vendor Code'}
                                         className='txtsize' variant="standard"
                                     />
@@ -618,28 +658,25 @@ const Chillingcom = () => {
                                             </div>
                                         </button>
                                         <ul className="dropdown-menu">
-                                            {
-                                                vendorname.map((item, i) => (
-                                                    <>
-                                                        <li
-                                                            onClick={() => {
-                                                                if (updateid !== "2") {
-                                                                    setchillingform({
-                                                                        ...chillingform,
-                                                                        vendorName: item.name
-                                                                    })
-                                                                } else {
-                                                                    setupdatechilling({
-                                                                        ...updatecenterform,
-                                                                        vendorName: item.name
-                                                                    })
-                                                                }
-                                                            }}
-                                                            className='dropdown-item'>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-
+                                          
+                                                <li 
+                                                onClick={()=>{
+                                                    if(!vendorobj.vendorName)
+                                                    {
+                                                        setchillingform({
+                                                            ...chillingform,
+                                                            vendorName:""
+                                                        })
+                                                    }else
+                                                    {
+                                                        setchillingform({
+                                                            ...chillingform,
+                                                            vendorName:vendorobj.vendorName
+                                                        })
+                                                    }
+                                                }}
+                                                className='dropdown-item'>{!vendorobj?"":vendorobj.vendorName}</li>
+                                           
                                         </ul>
                                     </div>
                                 </div>
@@ -1491,8 +1528,8 @@ const Chillingcom = () => {
                             <div className='col-12 col-md-3 col-sm-12'>
                                 <ThemeProvider theme={customTheme(outerTheme)}>
                                     <TextField
-                                        
-                                        
+
+
                                         style={{ width: '95%' }}
                                         label={'Head Load'}
                                         className='txtsize' variant="standard"
@@ -1755,8 +1792,8 @@ const Chillingcom = () => {
                                     onClick={() => save()}
                                     className='bg-primary border border-none text-white mx-3'>Save</button>}
                         <button
-                        onClick={()=>print()}
-                        className='bg-primary border border-none text-white mx-3'>Print</button>
+                            onClick={() => print()}
+                            className='bg-primary border border-none text-white mx-3'>Print</button>
                         <button className='bg-primary border border-none text-white mx-3'>Clear</button>
                     </div>
                 </div>
