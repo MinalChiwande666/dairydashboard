@@ -461,7 +461,7 @@ const Chillingcom = () => {
     const obj = () => {
         console.log(vendorcode)
         try {
-            fetch('http://192.168.0.102:8080/findVendorMasterById', {
+            fetch('http://103.38.50.113:8080/DairyApp/findVendorMasterById', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -235,7 +235,7 @@ const VendorNamcom = () => {
         alert(customerform)
         console.log(customerform)
         try {
-            fetch('http://192.168.0.102:8080/saveVendorMaster',
+            fetch('http://103.38.50.113:8080/DairyApp/saveVendorMaster',
                 {
                     method: 'POST',
                     headers: {
@@ -330,7 +330,7 @@ const VendorNamcom = () => {
 
     const getcustomeralldata = async () => {
         setloader(true)
-        let data = await fetch('http://192.168.0.102:8080/getAllVendorMaster')
+        let data = await fetch('http://103.38.50.113:8080/DairyApp/getAllVendorMaster')
         let alldata = await data.json()
         if(alldata)
         {
@@ -355,7 +355,7 @@ const VendorNamcom = () => {
     }
     try{
 
-        fetch('http://192.168.0.102:8080/deleteVendorMasterById',{
+        fetch('http://103.38.50.113:8080/DairyApp/deleteVendorMasterById',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'

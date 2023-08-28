@@ -5,7 +5,9 @@ const Milklistcom = () => {
     const [milk, setmilk] = useState('')
     const [gettype, settype] = useState('')
     const [snfra, setsnfra] = useState({})
-    const [fatra,setfatra] = useState({})
+    const [snffatdata, setsnffatdata] = useState([])
+    const [code, setcode] = useState()
+    const [fatra, setfatra] = useState({})
     const milktype = [
         {
             id: 1,
@@ -26,6 +28,7 @@ const Milklistcom = () => {
             name: 'FAT'
         }
     ]
+
     let spreadBackColor = 'aliceblue';
     let sheetName = 'Goods List';
     let hostStyle = {
@@ -36,8 +39,8 @@ const Milklistcom = () => {
     const [snffat, setsnffat] = useState(
         {
             id: 1,
-            snf: [{sn:1}, {sn:1.2},{sn:1.3},{sn:1.4} ,{sn: 1.5}, {sn:1.6}, {sn:1.7}, {sn:1.8}, {sn:1.9},{sn: 2}],
-            fat:  [{sn:1}, {sn:1.2},{sn:1.3},{sn:1.4} ,{sn: 1.5}, {sn:1.6}, {sn:1.7}, {sn:1.8}, {sn:1.9},{sn: 2}],
+            snf: [{ sn: 1 }, { sn: 1.2 }, { sn: 1.3 }, { sn: 1.4 }, { sn: 1.5 }, { sn: 1.6 }, { sn: 1.7 }, { sn: 1.8 }, { sn: 1.9 }, { sn: 2 }],
+            fat: [{ sn: 1 }, { sn: 1.2 }, { sn: 1.3 }, { sn: 1.4 }, { sn: 1.5 }, { sn: 1.6 }, { sn: 1.7 }, { sn: 1.8 }, { sn: 1.9 }, { sn: 2 }],
         },
 
     )
@@ -46,9 +49,11 @@ const Milklistcom = () => {
     let fatrange = [{ fatf: '1-1.4', from: 1, to: 1.4 }]
 
     useEffect(() => {
+        console.log(snffat.snf.length)
         console.log(snfra)
+
     }, [snfra])
-    
+
 
 
     return (
@@ -115,7 +120,21 @@ const Milklistcom = () => {
                                     <div className='text-white'>
                                         List No
                                     </div>
-                                    <input type='number' style={{ width: '100%' }} />
+                                    <input
+                                        onChange={(e) => {
+                                            if (e.target.value) {
+                                                fetch(`http://103.38.50.113:8080/DairyApp/findByListNo/${e.target.value}`).then((data) => {
+                                                    return data.json()
+                                                }).then((res) => {
+                                                    console.log(res)
+                                                    setsnffatdata(res)
+                                                })
+                                            } else if (e.target.value === '') {
+                                                setsnffatdata([])
+                                            }
+
+                                        }}
+                                        type='number' style={{ width: '100%' }} />
                                 </div>
 
                             </div>
@@ -166,7 +185,7 @@ const Milklistcom = () => {
                     </div>
                 </div>
                 <div style={{ width: '80vw', overflowX: 'scroll' }}>
-                    <table class="table table-bordered">
+                    {snffatdata.length === 0 ? <table class="table table-bordered">
                         <thead className='table-primary'>
                             <tr >
                                 <th scope="col">{'FAT/SNF'}</th>
@@ -174,15 +193,14 @@ const Milklistcom = () => {
                                     snffat.snf.filter((ta, i) => {
                                         let k;
                                         let l;
-                                        if(!snfra.from && !snfra.to)
-                                        {
-                                         return ta
-                                        }
-                                        else if(ta.sn >= snfra.from && ta.sn <=snfra.to){
+                                        if (!snfra.from && !snfra.to) {
                                             return ta
                                         }
-                                      
-                                        
+                                        else if (ta.sn >= snfra.from && ta.sn <= snfra.to) {
+                                            return ta
+                                        }
+
+
                                     }).map((item, i) => (
                                         <th>{item.sn}</th>
                                     ))
@@ -192,23 +210,21 @@ const Milklistcom = () => {
                         </thead>
                         <tbody>
                             {
-                                snffat.fat.filter((fa,i)=>{
-                                    if(!fatra.from && !fatra.to)
-                                    {
+                                snffat.fat.filter((fa, i) => {
+                                    if (!fatra.from && !fatra.to) {
                                         return fa
-                                    }else if(fa.sn >= fatra.from && fa.sn <= fatra.to)
-                                    {
+                                    } else if (fa.sn >= fatra.from && fa.sn <= fatra.to) {
                                         return fa
                                     }
                                 }).map((item, i) => (
                                     <tr>
                                         <td>{item.sn}</td>
 
-                                        <td><input 
-                                        onChange={(e)=>{
-                                            localStorage.setItem('milkrate',JSON.stringify(e.target.value))
-                                        }}
-                                        style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
+                                        <td><input
+                                            onChange={(e) => {
+                                                localStorage.setItem('milkrate', JSON.stringify(e.target.value))
+                                            }}
+                                            style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
                                         <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
                                         <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
                                         <td><input style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
@@ -224,33 +240,70 @@ const Milklistcom = () => {
                                 ))
                             }
                         </tbody>
-                    </table>
+                    </table> :
+                        <table class="table table-bordered">
+                            <thead className='table-primary'>
+                                <tr>
+                                    <th scope="col">{'FAT/SNF'}</th>
+                                    {
+                                        snffatdata.map((snfda, i) => (
+                                            <>
+                                                <th>{snfda.snf}</th>
+                                            </>
+                                        ))
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    snffatdata.map((fatdata, i) => {
+                                        let loop = fatdata.rate
+                                        let emarr = []
+                                        emarr.push(...emarr,fatdata.rate)
+                                        console.log(emarr)
+                                        return (
+                                            <tr>
+                                                <td>{fatdata.fat}</td>
+                                                <td>
+                                                    <input type='text' value={snffatdata[0].rate} />
+                                                </td>
+                                                <td>
+                                                    <input type='text' value={snffatdata[0].rate} />
+                                                </td>
+                                                <td>
+                                                    <input type='text' value={snffatdata[0].rate} />
+                                                </td>
+                                                <td>
+                                                    <input type='text' value={snffatdata[0].rate} />
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    }
                 </div>
             </div>
             <div className='container'>
-             <div className='row my-4'>
-              <div className='col-1 col-md-1'>
-                <button className='bg-danger border border-none text-white'>Delete</button>
-              </div>
-              <div className='col-1 col-md-1'>
-                <button className='bg-light border border-none '>Serach</button>
-              </div>
-              <div className='col-1 col-md-1'>
-                <button className='bg-light border border-none '>Export</button>
-              </div>
-              <div className='col-1 col-md-1'>
-                <button className='bg-light border border-none '>Import</button>
-              </div>
-              <div className='col-1 col-md-1'>
+                <div className='row my-4'>
+                    <div className='col-1 col-md-1'>
+                        <button className='bg-danger border border-none text-white'>Delete</button>
+                    </div>
+                    <div className='col-1 col-md-1'>
+                        <button className='bg-light border border-none px-2'>Serach</button>
+                    </div>
+
+                    {/* <div className='col-1 col-md-1'>
                 <button className='bg-light border border-none '>Settings</button>
-              </div>
-              <div className='col-1 col-md-1'>
-                <button className='bg-light border border-none '>Save</button>
-              </div>
-              <div className='col-1 col-md-1'>
-                <button className='bg-light border border-none '>clear</button>
-              </div>
-             </div>
+              </div> */}
+                    <div className='col-1 col-md-1'>
+                        <button className='bg-light border border-none px-2'>Save</button>
+                    </div>
+                    <div className='col-1 col-md-1'>
+                        <button className='bg-light border border-none px-2'>clear</button>
+                    </div>
+                </div>
             </div>
         </div>
     )

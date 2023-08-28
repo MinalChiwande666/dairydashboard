@@ -10,16 +10,31 @@ const MilkPurchasecom = () => {
     "fat": "",
     "snf": "",
     "milk": "",
-    "milkRate": JSON.parse(localStorage.getItem('milkrate'))||"",
+    "milkRate": "",
     "netAmount": "",
     "date": "",
     "shift": "",
     "collector": "",
     "fDate": null,
     "tDate": null,
-    "farmerId": null,
-    "route": ""
+    "farmerId": 0,
+    "route": "hello"
   })
+  const save = () => {
+    console.log(milkpurchaseform)
+    fetch('http://103.38.50.113:8080/DairyApp/saveMilkPurchase', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(milkpurchaseform)
+    }).then((data) => {
+      return data.json()
+    }).then((resp) => {
+      console.log(resp)
+      alert(resp.message)
+    })
+  }
   const shift = [
     {
       id: 1,
@@ -32,7 +47,7 @@ const MilkPurchasecom = () => {
   ]
   const getallmilkpurchase = () => {
     try {
-      fetch('http://192.168.0.102:8080/getAllMilkPurchase').then((data) => {
+      fetch('http://103.38.50.113:8080/DairyApp/getAllMilkPurchase').then((data) => {
         return data.json()
       }).then((resp) => {
         console.log(resp)
@@ -73,7 +88,7 @@ const MilkPurchasecom = () => {
               <button
                 style={{ width: '90%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
                 className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                 {milkpurchaseform.shift ===""?"Select":milkpurchaseform.shift}
+                {milkpurchaseform.shift === "" ? "Select" : milkpurchaseform.shift}
                 <div className='dropdown-toggle'>
 
                 </div>
@@ -81,14 +96,14 @@ const MilkPurchasecom = () => {
               <ul className="dropdown-menu">
                 {
                   shift.map((item, i) => (
-                    <li 
-                    onClick={()=>{
-                      setmilkpurchaseform({
-                        ...milkpurchaseform,
-                        shift:item.name
-                      })
-                    }}
-                    className='dropdown-item'>{item.name}</li>
+                    <li
+                      onClick={() => {
+                        setmilkpurchaseform({
+                          ...milkpurchaseform,
+                          shift: item.name
+                        })
+                      }}
+                      className='dropdown-item'>{item.name}</li>
                   ))
 
                 }
@@ -112,6 +127,8 @@ const MilkPurchasecom = () => {
                 <th scope="col">Qty in Kg</th>
                 <th scope="col">FAT %</th>
                 <th scope="col">SNF %</th>
+                <th scope="col">Collector</th>
+                <th scope="col">Route</th>
                 <th scope="col">Milk</th>
                 <th scope="col">Milk Rate</th>
                 <th scope="col">Net Amount</th>
@@ -151,7 +168,25 @@ const MilkPurchasecom = () => {
                     })
                   }}
                   type='text' /></td>
-                <td><input
+                  <td><input
+                  onChange={(e) => {
+                    setmilkpurchaseform({
+                      ...milkpurchaseform,
+                      collector: e.target.value
+                    })
+                  }}
+                  type='text' /></td>
+                  <td><input
+                  onChange={(e) => {
+                    setmilkpurchaseform({
+                      ...milkpurchaseform,
+                      route: e.target.value
+                    })
+                  }}
+                  type='text' /></td>
+                <td>
+                  
+                  <input
                   onChange={(e) => {
                     setmilkpurchaseform({
                       ...milkpurchaseform,
@@ -159,18 +194,25 @@ const MilkPurchasecom = () => {
                     })
                   }}
                   type='text' /></td>
-                <td><input 
-                value={milkpurchaseform.milkRate || JSON.parse(localStorage.getItem('milkrate'))}
+                <td><input
+                  value={milkpurchaseform.milkRate}
                   onChange={(e) => {
-                    console.log("some value",e.target.value)
+                  
                     setmilkpurchaseform({
                       ...milkpurchaseform,
-                      milkRate: JSON.parse(localStorage.getItem('milkrate')) || e.target.value
+                      milkRate: e.target.value
                     })
                   }}
                   type='text' /></td>
-                <td><input type='text' /></td>
-                <td><button onClick={() => console.log(milkpurchaseform)} className='bg-primary border border-none rounded text-white'>Save</button></td>
+                <td><input
+                onChange={(e)=>{
+                  setmilkpurchaseform({
+                    ...milkpurchaseform,
+                    netAmount:e.target.value
+                  })
+                }} 
+                type='text' /></td>
+                <td><button onClick={() => save()} className='bg-primary border border-none rounded text-white'>Save</button></td>
               </tr>
 
             </tbody>
@@ -228,6 +270,7 @@ const MilkPurchasecom = () => {
                 <th scope="col">Net Amt</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
+                <th scope="col">Generate bill</th>
               </tr>
             </thead>
             <tbody>
@@ -251,9 +294,13 @@ const MilkPurchasecom = () => {
                     <td>0.200</td>
                     <td>26.00</td>
                     <td>00.00</td>
-                    <td>00.00</td>
+                    <td>{item.netAmount}</td>
                     <td><IconButton><EditIcon /></IconButton></td>
                     <td><IconButton><DeleteIcon /></IconButton></td>
+                    <td><button className='bg-primary border border-none text-white rounded' onClick={()=>{
+                      alert(item.supplierId)
+                      localStorage.setItem('suppid',JSON.stringify(item.supplierId))
+                    }}>Generate bill</button></td>
                   </tr>
                 ))
 
