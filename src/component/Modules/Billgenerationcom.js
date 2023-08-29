@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import axios from 'axios'
-
+import { useReactToPrint } from 'react-to-print';
 import './Billgeneration.css'
 import TextField from '@mui/material/TextField'
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 import { convertLength } from '@mui/material/styles/cssUtils';
+import Billtablecom from './sansthamilk/Billtablecom';
+
+
 
 const customTheme = (outerTheme) =>
 
@@ -117,7 +120,11 @@ const Billgenerationcom = () => {
       name: 'Raw Milk'
     }
   ]
-
+  const billgenerate = React.forwardRef((ref,props)=>{
+    return (
+      <h1>Hello</h1>
+    )
+  })
   const [collectiontype, setcollectiontype] = useState(' ')
   const collectiontypes = [
     {
@@ -139,6 +146,11 @@ const Billgenerationcom = () => {
     })
     console.log("daya")
   }
+  const componentRef = useRef()
+
+ const handleprint = useReactToPrint({
+  content: () => componentRef.current,
+ })
 
   // const savedata = ()=>{
   //   console.log(form , "form =>")
@@ -170,6 +182,7 @@ const Billgenerationcom = () => {
 
 
       <div className='container-fluid'>
+        
         <div className='text-center' style={{ fontSize: '2rem' }}>Bill Generation</div>
 
         <div className='container' style={{ boxShadow: '10px 10px 10px 0px gray', padding: '0.5rem 0.9rem' }}>
@@ -243,14 +256,14 @@ const Billgenerationcom = () => {
             <div className='col-12 text-center bg-light mt-5 col-md-4 '>
 
               <button
-                onClick={() => setgeneartebill(!geneartebill)}
+                onClick={handleprint}
                 className='bg-primary text-center border border-none border-radius-rounded text-white' >
                 Genearte Bill
               </button>
             </div>
 
-            {
-              showTable &&
+            {/* {
+              showTable && 
               <><div style={{ width: '100vw', height: '50vh', overflowY: 'scroll' }}>
                 <table class="table">
                   <thead>
@@ -273,8 +286,8 @@ const Billgenerationcom = () => {
 
 
                     </tr>
-                  </thead>
-                  {
+                  </thead> */}
+                  {/* {
                     data.filter((data)=>{
                       if(!suppid)
                       {
@@ -305,7 +318,8 @@ const Billgenerationcom = () => {
                 </table>
               </div><div>
 
-                </div></>}
+                </div></>} */}
+                <Billtablecom ref={componentRef} suppid={suppid} data={data} setdata={setdata}/>
             <div className='col-12 text-center bg-light mt-5 col-md-4 '>
               <button
                 className='bg-primary border border-none border-radius-rounded text-white' >

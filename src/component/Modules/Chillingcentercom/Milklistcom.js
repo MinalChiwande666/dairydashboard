@@ -4,6 +4,7 @@ import GC from '@grapecity/spread-sheets';
 const Milklistcom = () => {
     const [milk, setmilk] = useState('')
     const [gettype, settype] = useState('')
+    
     const [snfra, setsnfra] = useState({})
     const [snffatdata, setsnffatdata] = useState([])
     const [code, setcode] = useState()
@@ -44,7 +45,24 @@ const Milklistcom = () => {
         },
 
     )
-
+  const deletetable = ()=>{
+    console.log(code)
+    fetch(`http://103.38.50.113:8080/DairyApp/deleteMilkRateByListNo?listNo=${code}`,{
+        method:'Post',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+            id:code
+        })
+    }).then((data)=>{
+        return data
+    }).then((resp)=>{
+        alert(resp)
+        console.log(resp)
+        window.location.reload()
+    })
+  }
     let snfrange = [{ snff: '1-1.4', from: 1, to: 1.4 }]
     let fatrange = [{ fatf: '1-1.4', from: 1, to: 1.4 }]
 
@@ -122,6 +140,7 @@ const Milklistcom = () => {
                                     </div>
                                     <input
                                         onChange={(e) => {
+                                            setcode(e.target.value)
                                             if (e.target.value) {
                                                 fetch(`http://103.38.50.113:8080/DairyApp/findByListNo/${e.target.value}`).then((data) => {
                                                     return data.json()
@@ -259,7 +278,7 @@ const Milklistcom = () => {
                                     snffatdata.map((fatdata, i) => {
                                         let loop = fatdata.rate
                                         let emarr = []
-                                        emarr.push(...emarr,fatdata.rate)
+                                        emarr.push(...emarr, fatdata.rate)
                                         console.log(emarr)
                                         return (
                                             <tr>
@@ -288,7 +307,7 @@ const Milklistcom = () => {
             <div className='container'>
                 <div className='row my-4'>
                     <div className='col-1 col-md-1'>
-                        <button className='bg-danger border border-none text-white'>Delete</button>
+                        <button onClick={()=>deletetable()} className='bg-danger border border-none text-white'>Delete</button>
                     </div>
                     <div className='col-1 col-md-1'>
                         <button className='bg-light border border-none px-2'>Serach</button>
