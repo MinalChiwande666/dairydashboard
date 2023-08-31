@@ -23,6 +23,7 @@ const VendorNamcom = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [hide1, sethide1] = useState(false)
+    const [showtable,setshowtable] = useState(false)
     const [delid,setdelid] = useState()
     const [hide2, sethide2] = useState(false)
     const [hide3, sethide3] = useState(false)
@@ -438,7 +439,7 @@ const VendorNamcom = () => {
                                             style={{ pointerEvents: 'none' }}
                                             contentEditable={false}
 
-                                            label="Customer No." variant="standard"
+                                            label="Vendor No." variant="standard"
                                         />
                                     </ThemeProvider>
                                 </div>
@@ -459,27 +460,10 @@ const VendorNamcom = () => {
                                                 })
                                             }}
                                         />
-                                        <IconButton onClick={handleClick} >
-                                            <KeyboardArrowDownIcon className='dropicon' />
-
-                                        </IconButton>
+                                       
 
                                     </ThemeProvider>
-                                    <Menu
-                                        open={open}
-                                        anchorEl={anchorEl}
-                                        onClose={handleClose}
-                                        id="basic-menu">
-                                        <MenuItem>
-                                            Neeraj
-                                        </MenuItem>
-                                        <MenuItem>
-                                            Neeraj
-                                        </MenuItem>
-                                        <MenuItem>
-                                            Neeraj
-                                        </MenuItem>
-                                    </Menu>
+                                   
                                 </div>
 
                                 <div className='col-12 col-md-3'>
@@ -500,7 +484,7 @@ const VendorNamcom = () => {
                                                 {
                                                     vendortype.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     vendorType: item.name
@@ -532,7 +516,7 @@ const VendorNamcom = () => {
                                                 {
                                                     accountgroup.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     accountGroup: item.acctype
@@ -565,7 +549,7 @@ const VendorNamcom = () => {
                                                 {
                                                     gststate.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     gstState: item.name
@@ -596,7 +580,7 @@ const VendorNamcom = () => {
                                                 {
                                                     cstatus.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     status: item.stat
@@ -630,7 +614,7 @@ const VendorNamcom = () => {
                                                 {
                                                     salesemployee.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     salesPerson: item.name
@@ -658,7 +642,7 @@ const VendorNamcom = () => {
                                                 </div>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li onClick={() => {
+                                                <li className='dropdown-item' onClick={() => {
                                                     setcustomerform({
                                                         ...customerform,
                                                         category: "Hello"
@@ -686,7 +670,7 @@ const VendorNamcom = () => {
                                                 {
                                                     typegst.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     typeOfGst: item.name
@@ -714,7 +698,7 @@ const VendorNamcom = () => {
                                                 </div>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li onClick={() => {
+                                                <li className='dropdown-item' onClick={() => {
                                                     setcustomerform({
                                                         ...customerform,
                                                         alias: "Hlleo"
@@ -761,7 +745,7 @@ const VendorNamcom = () => {
                                                 </div>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li onClick={() => {
+                                                <li className='dropdown-item' onClick={() => {
                                                     setcustomerform({
                                                         ...customerform,
 
@@ -811,7 +795,7 @@ const VendorNamcom = () => {
                                 <div className='col-12 col-md-3'>
                                     <ThemeProvider theme={customTheme(outerTheme)}>
                                         <TextField
-                                            label="OPening balance"
+                                            label="Opening balance"
                                             variant='standard'
                                             value={customerform.openingBalance}
                                             onChange={(e) => {
@@ -841,7 +825,7 @@ const VendorNamcom = () => {
                                                 {
                                                     creditdebit.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     debitCredit: item.name
@@ -876,7 +860,7 @@ const VendorNamcom = () => {
                                                 {
                                                     routename.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     selectRouteName: item.name
@@ -927,7 +911,7 @@ const VendorNamcom = () => {
                                                 {
                                                     taxtype.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     taxType: item.name
@@ -968,7 +952,7 @@ const VendorNamcom = () => {
                                                 {
                                                     milkrate.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     milkrate: item.name
@@ -999,7 +983,7 @@ const VendorNamcom = () => {
                                                 {
                                                     product.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     byProductRate: item.name
@@ -1030,7 +1014,7 @@ const VendorNamcom = () => {
                                                 {
                                                     icecream.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     iceCreamRate: item.name
@@ -1061,7 +1045,7 @@ const VendorNamcom = () => {
                                                 {
                                                     otherate.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     otherRate: item.name
@@ -1335,15 +1319,15 @@ const VendorNamcom = () => {
                         </div>
 
                         <div className='mt-3'>
-                            <button className='bg-primary border border-none border-rounded text-white'>Customer data</button>
+                            <button onClick={()=>setshowtable(!showtable)} className='bg-primary border border-none border-rounded text-white'>Vendor data</button>
                         </div>
 
-                        <div className='col-12 mt-3 col-md-10' style={{ width: '100%', overflowX: 'scroll', height: '50vh', overflowY: 'scroll' }}>
+                     {  showtable? <div className='col-12 mt-3 col-md-10' style={{ width: '100%', overflowX: 'scroll', height: '50vh', overflowY: 'scroll' }}>
                             <table class="table border">
                                 <thead >
                                     <tr >
                                         <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Id</th>
-                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Customer Name</th>
+                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Vendor Name</th>
                                         <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Opening Balance</th>
                                         <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Debit/Credit</th>
                                         <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Gst No</th>
@@ -1388,7 +1372,8 @@ const VendorNamcom = () => {
                                     }
                                 </tbody>
                             </table>
-                        </div>
+                        </div>:null
+}
 
                         <div className='row'>
                             <div className='col-3 my-3'>

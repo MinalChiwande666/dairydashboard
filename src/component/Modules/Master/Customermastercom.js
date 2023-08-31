@@ -23,7 +23,7 @@ const Customermastercom = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [hide1, sethide1] = useState(false)
-    const [delid,setdelid] = useState()
+    const [delid, setdelid] = useState()
     const [hide2, sethide2] = useState(false)
     const [hide3, sethide3] = useState(false)
     const [hide4, sethide4] = useState(false)
@@ -312,9 +312,8 @@ const Customermastercom = () => {
         setloader(true)
         let data = await fetch('http://103.38.50.113:8080/DairyApp/getAllCustomerMasterData')
         let alldata = await data.json()
-        if(alldata)
-        {
-           setloader(false)
+        if (alldata) {
+            setloader(false)
             setcustomerdata(alldata)
         }
     }
@@ -325,62 +324,87 @@ const Customermastercom = () => {
         setAnchorEl(null);
         setopendailogdel(false)
     };
-  const dele = (id)=>{
-    setdelid(id)
-    setopendailogdel(true)
-  }
-  const handledel = ()=>{
-    let delobj = {
-        "id":delid
+    const dele = (id) => {
+        setdelid(id)
+        setopendailogdel(true)
     }
-    try{
+    const handledel = () => {
+        let delobj = {
+            "id": delid
+        }
+        try {
 
-        fetch('http://103.38.50.113:8080/DairyApp/deleteCustomerDataById',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify(delobj)
-        }).then((datadel)=>{
-            return datadel.json()
-        }).then((resdel)=>{
-            console.log(resdel)
-        })
-    }catch(e)
-    {
-        console.log(e,"Error")
+            fetch('http://103.38.50.113:8080/DairyApp/deleteCustomerDataById', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(delobj)
+            }).then((datadel) => {
+                return datadel.json()
+            }).then((resdel) => {
+                console.log(resdel)
+            })
+        } catch (e) {
+            console.log(e, "Error")
+        }
     }
-  }
-  const dailoge = () => {
-    return (
-        <>
-            <Dialog
+    const categories = [
+        {
+            id: 1,
+            name: 'New Customer'
+        },
+        {
+            id: 2,
+            name: 'Potential Customer'
+        },
+        {
+            id: 3,
+            name: 'Impulse customers'
+        },
+        {
+            id: 4,
+            name: 'Discount customers'
+        },
+        {
+            id: 5,
+            name: 'Angry customers'
+        },
+        {
+            id: 6,
+            name: 'Loyal customers'
+        }
+    ]
+    const dailoge = () => {
+        return (
+            <>
+                <Dialog
 
-                open={opendailogdel}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleClose}
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogActions style={{ height: '2rem' }}>
-                    <IconButton onClick={handleClose}>
-                        <CancelIcon style={{ color: 'blue' }} />
-                    </IconButton>
-                </DialogActions>
-                <div style={{ background: 'white' }}>
-
-                    <DialogTitle>
-                        Are You sure you want to delete?
-                    </DialogTitle>
-                    <DialogActions>
-                        <Button onClick={handledel}>Yes</Button>
-                        <Button onClick={handleClose}>No</Button>
+                    open={opendailogdel}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogActions style={{ height: '2rem' }}>
+                        <IconButton onClick={handleClose}>
+                            <CancelIcon style={{ color: 'blue' }} />
+                        </IconButton>
                     </DialogActions>
-                </div>
-            </Dialog>
-        </>
-    )
-}
+                    <div style={{ background: 'white' }}>
+
+                        <DialogTitle>
+                            Are You sure you want to delete?
+                        </DialogTitle>
+                        <DialogActions>
+                            <Button onClick={handledel}>Yes</Button>
+                            <Button onClick={handleClose}>No</Button>
+                        </DialogActions>
+                    </div>
+                </Dialog>
+            </>
+        )
+    }
     useEffect(() => {
         getcustomeralldata()
     }, [])
@@ -474,7 +498,7 @@ const Customermastercom = () => {
                                                 {
                                                     accountgroup.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     accountGroup: item.acctype
@@ -505,7 +529,7 @@ const Customermastercom = () => {
                                                 {
                                                     gststate.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     gstState: item.name
@@ -536,7 +560,7 @@ const Customermastercom = () => {
                                                 {
                                                     cstatus.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     status: item.stat
@@ -570,7 +594,7 @@ const Customermastercom = () => {
                                                 {
                                                     salesemployee.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     salesPerson: item.name
@@ -598,12 +622,16 @@ const Customermastercom = () => {
                                                 </div>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li onClick={() => {
-                                                    setcustomerform({
-                                                        ...customerform,
-                                                        category: "Hello"
-                                                    })
-                                                }}>hello</li>
+                                                {
+                                                    categories.map((item,i) => (
+                                                        <li className="dropdown-item" onClick={() => {
+                                                            setcustomerform({
+                                                                ...customerform,
+                                                                category: item.name
+                                                            })
+                                                        }}>{item.name}</li>
+                                                    ))
+                                                }
                                             </ul>
                                         </div>
                                     </div>
@@ -626,7 +654,7 @@ const Customermastercom = () => {
                                                 {
                                                     typegst.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     typeOfGst: item.name
@@ -654,7 +682,7 @@ const Customermastercom = () => {
                                                 </div>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li onClick={() => {
+                                                <li className="dropdown-item" onClick={() => {
                                                     setcustomerform({
                                                         ...customerform,
                                                         alias: "Hlleo"
@@ -701,7 +729,7 @@ const Customermastercom = () => {
                                                 </div>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li onClick={() => {
+                                                <li className="dropdown-item" onClick={() => {
                                                     setcustomerform({
                                                         ...customerform,
 
@@ -781,7 +809,7 @@ const Customermastercom = () => {
                                                 {
                                                     creditdebit.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     debitCredit: item.name
@@ -816,7 +844,7 @@ const Customermastercom = () => {
                                                 {
                                                     routename.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     selectRouteName: item.name
@@ -867,7 +895,7 @@ const Customermastercom = () => {
                                                 {
                                                     taxtype.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     taxType: item.name
@@ -908,7 +936,7 @@ const Customermastercom = () => {
                                                 {
                                                     milkrate.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     milkrate: item.name
@@ -939,7 +967,7 @@ const Customermastercom = () => {
                                                 {
                                                     product.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     byProductRate: item.name
@@ -970,7 +998,7 @@ const Customermastercom = () => {
                                                 {
                                                     icecream.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     iceCreamRate: item.name
@@ -1001,7 +1029,7 @@ const Customermastercom = () => {
                                                 {
                                                     otherate.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className="dropdown-item" onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     otherRate: item.name
@@ -1321,7 +1349,7 @@ const Customermastercom = () => {
                                                 <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.emailID}</td>
                                                 <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.dateofBirth}</td>
                                                 <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.selectRouteName}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}><DeleteIcon onClick={()=>dele(item.id)}/></td>
+                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}><DeleteIcon onClick={() => dele(item.id)} /></td>
                                             </tr>
                                         ))
 

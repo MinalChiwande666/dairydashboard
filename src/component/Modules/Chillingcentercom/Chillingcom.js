@@ -46,42 +46,44 @@ const Chillingcom = () => {
     const [vendor, setvendor] = useState('')
     const [updatecenterform, setupdatechilling] = useState({})
     const [chillingform, setchillingform] = useState({
-        inwordId: '',
-        date: '',
-        slr: '',
-        collectionType: '',
-        vendorName: '',
-        address: '',
-        mobileNo: '',
-        milkType: '',
-        itemName: '',
-        unit: '',
-        batch: '',
-        mbrt: '',
-        fat: '',
-        snf: '',
-        countingfactor: '',
-        warehouse: '',
-        temp: '',
-        rate: '',
-        transportRate: '0',
-        overCharge: '',
-        acidity: '',
-        weight: '',
-        inKg: '',
-        total: '',
-        remark: '',
-        supplierWeight: '',
-        vendorInvoiceDate: '',
-        sFat: '',
-        sSnf: '',
-        sAcidity: '',
-        sTemp: '',
-        vehicalName: '',
-        vehicalNo: '',
-        driverName: '',
-        driverNo: '',
-        dremark: ''
+        "inwordId": "",
+        "date": "",
+        "collectionType": "",
+        "vendorName": "",
+        "address": "",
+        "mobileNo": "",
+        "milkType": "",
+        "itemName": "",
+        "unit": "",
+        "batch": "",
+        "mbrt": "",
+        "fat": "",
+        "snf": "",
+        "warehouse": "",
+        "temp": "",
+        "rate": "",
+        "overCharge": "",
+        "acidity": "",
+        "weight": "",
+        "inKg": "",
+        "total": "",
+        "remark": "",
+        "supplierWeight": "",//set field
+        "vendorInvoiceDate": "",//set field
+        "vehicalName": "",
+        "vehicalNo": "",
+        "driverName": "",
+        "driverNo": "",
+        "dremark": "",
+        "clr": "",
+        "countingfactor": "",
+        "vendorcode": "",
+        "route": "",
+        "numberOfScan": "",//setfield
+        "drivercommission": "",
+        "fDate": null,
+        "tDate": null,
+        "entryBy": ""
     })
     const countingfactor = [
         {
@@ -274,46 +276,49 @@ const Chillingcom = () => {
         try {
 
             let newform = {
-                "inwordId": chillingform.inwordId,
-                "date": chillingform.date,
-                "collectionType": chillingform.collectionType,
-                "vendorName": chillingform.vendorName,
-                "address": chillingform.address,
-                "mobileNo": chillingform.mobileNo,
-                "milkType": chillingform.milkType,
-                "itemName": chillingform.itemName,
-                "unit": chillingform.unit,
-                "batch": chillingform.batch,
-                "mbrt": chillingform.mbrt,
-                "fat": chillingform.fat,
-                "clr": chillingform.slr,
-                "snf": "",
-                "warehouse": chillingform.warehouse,
-                "temp": chillingform.temp,
-                "rate": chillingform.rate,
-                "transportRate": chillingform.transportRate,
-                "overCharge": chillingform.overCharge,
-                "acidity": chillingform.acidity,
-                "weight": chillingform.weight,
-                "inKg": chillingform.inKg,
-                "total": " ",
-                "remark": chillingform.remark,
-                "supplierWeight": chillingform.supplierWeight,
-                "vendorInvoiceDate": chillingform.vendorInvoiceDate,
-                "sFat": chillingform.sFat,
-                "sSnf": chillingform.sSnf,
-                "sAcidity": chillingform.sAcidity,
-                "sTemp": chillingform.sTemp,
-                "vehicalName": chillingform.vehicalName,
-                "vehicalNo": chillingform.vehicalNo,
-                "driverName": chillingform.driverName,
-                "driverNo": chillingform.driverNo,
-                "dremark": chillingform.dremark
+                "inwordId": String(chillingform.inwordId),
+                "date": String(chillingform.date),
+                "collectionType": String(chillingform.collectionType),
+                "vendorName": String(chillingform.vendorName),
+                "address": String(chillingform.address),
+                "mobileNo": String(chillingform.mobileNo),
+                "milkType": String(chillingform.milkType),
+                "itemName": String(chillingform.itemName),
+                "unit": String(chillingform.unit),
+                "batch": String(chillingform.batch),
+                "mbrt": String(chillingform.mbrt),
+                "fat": String(chillingform.fat),
+                "snf": String(chillingform.snf),
+                "warehouse": String(chillingform.warehouse),
+                "temp": String(chillingform.temp),
+                "rate": String(chillingform.rate),
+                "overCharge": String(chillingform.overCharge),
+                "acidity": String(chillingform.acidity),
+                "weight": String(chillingform.weight),
+                "inKg": "",
+                "total": "",
+                "remark": String(chillingform.remark),
+                "supplierWeight": "",
+                "vendorInvoiceDate": String(chillingform.vendorInvoiceDate),
+                "vehicalName": String(chillingform.vehicalName),
+                "vehicalNo": String(chillingform.vehicalNo),
+                "driverName": String(chillingform.driverName),
+                "driverNo": String(chillingform.driverNo),
+                "dremark": String(chillingform.dremark),
+                "clr": String(chillingform.clr),
+                "countingfactor": String(chillingform.countingfactor),
+                "vendorcode": "",
+                "route": "",
+                "numberOfScan": "",
+                "drivercommission": "",
+                "fDate": null,
+                "tDate": null,
+                "entryBy": ""
             }
-            console.log(newform, "save form")
+            console.log("new form => ", newform)
             axios.post('http://103.38.50.113:8080/DairyApp/savePurchesInvoice', newform).then((data) => {
                 alert(data.data.message)
-                toast.success(`${data.data.message}`, {
+                let toatsuccessmsg = toast.success(`${data.data.message}`, {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -324,8 +329,11 @@ const Chillingcom = () => {
                     theme: "light",
                 })
                 console.log(data.data)
-                if (data.data) {
-                    getalldata()
+                if (toatsuccessmsg) {
+                    setTimeout(() => {
+                        getalldata()
+                    }, 5000)
+
                 }
 
             }).catch((e) => {
@@ -339,9 +347,7 @@ const Chillingcom = () => {
 
 
     const saveupdate = () => {
-
-        let updateform = {
-
+        let newform2 = {
             "id": String(updatecenterform.id),
             "inwordId": String(updatecenterform.inwordId),
             "date": String(updatecenterform.date),
@@ -349,40 +355,60 @@ const Chillingcom = () => {
             "vendorName": String(updatecenterform.vendorName),
             "address": String(updatecenterform.address),
             "mobileNo": String(updatecenterform.mobileNo),
-            "milkType": String(updatecenterform.milkType),
+            "milkType": String(updatecenterform.milktype),
             "itemName": String(updatecenterform.itemName),
             "unit": String(updatecenterform.unit),
             "batch": String(updatecenterform.batch),
             "mbrt": String(updatecenterform.mbrt),
             "fat": String(updatecenterform.fat),
-            "clr": String(updatecenterform.clr),
             "snf": "",
             "warehouse": String(updatecenterform.warehouse),
             "temp": String(updatecenterform.temp),
             "rate": String(updatecenterform.rate),
-            "transportRate": String(updatecenterform.transportRate),
             "overCharge": String(updatecenterform.overCharge),
             "acidity": String(updatecenterform.acidity),
             "weight": String(updatecenterform.weight),
-            "inKg": String(updatecenterform.inKg),
+            "inKg": "",
             "total": "",
             "remark": String(updatecenterform.remark),
             "supplierWeight": String(updatecenterform.supplierWeight),
             "vendorInvoiceDate": String(updatecenterform.vendorInvoiceDate),
-            "sFat": String(updatecenterform.sFat),
-            "sSnf": String(updatecenterform.sSnf),
-            "sAcidity": String(updatecenterform.sAcidity),
-            "sTemp": String(updatecenterform.sTemp),
             "vehicalName": String(updatecenterform.vehicalName),
             "vehicalNo": String(updatecenterform.vehicalNo),
             "driverName": String(updatecenterform.driverName),
             "driverNo": String(updatecenterform.driverNo),
-            "dremark": String(updatecenterform.dremark)
+            "dremark": String(updatecenterform.dremark),
+            "clr": String(updatecenterform.clr),
+            "countingfactor": String(updatecenterform.countingfactor),
+            "vendorcode": "ihgiu",
+            "route": "gf",
+            "numberOfScan": "uih",
+            "drivercommission": String(updatecenterform.drivercommission),
+            "fDate": null,
+            "tDate": null,
+            "entryBy": "prny"
         }
+      
 
-        axios.post('http://103.38.50.113:8080/DairyApp/savePurchesInvoice', updateform).then((data) => {
+        axios.post('http://103.38.50.113:8080/DairyApp/savePurchesInvoice', newform2).then((data) => {
+            let toatsuccessmsg = toast.success('Data Updated Succefully!!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
             console.log(data.data)
-            getalldata()
+            if (toatsuccessmsg) {
+                setTimeout(() => {
+                    getalldata()
+                }, 5000)
+
+            }
+            
         }).catch((e) => {
             console.log("Error => ", e)
         })
@@ -455,8 +481,102 @@ const Chillingcom = () => {
             },
         });
 
-    const print = () => {
-
+    const print = async () => {
+        //  const resp = await fetch('http://192.168.0.104:8080/printChillingCenter')
+        //  console.log(resp)
+        //  if(resp.redirected === false){
+        //     window.location.href = resp.url
+        //  }else
+        //  {
+        //     console.log("request was not redirected")
+        //  }
+    }
+    const clearfields = ()=>{
+        if(updateid!=="2")
+        {
+            setchillingform({
+                "inwordId": "",
+                "date": "",
+                "collectionType": "",
+                "vendorName": "",
+                "address": "",
+                "mobileNo": "",
+                "milkType": "",
+                "itemName": "",
+                "unit": "",
+                "batch": "",
+                "mbrt": "",
+                "fat": "",
+                "snf": "",
+                "warehouse": "",
+                "temp": "",
+                "rate": "",
+                "overCharge": "",
+                "acidity": "",
+                "weight": "",
+                "inKg": "",
+                "total": "",
+                "remark": "",
+                "supplierWeight": "",//set field
+                "vendorInvoiceDate": "",//set field
+                "vehicalName": "",
+                "vehicalNo": "",
+                "driverName": "",
+                "driverNo": "",
+                "dremark": "",
+                "clr": "",
+                "countingfactor": "",
+                "vendorcode": "",
+                "route": "",
+                "numberOfScan": "",//setfield
+                "drivercommission": "",
+                "fDate": null,
+                "tDate": null,
+                "entryBy": ""
+            })
+        }else
+        {
+            setupdatechilling({
+                "inwordId": "",
+                "date": "",
+                "collectionType": "",
+                "vendorName": "",
+                "address": "",
+                "mobileNo": "",
+                "milkType": "",
+                "itemName": "",
+                "unit": "",
+                "batch": "",
+                "mbrt": "",
+                "fat": "",
+                "snf": "",
+                "warehouse": "",
+                "temp": "",
+                "rate": "",
+                "overCharge": "",
+                "acidity": "",
+                "weight": "",
+                "inKg": "",
+                "total": "",
+                "remark": "",
+                "supplierWeight": "",//set field
+                "vendorInvoiceDate": "",//set field
+                "vehicalName": "",
+                "vehicalNo": "",
+                "driverName": "",
+                "driverNo": "",
+                "dremark": "",
+                "clr": "",
+                "countingfactor": "",
+                "vendorcode": "",
+                "route": "",
+                "numberOfScan": "",//setfield
+                "drivercommission": "",
+                "fDate": null,
+                "tDate": null,
+                "entryBy": ""
+            })
+        }
     }
     const obj = () => {
         console.log(vendorcode)
@@ -467,9 +587,9 @@ const Chillingcom = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(vendorcode)
-            }).then((data)=>{
+            }).then((data) => {
                 return data.json()
-            }).then((resp)=>{
+            }).then((resp) => {
                 console.log(resp.data)
                 setvendorobj(resp.data)
             })
@@ -479,14 +599,8 @@ const Chillingcom = () => {
     }
     useEffect(() => {
         obj()
-        console.log(vendorobj,"hello")
-        //  fetch('http://192.168.0.102:8080/findVendorMasterById',{
-        //     method:'POST',
-        //     headers:{
-        //         'Content-Type':'application/json'
-        //     },
-        //     body:JSON
-        //  })
+        console.log(vendorobj, "hello")
+       
     }, [vendorcode])
 
     return (
@@ -587,7 +701,7 @@ const Chillingcom = () => {
                                     <div className="dropdown">
                                         <button
                                             style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            className="btn bg-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             {updateid === "2" ? updatecenterform.collectionType :
                                                 (chillingform.collectionType === '' ? 'Select' : chillingform.collectionType)}
                                             <div className='dropdown-toggle'>
@@ -645,38 +759,51 @@ const Chillingcom = () => {
                             </div>
                             <div className='col-12 mt-1 col-md-3 col-sm-12'>
                                 <div>
+                                    Vendor Date
+                                </div>
+                                <div>
+                                    <input type='date' value={chillingform?.vendorInvoiceDate}
+                                        onChange={(e) => {
+                                            setchillingform({
+                                                ...chillingform,
+                                                vendorInvoiceDate: e.target.value
+                                            })
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
+                                <div>
                                     Vendor Name
                                 </div>
                                 <div>
                                     <div className="dropdown">
                                         <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.7rem' }}
-                                            className="btn bg-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.7rem' }}
+                                            className="btn bg-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             {updateid === "2" ? updatecenterform.vendorName : (chillingform.vendorName === '' ? 'Select' : chillingform.vendorName)}
                                             <div className='dropdown-toggle'>
 
                                             </div>
                                         </button>
                                         <ul className="dropdown-menu">
-                                          
-                                                <li 
-                                                onClick={()=>{
-                                                    if(!vendorobj.vendorName)
-                                                    {
+
+                                            <li
+                                                onClick={() => {
+                                                    if (!vendorobj.vendorName) {
                                                         setchillingform({
                                                             ...chillingform,
-                                                            vendorName:""
+                                                            vendorName: ""
                                                         })
-                                                    }else
-                                                    {
+                                                    } else {
                                                         setchillingform({
                                                             ...chillingform,
-                                                            vendorName:vendorobj.vendorName
+                                                            vendorName: vendorobj.vendorName
                                                         })
                                                     }
                                                 }}
-                                                className='dropdown-item'>{!vendorobj?"":vendorobj.vendorName}</li>
-                                           
+                                                className='dropdown-item'>{!vendorobj ? "" : vendorobj.vendorName}</li>
+
                                         </ul>
                                     </div>
                                 </div>
@@ -740,8 +867,8 @@ const Chillingcom = () => {
                                 <div>
                                     <div className="dropdown">
                                         <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.7rem' }}
-                                            className="btn bg-white " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.7rem' }}
+                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             {updateid === "2" ? updatecenterform.milkType : (chillingform.milkType === '' ? 'Select' : chillingform.milkType)}
                                             <div className='dropdown-toggle'>
 
@@ -784,8 +911,8 @@ const Chillingcom = () => {
                                 <div>
                                     <div className="dropdown">
                                         <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
+                                            className="btn bg-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             {updateid === "2" ? updatecenterform.itemName : (chillingform.itemName === '' ? 'Select' : chillingform.itemName)}
                                             <div className='dropdown-toggle'>
 
@@ -928,7 +1055,7 @@ const Chillingcom = () => {
                                 <ThemeProvider theme={customTheme(outerTheme)}>
                                     <TextField
                                         type='number'
-                                        value={updateid === "2" ? updatecenterform.clr : chillingform.slr}
+                                        value={updateid === "2" ? updatecenterform.clr : chillingform.clr}
                                         onChange={(e) => {
                                             // setslrcalc(e.target.value)
                                             if (e.target.value) {
@@ -938,7 +1065,7 @@ const Chillingcom = () => {
 
                                                 setchillingform({
                                                     ...chillingform,
-                                                    slr: e.target.value
+                                                    clr: e.target.value
                                                 })
                                             }
                                             else {
@@ -962,7 +1089,7 @@ const Chillingcom = () => {
                                 <div>
                                     <div className="dropdown">
                                         <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
+                                            style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
                                             className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             {chillingform.countingfactor === '' ? 'Select' : chillingform.countingfactor}
                                             <div className='dropdown-toggle'>
@@ -1027,8 +1154,8 @@ const Chillingcom = () => {
                                 <div>
                                     <div className="dropdown">
                                         <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.7rem' }}
-                                            className="btn bg-white " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.7rem' }}
+                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             {updateid === "2" ? updatecenterform.warehouse : (chillingform.warehouse === '' ? 'Select' : chillingform.warehouse)}
                                             <div className='dropdown-toggle'>
 
@@ -1478,6 +1605,56 @@ const Chillingcom = () => {
                             <div className='col-12 col-md-3 col-sm-12'>
                                 <ThemeProvider theme={customTheme(outerTheme)}>
                                     <TextField
+                                        value={updateid === "2" ? updatecenterform.supplierWeight : chillingform.supplierWeight}
+                                        onChange={(e) => {
+                                            if (updateid !== "2") {
+                                                setchillingform({
+                                                    ...chillingform,
+                                                    supplierWeight: e.target.value
+                                                })
+                                            } else {
+                                                setupdatechilling({
+                                                    ...updatecenterform,
+                                                    supplierWeight: e.target.value
+                                                })
+                                            }
+
+                                        }}
+                                        style={{ width: '95%' }}
+                                        label={'Supplier Weight'}
+                                        className='txtsize' variant="standard"
+                                    />
+                                </ThemeProvider>
+
+                            </div>
+                            <div className='col-12 col-md-3 col-sm-12'>
+                                <ThemeProvider theme={customTheme(outerTheme)}>
+                                    <TextField
+                                        value={updateid === "2" ? updatecenterform.supplierWeight : chillingform.supplierWeight}
+                                        onChange={(e) => {
+                                            if (updateid !== "2") {
+                                                setchillingform({
+                                                    ...chillingform,
+                                                    route: e.target.value
+                                                })
+                                            } else {
+                                                setupdatechilling({
+                                                    ...updatecenterform,
+                                                    route: e.target.value
+                                                })
+                                            }
+
+                                        }}
+                                        style={{ width: '95%' }}
+                                        label={'Route'}
+                                        className='txtsize' variant="standard"
+                                    />
+                                </ThemeProvider>
+
+                            </div>
+                            <div className='col-12 col-md-3 col-sm-12'>
+                                <ThemeProvider theme={customTheme(outerTheme)}>
+                                    <TextField
                                         value={updateid === "2" ? updatecenterform.vehicalName : chillingform.vehicalName}
                                         onChange={(e) => {
                                             if (updateid !== "2") {
@@ -1794,7 +1971,9 @@ const Chillingcom = () => {
                         <button
                             onClick={() => print()}
                             className='bg-primary border border-none text-white mx-3'>Print</button>
-                        <button className='bg-primary border border-none text-white mx-3'>Clear</button>
+                        <button
+                        onClick={()=>clearfields()}
+                        className='bg-primary border border-none text-white mx-3'>Clear</button>
                     </div>
                 </div>
             }

@@ -1,25 +1,25 @@
 import React from 'react'
 
 const Billtablecom = React.forwardRef((props, ref) => {
-    const { data, suppid } = props
+    const { data, suppid,tcode,fcode } = props
     return (
         <div style={{ width: '100vw', height: '50vh', overflowY: 'scroll' }}>
             <div style={{ width: '100vw', height: '50vh', overflowY: 'scroll' }}>
                 <table ref={ref} class="table">
                     <thead>
                         <tr>
-                            <th scope="col">code (Id)</th>
-                            <th scope="col">supplierId</th>
-                            <th scope="col">date</th>
-                            <th scope="col">shift</th>
-                            <th scope="col">MilkType</th>
-                            <th scope="col">qty</th>
-                            <th scope="col">fat(%)</th>
+                            <th  className='text-center' scope="col">code (Id)</th>
+                            <th className='text-center' scope="col">supplierId</th>
+                            <th className='text-center' scope="col">date</th>
+                            <th className='text-center' scope="col">shift</th>
+                            <th className='text-center' scope="col">MilkType</th>
+                            <th className='text-center' scope="col">qty</th>
+                            <th className='text-center' scope="col">fat(%)</th>
 
-                            <th scope="col">snf(%)</th>
-                            <th scope="col">Milkrate</th>
+                            <th className='text-center' scope="col">snf(%)</th>
+                            <th className='text-center' scope="col">Milkrate</th>
 
-                            <th scope="col">netAmount</th>
+                            <th className='text-center' scope="col">netAmount</th>
 
 
 
@@ -28,24 +28,24 @@ const Billtablecom = React.forwardRef((props, ref) => {
                         </tr>
                     </thead>{
                         data.filter((data) => {
-                            if (!suppid) {
+                            if (!tcode && !fcode) {
                                 return data
                             }
-                            else if (data.supplierId === suppid) {
+                            else if (data.supplierId >= fcode && data.supplierId<=tcode) {
                                 return data
                             }
                         }).map((item, i) => (
                             <tr>
-                                <td>{item.id}</td>
-                                <td>{item.supplier}</td>
-                                <td>{item.date}</td>
-                                <td>{item.shift}</td>
-                                <td>{item.milk}</td>
-                                <td>{item.qty}</td>
-                                <td>{item.fat}</td>
+                                <td  className='text-center'>{item.id}</td>
+                                <td className='text-center'>{item.supplier}</td>
+                                <td className='text-center'>{item.date}</td>
+                                <td className='text-center'>{item.shift}</td>
+                                <td className='text-center'>{item.milk}</td>
+                                <td className='text-center'>{item.qty}</td>
+                                <td className='text-center'>{item.fat}</td>
 
-                                <td>{item.snf}</td>
-                                <td>{item.milkRate}</td>
+                                <td className='text-center'>{item.snf}</td>
+                                <td className='text-center'>{item.milkRate}</td>
 
                                 <td>{item.netAmount}</td>
 

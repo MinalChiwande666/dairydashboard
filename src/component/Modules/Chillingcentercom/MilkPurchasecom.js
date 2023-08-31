@@ -4,6 +4,9 @@ import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 const MilkPurchasecom = () => {
   const [getalldata, setalldata] = useState([])
+  const [fatinp,setfatinp] = useState('')
+  const [snfinp,setsnfinp] = useState('')
+  const [milrate,setmilkrate] = useState()
   const [milkpurchaseform, setmilkpurchaseform] = useState({
     "supplier": "",
     "qty": "",
@@ -29,7 +32,7 @@ const MilkPurchasecom = () => {
       },
       body: JSON.stringify(milkpurchaseform)
     }).then((data) => {
-      return data.json()
+      return data
     }).then((resp) => {
       console.log(resp)
       alert(resp.message)
@@ -60,7 +63,29 @@ const MilkPurchasecom = () => {
 
   useEffect(() => {
     getallmilkpurchase()
-  }, [])
+    try{
+
+      if(fatinp && snfinp)
+      {
+  
+        fetch(`http://103.38.50.113:8080/DairyApp/getRate?fat=${fatinp}&snf=${snfinp}&milktype=cow`).then((data)=>{
+         return data.json()
+       }).then((resp)=>{
+         console.log(resp)
+         setmilkrate(resp)
+       }).catch((e)=>{
+        console.log(e)
+       })
+      }else
+      {
+        setmilkrate('')
+      }
+    }catch(e)
+    {
+      console.log(e)
+    }
+  }, [fatinp,snfinp])
+  console.log("milk rate =>",milrate)
   return (
     <div className='container-fluid'>
       <div className='row bg-primary'>
@@ -154,6 +179,7 @@ const MilkPurchasecom = () => {
                   type='text' /></td>
                 <td><input
                   onChange={(e) => {
+                    setfatinp(e.target.value)
                     setmilkpurchaseform({
                       ...milkpurchaseform,
                       fat: e.target.value
@@ -162,6 +188,7 @@ const MilkPurchasecom = () => {
                   type='text' /></td>
                 <td><input
                   onChange={(e) => {
+                    setsnfinp(e.target.value)
                     setmilkpurchaseform({
                       ...milkpurchaseform,
                       snf: e.target.value
@@ -195,13 +222,21 @@ const MilkPurchasecom = () => {
                   }}
                   type='text' /></td>
                 <td><input
-                  value={milkpurchaseform.milkRate}
+                  value={milrate===null || milrate === undefined ? milkpurchaseform.milkRate:milrate}
                   onChange={(e) => {
-                  
-                    setmilkpurchaseform({
-                      ...milkpurchaseform,
-                      milkRate: e.target.value
-                    })
+                     if(milrate === null || milrate === undefined)
+                     {
+                      setmilkpurchaseform({
+                        ...milkpurchaseform,
+                        milkRate:e.target.value
+                      })
+                     }else{
+
+                       setmilkpurchaseform({
+                         ...milkpurchaseform,
+                         milkRate: milrate
+                       })
+                     }
                   }}
                   type='text' /></td>
                 <td><input

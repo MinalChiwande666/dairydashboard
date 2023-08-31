@@ -82,9 +82,10 @@ const customTheme = (outerTheme) =>
 
 const Billgenerationcom = () => {
   const [geneartebill, setgeneartebill] = useState(false)
-  const [suppid,setsuppid] = useState(JSON.parse(localStorage.getItem('suppid')))
+  const [suppid, setsuppid] = useState(JSON.parse(localStorage.getItem('suppid')))
   const [selectmilktype, setselectmilktype] = useState('')
-
+  const [fcode,setfcode] = useState()
+  const [tcode,settcode] = useState()
   const [showTable, setshowtable] = useState(false)
   const [data, setdata] = useState([])
 
@@ -120,7 +121,7 @@ const Billgenerationcom = () => {
       name: 'Raw Milk'
     }
   ]
-  const billgenerate = React.forwardRef((ref,props)=>{
+  const billgenerate = React.forwardRef((ref, props) => {
     return (
       <h1>Hello</h1>
     )
@@ -138,9 +139,9 @@ const Billgenerationcom = () => {
   ]
 
   function getbillgenerationdata() {
-    fetch("http://103.38.50.113:8080/DairyApp/getAllMilkPurchase").then((res)=>{
-         return res.json()
-    }).then((data)=>{
+    fetch("http://103.38.50.113:8080/DairyApp/getAllMilkPurchase").then((res) => {
+      return res.json()
+    }).then((data) => {
       console.log(data)
       setdata(data)
     })
@@ -148,9 +149,9 @@ const Billgenerationcom = () => {
   }
   const componentRef = useRef()
 
- const handleprint = useReactToPrint({
-  content: () => componentRef.current,
- })
+  const handleprint = useReactToPrint({
+    content: () => componentRef.current,
+  })
 
   // const savedata = ()=>{
   //   console.log(form , "form =>")
@@ -182,7 +183,7 @@ const Billgenerationcom = () => {
 
 
       <div className='container-fluid'>
-        
+
         <div className='text-center' style={{ fontSize: '2rem' }}>Bill Generation</div>
 
         <div className='container' style={{ boxShadow: '10px 10px 10px 0px gray', padding: '0.5rem 0.9rem' }}>
@@ -191,7 +192,7 @@ const Billgenerationcom = () => {
             <div className='col-12 mt-3 col-md-3 col-sm-12'>
               <ThemeProvider theme={customTheme(outerTheme)}>
                 <TextField
-                  value={suppid}
+                  value={"hello"}
                   onChange={(e) => {
                     setform({
                       ...form,
@@ -202,8 +203,30 @@ const Billgenerationcom = () => {
                   label="Supplier ID" className='txtsize' variant="standard" />
               </ThemeProvider>
             </div>
-        
+            <div className='col-12 mt-3 col-md-3 col-sm-12'>
+              <ThemeProvider theme={customTheme(outerTheme)}>
+                <TextField
+                  value={fcode}
+                  onChange={(e) => {
+                   setfcode(e.target.value)
+                  }}
+                  style={{ width: '30%' }}
+                  label="from code" className='txtsize' variant="standard" />
+              </ThemeProvider>
+            </div>
 
+            <div className='col-12 mt-3 col-md-3 col-sm-12'>
+              <ThemeProvider theme={customTheme(outerTheme)}>
+                <TextField
+                  value={tcode}
+                  onChange={(e) => {
+                    settcode(e.target.value)
+                  }}
+                  style={{ width: '30%' }}
+                  label="to code" className='txtsize' variant="standard" />
+              </ThemeProvider>
+            </div>
+           
             <div className='col-12 mt-3 col-md-3 col-sm-12'>
               <ThemeProvider theme={customTheme(outerTheme)}>
                 <div>
@@ -239,12 +262,12 @@ const Billgenerationcom = () => {
 
           </div>
 
-          
 
 
 
-          <div className="row justify-content-center">
-            <div className='col-12 text-center bg-light mt-5 col-md-4'>
+
+          <div className="row">
+            <div className='col-12 bg-light mt-5 col-md-3'>
               <button
                 className='bg-primary border border-none border-radius-rounded text-white'
                 onClick={() => setshowtable(!showTable)}
@@ -253,7 +276,7 @@ const Billgenerationcom = () => {
               </button>
             </div>
 
-            <div className='col-12 text-center bg-light mt-5 col-md-4 '>
+            <div className='col-12 bg-light mt-5 col-md-3 '>
 
               <button
                 onClick={handleprint}
@@ -262,70 +285,9 @@ const Billgenerationcom = () => {
               </button>
             </div>
 
-            {/* {
-              showTable && 
-              <><div style={{ width: '100vw', height: '50vh', overflowY: 'scroll' }}>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">code (Id)</th>
-                      <th scope="col">supplierId</th>
-                      <th scope="col">date</th>
-                      <th scope="col">shift</th>
-                      <th scope="col">MilkType</th>
-                      <th scope="col">qty</th>
-                      <th scope="col">fat(%)</th>
-                     
-                      <th scope="col">snf(%)</th>
-                      <th scope="col">Milkrate</th>
-                    
-                      <th scope="col">netAmount</th>
 
+            <Billtablecom fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} data={data} setdata={setdata} />
 
-
-
-
-                    </tr>
-                  </thead> */}
-                  {/* {
-                    data.filter((data)=>{
-                      if(!suppid)
-                      {
-                        return data
-                      }
-                      else if(data.supplierId === suppid)
-                      {
-                        return data
-                      }
-                    }).map((item, i) => (
-                      <tr>
-                        <td>{item.id}</td>
-                        <td>{item.supplier}</td>
-                        <td>{item.date}</td>
-                        <td>{item.shift}</td>
-                        <td>{item.milk}</td>
-                        <td>{item.qty}</td>
-                        <td>{item.fat}</td>
-                     
-                        <td>{item.snf}</td>
-                        <td>{item.milkRate}</td>
-                      
-                        <td>{item.netAmount}</td>
-
-                      </tr>
-                    ))
-                  }
-                </table>
-              </div><div>
-
-                </div></>} */}
-                <Billtablecom ref={componentRef} suppid={suppid} data={data} setdata={setdata}/>
-            <div className='col-12 text-center bg-light mt-5 col-md-4 '>
-              <button
-                className='bg-primary border border-none border-radius-rounded text-white' >
-                Close
-              </button>
-            </div>
           </div>
 
 

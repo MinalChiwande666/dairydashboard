@@ -25,53 +25,54 @@ const Suppliercom = () => {
     const open = Boolean(anchorEl);
     const [hide1, sethide1] = useState(false)
     const [delid, setdelid] = useState()
+    const [tableshow,setdshowtable] = useState(false)
     const [hide2, sethide2] = useState(false)
     const [hide3, sethide3] = useState(false)
     const [hide4, sethide4] = useState(false)
     const [hide5, sethide5] = useState(false)
     const [customerform, setcustomerform] = useState({
-        "supplierName":"",
-        "grp":"",
-        "openingBalance":"",
-        "alias":"",
-        "gstNo":"",
-        "category":"",
-        "debitCredit":"",
-        "status":"",
-        "description":"",
-        "accountgrp":"",
-        "taxType":"",
-        "typeOfGst":"",
-        "emailID":"",
-        "mainLedger":"",
-        "address":"",
-        "area":"",
-        "taluka":"",
-        "district":"",
-        "city":"",
-        "pinCode":"",
-        "state":"",
-        "phoneNo":"",
-        "mobileNo":"",
-        "contactPerson":"",
-        "mobile":"",
-        "designation":"",
-        "eMail":"",
-        "dateofBirth":"",
-        "buyerName":"",
-        "creditDays":"",
-        "fssaiNo":"",
-        "creditLimit":"",
-        "panNo":"",
-        "interestCalculation":"",
-        "accountNo":"",
-        "bankName":"",
-        "branch":"",
-        "ifscNo":"",
-        "micrNo":"",
-        "address1":"",
-        "subLedgerName":" ",
-        "group1":""
+        "supplierName": "",
+        "grp": "",
+        "openingBalance": "",
+        "alias": "",
+        "gstNo": "",
+        "category": "",
+        "debitCredit": "",
+        "status": "",
+        "description": "",
+        "accountgrp": "",
+        "taxType": "",
+        "typeOfGst": "",
+        "emailID": "",
+        "mainLedger": "",
+        "address": "",
+        "area": "",
+        "taluka": "",
+        "district": "",
+        "city": "",
+        "pinCode": "",
+        "state": "",
+        "phoneNo": "",
+        "mobileNo": "",
+        "contactPerson": "",
+        "mobile": "",
+        "designation": "",
+        "eMail": "",
+        "dateofBirth": "",
+        "buyerName": "",
+        "creditDays": "",
+        "fssaiNo": "",
+        "creditLimit": "",
+        "panNo": "",
+        "interestCalculation": "",
+        "accountNo": "",
+        "bankName": "",
+        "branch": "",
+        "ifscNo": "",
+        "micrNo": "",
+        "address1": "",
+        "subLedgerName": " ",
+        "group1": ""
 
 
 
@@ -152,6 +153,20 @@ const Suppliercom = () => {
         {
             id: 2,
             name: 'pranay'
+        }
+    ]
+    const category = [
+        {
+            id: 1,
+            name: 'Manufacturer/Producers'
+        },
+        {
+            id: 2,
+            name: 'Distributors'
+        },
+        {
+            id: 3,
+            name: 'Importers'
         }
     ]
     const accountgroup = [
@@ -461,7 +476,7 @@ const Suppliercom = () => {
                                                 {
                                                     accountgroup.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     accountgrp: item.acctype
@@ -492,7 +507,7 @@ const Suppliercom = () => {
                                                 {
                                                     gststate.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     gstState: item.name
@@ -523,7 +538,7 @@ const Suppliercom = () => {
                                                 {
                                                     cstatus.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     status: item.stat
@@ -557,7 +572,7 @@ const Suppliercom = () => {
                                                 {
                                                     salesemployee.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     salesPerson: item.name
@@ -585,12 +600,16 @@ const Suppliercom = () => {
                                                 </div>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li onClick={() => {
-                                                    setcustomerform({
-                                                        ...customerform,
-                                                        category: "Hello"
-                                                    })
-                                                }}>hello</li>
+                                                {
+                                                    category.map((item,i) => (
+                                                        <li className='dropdown-item' onClick={() => {
+                                                            setcustomerform({
+                                                                ...customerform,
+                                                                category: item.name
+                                                            })
+                                                        }}>{item.name}</li>
+                                                    ))
+                                                }
                                             </ul>
                                         </div>
                                     </div>
@@ -613,7 +632,7 @@ const Suppliercom = () => {
                                                 {
                                                     typegst.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     typeOfGst: item.name
@@ -641,7 +660,7 @@ const Suppliercom = () => {
                                                 </div>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li onClick={() => {
+                                                <li className='dropdown-item' onClick={() => {
                                                     setcustomerform({
                                                         ...customerform,
                                                         alias: "Hlleo"
@@ -688,7 +707,7 @@ const Suppliercom = () => {
                                                 </div>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li onClick={() => {
+                                                <li className='dropdown-item' onClick={() => {
                                                     setcustomerform({
                                                         ...customerform,
 
@@ -768,7 +787,7 @@ const Suppliercom = () => {
                                                 {
                                                     creditdebit.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item'  onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     debitCredit: item.name
@@ -785,7 +804,7 @@ const Suppliercom = () => {
                             </div>
 
                             <div className='row mt-4'>
-                               
+
                                 <div className='col-12 col-md-3'>
                                     <ThemeProvider theme={customTheme(outerTheme)}>
                                         <TextField
@@ -824,7 +843,7 @@ const Suppliercom = () => {
                                                 {
                                                     taxtype.map((item, i) => (
                                                         <>
-                                                            <li onClick={() => {
+                                                            <li className='dropdown-item' onClick={() => {
                                                                 setcustomerform({
                                                                     ...customerform,
                                                                     taxType: item.name
@@ -968,10 +987,10 @@ const Suppliercom = () => {
                                         hide3 &&
                                         <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
                                             <table class="table ">
-                                               
+
                                                 <thead>
                                                     <tr>
-                                                      
+
                                                         <th scope="col">Buyer Name</th>
                                                         <th scope='col'>FSSAI No</th>
                                                         <th scope='col'>PAN No</th>
@@ -979,36 +998,36 @@ const Suppliercom = () => {
                                                         <th scope='col'>Credit Limit</th>
                                                         <th scope='col'>FSSAI Ed</th>
                                                         <th scope='col'>Intrest Calculation</th>
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
+
+
+
+
+
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        
+
                                                         <td>
-                                                            <div  className='dropdown'>
-                                                                <button  style={{fontSize:'0.8rem',width:'7vw'}}  className="btn bg-light d-flex align-items-center justify-content-between" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select
+                                                            <div className='dropdown'>
+                                                                <button style={{ fontSize: '0.8rem', width: '7vw' }} className="btn bg-light d-flex align-items-center justify-content-between" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select
                                                                     <div className='dropdown-toggle'>
 
                                                                     </div>
                                                                 </button>
                                                                 <ul className='dropdown-menu'>
-                                                                  <li>Hello</li>
+                                                                    <li>Hello</li>
                                                                 </ul>
                                                             </div>
                                                         </td>
-                                                        <td><input style={{width:'10vw'}} value={customerform.buyerName} onChange={(e) => setcustomerform({ ...customerform, buyerName: e.target.value })} type='text' /></td>
-                                                        <td><input style={{width:'10vw'}} value={customerform.fssaiNo} onChange={(e) => setcustomerform({ ...customerform, fssaiNo: e.target.value })} type='text' /></td>
-                                                        <td><input style={{width:'10vw'}} value={customerform.panNo} onChange={(e) => setcustomerform({ ...customerform, panNo: e.target.value })} type='text' /></td>
-                                                        <td><input style={{width:'10vw'}} value={customerform.creditDays} onChange={(e) => setcustomerform({ ...customerform, creditDays: e.target.value })} type='text' /></td>
-                                                        <td><input style={{width:'10vw'}} value={customerform.creditLimit} onChange={(e) => setcustomerform({ ...customerform, creditLimit: e.target.value })} type='text' /></td>
-                                                        <td><input style={{width:'10vw'}} value={customerform.fssaiED} onChange={(e) => setcustomerform({ ...customerform, fssaiED: e.target.value })} type='text' /></td>
-                                                        <td><input style={{width:'10vw'}} value={customerform.interestCalculation} onChange={(e) => setcustomerform({ ...customerform, interestCalculation: e.target.value })} type='text' /></td>
+                                                        <td><input style={{ width: '10vw' }} value={customerform.buyerName} onChange={(e) => setcustomerform({ ...customerform, buyerName: e.target.value })} type='text' /></td>
+                                                        <td><input style={{ width: '10vw' }} value={customerform.fssaiNo} onChange={(e) => setcustomerform({ ...customerform, fssaiNo: e.target.value })} type='text' /></td>
+                                                        <td><input style={{ width: '10vw' }} value={customerform.panNo} onChange={(e) => setcustomerform({ ...customerform, panNo: e.target.value })} type='text' /></td>
+                                                        <td><input style={{ width: '10vw' }} value={customerform.creditDays} onChange={(e) => setcustomerform({ ...customerform, creditDays: e.target.value })} type='text' /></td>
+                                                        <td><input style={{ width: '10vw' }} value={customerform.creditLimit} onChange={(e) => setcustomerform({ ...customerform, creditLimit: e.target.value })} type='text' /></td>
+                                                        <td><input style={{ width: '10vw' }} value={customerform.fssaiED} onChange={(e) => setcustomerform({ ...customerform, fssaiED: e.target.value })} type='text' /></td>
+                                                        <td><input style={{ width: '10vw' }} value={customerform.interestCalculation} onChange={(e) => setcustomerform({ ...customerform, interestCalculation: e.target.value })} type='text' /></td>
 
                                                     </tr>
 
@@ -1093,7 +1112,7 @@ const Suppliercom = () => {
                                                         <th scope="col">Sr No</th>
                                                         <th scope="col">Sub Ledger Name</th>
                                                         <th scope="col">Group</th>
-                                                        
+
 
                                                     </tr>
                                                 </thead>
@@ -1102,7 +1121,7 @@ const Suppliercom = () => {
                                                         <th scope="row">1</th>
                                                         <td><input value={customerform.subLedgerName} type='text' onChange={(e) => setcustomerform({ ...customerform, subLedgerName: e.target.value })} /></td>
                                                         <td><input value={customerform.grp} onChange={(e) => setcustomerform({ ...customerform, grp: e.target.value })} type='text' /></td>
-                                                        
+
 
                                                     </tr>
 
@@ -1117,10 +1136,12 @@ const Suppliercom = () => {
                         </div>
 
                         <div className='mt-3'>
-                            <button className='bg-primary border border-none border-rounded text-white'>Customer data</button>
+                            <button onClick={()=>setdshowtable(!tableshow)} className='bg-primary border border-none border-rounded text-white'>Customer data</button>
                         </div>
 
-                        <div className='col-12 mt-3 col-md-10' style={{ width: '100%', overflowX: 'scroll', height: '50vh', overflowY: 'scroll' }}>
+                      { 
+                      tableshow?
+                      <div className='col-12 mt-3 col-md-10' style={{ width: '100%', overflowX: 'scroll', height: '50vh', overflowY: 'scroll' }}>
                             <table class="table border">
                                 <thead >
                                     <tr >
@@ -1130,7 +1151,7 @@ const Suppliercom = () => {
                                         <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Gst No</th>
                                         <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Group</th>
                                         <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Category</th>
-                                        
+
                                         <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Status</th>
 
                                     </tr>
@@ -1145,14 +1166,15 @@ const Suppliercom = () => {
                                                 <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.grp}</td>
                                                 <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.category}</td>
                                                 <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.status}</td>
-                                              
+
                                             </tr>
                                         ))
 
                                     }
                                 </tbody>
                             </table>
-                        </div>
+                        </div>:null
+}
 
                         <div className='row'>
                             <div className='col-3 my-3'>
