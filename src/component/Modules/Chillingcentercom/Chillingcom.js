@@ -482,14 +482,14 @@ const Chillingcom = () => {
         });
 
     const print = async () => {
-        //  const resp = await fetch('http://192.168.0.104:8080/printChillingCenter')
-        //  console.log(resp)
-        //  if(resp.redirected === false){
-        //     window.location.href = resp.url
-        //  }else
-        //  {
-        //     console.log("request was not redirected")
-        //  }
+         const resp = await fetch('http://103.38.50.113:8080/DairyApp/printChillingCenter')
+         console.log(resp)
+         if(resp.redirected === false){
+            window.location.href = resp.url
+         }else
+         {
+            console.log("request was not redirected")
+         }
     }
     const clearfields = ()=>{
         if(updateid!=="2")
