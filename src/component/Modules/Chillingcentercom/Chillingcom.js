@@ -769,6 +769,7 @@ const Chillingcom = () => {
                                                 vendorInvoiceDate: e.target.value
                                             })
                                         }}
+                                        style={{width:'90%',padding: '0px', fontSize: '0.8rem'}}
                                     />
                                 </div>
                             </div>

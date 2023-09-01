@@ -133,13 +133,16 @@ export default function Sidebar({ toggle, state, setState }) {
                         <MenuItem
                             onClick={() => navigate('/chilingcenter')}
                         >
-                            Direct Milk Purchase
+                            Chilling Center
                         </MenuItem>
                         <MenuItem onClick={() => navigate('/milkchalan')}>
                             Milk Chalan
                         </MenuItem>
                         <MenuItem onClick={() => navigate('/milkpurchase')}>
                             Milk Purchase
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate('/farmerpassbook')}>
+                           Farmer Passbook
                         </MenuItem>
                         <MenuItem onClick={() => navigate('/milklist')}>
                             Milk List

@@ -84,32 +84,15 @@ const Billgenerationcom = () => {
   const [geneartebill, setgeneartebill] = useState(false)
   const [suppid, setsuppid] = useState(JSON.parse(localStorage.getItem('suppid')))
   const [selectmilktype, setselectmilktype] = useState('')
+  const [code,setcode] = useState('')
   const [fcode,setfcode] = useState()
   const [tcode,settcode] = useState()
   const [showTable, setshowtable] = useState(false)
   const [data, setdata] = useState([])
 
   const [form, setform] = useState({
-    "id": "",
-    "supplier": "",
-    "code": "",
-    "qty": "",
-    "fatRate": "",
-    "snfRate": "",
-    "fat": "",
-    "snf": "",
-    "milk": "",
-    "milkRate": "",
-    "netAmount": "",
-    "date": "",
-    "shift": "",
-    "Route": "",
-    "collector": "",
-    "fDate": "",
-    "tDate": "",
-    "fromCode": "",
-    "toCode": "",
-    "clr": ""
+    from:'',
+    to:''
   })
   const selectmilktypes = [
     {
@@ -153,24 +136,7 @@ const Billgenerationcom = () => {
     content: () => componentRef.current,
   })
 
-  // const savedata = ()=>{
-  //   console.log(form , "form =>")
-  //   fetch("http://localhost:8080/saveMilkPurchase",{
-  //     method:"POST",
-  //     headers:{
-  //       'content-Type':'application/json'
-  //     },
-  //     body:JSON.stringify(form)
-  //   }).then((fdata)=>{
-  //     return fdata.json()
-  //   }).then((getfdata)=>{
-  //     console.log(getfdata, "response from server...")
-  //     if(getfdata.message === 'data saved......|||')
-  //     {
-  //       getbillgenerationdata()
-  //     }
-  //   })
-  // }
+ 
 
 
   useEffect(() => {
@@ -192,14 +158,11 @@ const Billgenerationcom = () => {
             <div className='col-12 mt-3 col-md-3 col-sm-12'>
               <ThemeProvider theme={customTheme(outerTheme)}>
                 <TextField
-                  value={"hello"}
+                  value={code}
                   onChange={(e) => {
-                    setform({
-                      ...form,
-                      code: e.target.value
-                    })
+                   setcode(e.target.value)
                   }}
-                  style={{ width: '30%' }}
+                  style={{ width: '100%' }}
                   label="Supplier ID" className='txtsize' variant="standard" />
               </ThemeProvider>
             </div>
@@ -210,7 +173,7 @@ const Billgenerationcom = () => {
                   onChange={(e) => {
                    setfcode(e.target.value)
                   }}
-                  style={{ width: '30%' }}
+                  style={{ width: '100%' }}
                   label="from code" className='txtsize' variant="standard" />
               </ThemeProvider>
             </div>
@@ -222,7 +185,7 @@ const Billgenerationcom = () => {
                   onChange={(e) => {
                     settcode(e.target.value)
                   }}
-                  style={{ width: '30%' }}
+                  style={{ width: '100%' }}
                   label="to code" className='txtsize' variant="standard" />
               </ThemeProvider>
             </div>
@@ -237,10 +200,10 @@ const Billgenerationcom = () => {
                   onChange={(e) => {
                     setform({
                       ...form,
-                      fDate: e.target.value
+                      from: e.target.value
                     })
                   }}
-                  type='date' />
+                  type='date' style={{width:'100%'}} />
               </ThemeProvider>
             </div>
             <div className='col-12 mt-3 col-md-3 col-sm-12'>
@@ -253,10 +216,10 @@ const Billgenerationcom = () => {
                   onChange={(e) => {
                     setform({
                       ...form,
-                      tDate: e.target.value
+                      to: e.target.value
                     })
                   }}
-                  type='date' />
+                  type='date' style={{width:'100%'}} />
               </ThemeProvider>
             </div>
 
@@ -267,7 +230,7 @@ const Billgenerationcom = () => {
 
 
           <div className="row">
-            <div className='col-12 bg-light mt-5 col-md-3'>
+            <div className='col-12 bg-light my-3 col-md-1'>
               <button
                 className='bg-primary border border-none border-radius-rounded text-white'
                 onClick={() => setshowtable(!showTable)}
@@ -276,7 +239,7 @@ const Billgenerationcom = () => {
               </button>
             </div>
 
-            <div className='col-12 bg-light mt-5 col-md-3 '>
+            <div className='col-12 bg-light my-3 col-md-2 '>
 
               <button
                 onClick={handleprint}
@@ -286,7 +249,7 @@ const Billgenerationcom = () => {
             </div>
 
 
-            <Billtablecom fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} data={data} setdata={setdata} />
+            <Billtablecom code={code} fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} form={form} data={data} setdata={setdata} />
 
           </div>
 

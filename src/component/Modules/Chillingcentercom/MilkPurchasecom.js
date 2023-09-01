@@ -4,9 +4,9 @@ import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 const MilkPurchasecom = () => {
   const [getalldata, setalldata] = useState([])
-  const [fatinp,setfatinp] = useState('')
-  const [snfinp,setsnfinp] = useState('')
-  const [milrate,setmilkrate] = useState()
+  const [fatinp, setfatinp] = useState('')
+  const [snfinp, setsnfinp] = useState('')
+  const [milrate, setmilkrate] = useState()
   const [milkpurchaseform, setmilkpurchaseform] = useState({
     "supplier": "",
     "qty": "",
@@ -17,26 +17,44 @@ const MilkPurchasecom = () => {
     "netAmount": "",
     "date": "",
     "shift": "",
-    "collector": "",
-    "fDate": null,
-    "tDate": null,
-    "farmerId": 0,
-    "route": "hello"
+    "Route": "",
+    "collector": ""
   })
   const save = () => {
-    console.log(milkpurchaseform)
-    fetch('http://103.38.50.113:8080/DairyApp/saveMilkPurchase', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(milkpurchaseform)
-    }).then((data) => {
-      return data
-    }).then((resp) => {
-      console.log(resp)
-      alert(resp.message)
-    })
+    let newform = {
+      "supplier": String(milkpurchaseform.supplier),
+      "qty": String(milkpurchaseform.qty),
+      "fat": String(milkpurchaseform.fat),
+      "snf": String(milkpurchaseform.snf),
+      "milk": String(milkpurchaseform.milk),
+      "milkRate": String(milrate) || String(milkpurchaseform.milkRate),
+      "netAmount": String(milkpurchaseform.netAmount),
+      "date": String(milkpurchaseform.date),
+      "shift": String(milkpurchaseform.shift),
+      "Route": String(milkpurchaseform.Route),
+      "collector": String(milkpurchaseform.collector)
+    }
+    console.log(newform)
+    try {
+      fetch('http://103.38.50.113:8080/DairyApp/saveMilkPurchase', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newform)
+      }).then((data) => {
+        return data.json()
+      }).then((resp) => {
+        console.log(resp)
+        alert(resp.message)
+        window.location.reload()
+      }).catch((e)=>{
+        console.log(e,"Error")
+      })
+    } catch (e) {
+console.log(e,"Error")
+    }
+
   }
   const shift = [
     {
@@ -63,29 +81,26 @@ const MilkPurchasecom = () => {
 
   useEffect(() => {
     getallmilkpurchase()
-    try{
+    try {
 
-      if(fatinp && snfinp)
-      {
-  
-        fetch(`http://103.38.50.113:8080/DairyApp/getRate?fat=${fatinp}&snf=${snfinp}&milktype=cow`).then((data)=>{
-         return data.json()
-       }).then((resp)=>{
-         console.log(resp)
-         setmilkrate(resp)
-       }).catch((e)=>{
-        console.log(e)
-       })
-      }else
-      {
+      if (fatinp && snfinp) {
+
+        fetch(`http://103.38.50.113:8080/DairyApp/getRate?fat=${fatinp}&snf=${snfinp}&milktype=cow`).then((data) => {
+          return data.json()
+        }).then((resp) => {
+          console.log(resp)
+          setmilkrate(resp)
+        }).catch((e) => {
+          console.log(e)
+        })
+      } else {
         setmilkrate('')
       }
-    }catch(e)
-    {
+    } catch (e) {
       console.log(e)
     }
-  }, [fatinp,snfinp])
-  console.log("milk rate =>",milrate)
+  }, [fatinp, snfinp])
+  console.log("milk rate =>", milrate)
   return (
     <div className='container-fluid'>
       <div className='row bg-primary'>
@@ -195,7 +210,7 @@ const MilkPurchasecom = () => {
                     })
                   }}
                   type='text' /></td>
-                  <td><input
+                <td><input
                   onChange={(e) => {
                     setmilkpurchaseform({
                       ...milkpurchaseform,
@@ -203,50 +218,49 @@ const MilkPurchasecom = () => {
                     })
                   }}
                   type='text' /></td>
-                  <td><input
+                <td><input
                   onChange={(e) => {
                     setmilkpurchaseform({
                       ...milkpurchaseform,
-                      route: e.target.value
+                      Route: e.target.value
                     })
                   }}
                   type='text' /></td>
                 <td>
-                  
+
                   <input
+                    onChange={(e) => {
+                      setmilkpurchaseform({
+                        ...milkpurchaseform,
+                        milk: e.target.value
+                      })
+                    }}
+                    type='text' /></td>
+                <td><input
+                  value={milrate === null || milrate === undefined ? milkpurchaseform.milkRate : milrate}
+                  onChange={(e) => {
+                    if (milrate === null || milrate === undefined) {
+                      setmilkpurchaseform({
+                        ...milkpurchaseform,
+                        milkRate: e.target.value
+                      })
+                    } else {
+
+                      setmilkpurchaseform({
+                        ...milkpurchaseform,
+                        milkRate: milrate
+                      })
+                    }
+                  }}
+                  type='text' /></td>
+                <td><input
                   onChange={(e) => {
                     setmilkpurchaseform({
                       ...milkpurchaseform,
-                      milk: e.target.value
+                      netAmount: e.target.value
                     })
                   }}
                   type='text' /></td>
-                <td><input
-                  value={milrate===null || milrate === undefined ? milkpurchaseform.milkRate:milrate}
-                  onChange={(e) => {
-                     if(milrate === null || milrate === undefined)
-                     {
-                      setmilkpurchaseform({
-                        ...milkpurchaseform,
-                        milkRate:e.target.value
-                      })
-                     }else{
-
-                       setmilkpurchaseform({
-                         ...milkpurchaseform,
-                         milkRate: milrate
-                       })
-                     }
-                  }}
-                  type='text' /></td>
-                <td><input
-                onChange={(e)=>{
-                  setmilkpurchaseform({
-                    ...milkpurchaseform,
-                    netAmount:e.target.value
-                  })
-                }} 
-                type='text' /></td>
                 <td><button onClick={() => save()} className='bg-primary border border-none rounded text-white'>Save</button></td>
               </tr>
 
@@ -332,9 +346,9 @@ const MilkPurchasecom = () => {
                     <td>{item.netAmount}</td>
                     <td><IconButton><EditIcon /></IconButton></td>
                     <td><IconButton><DeleteIcon /></IconButton></td>
-                    <td><button className='bg-primary border border-none text-white rounded' onClick={()=>{
+                    <td><button className='bg-primary border border-none text-white rounded' onClick={() => {
                       alert(item.supplierId)
-                      localStorage.setItem('suppid',JSON.stringify(item.supplierId))
+                      localStorage.setItem('suppid', JSON.stringify(item.supplierId))
                     }}>Generate bill</button></td>
                   </tr>
                 ))

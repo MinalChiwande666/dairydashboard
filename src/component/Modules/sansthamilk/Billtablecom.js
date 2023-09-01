@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Billtablecom = React.forwardRef((props, ref) => {
-    const { data, suppid,tcode,fcode } = props
+    const { data, suppid,tcode,fcode,form,code } = props
+    
+
+   
     return (
         <div style={{ width: '100vw', height: '50vh', overflowY: 'scroll' }}>
             <div style={{ width: '100vw', height: '50vh', overflowY: 'scroll' }}>
-                <table ref={ref} class="table">
+                <table ref={ref} class="table table-bordered">
                     <thead>
                         <tr>
                             <th  className='text-center' scope="col">code (Id)</th>
@@ -26,14 +29,20 @@ const Billtablecom = React.forwardRef((props, ref) => {
 
 
                         </tr>
-                    </thead>{
+                    </thead>
+                    <tbody>
+                    {
                         data.filter((data) => {
-                            if (!tcode && !fcode) {
+                            
+                            if ((!form.from && !form.to) ) {
                                 return data
                             }
-                            else if (data.supplierId >= fcode && data.supplierId<=tcode) {
+                            else if ((data.date >= form.from && data.date <= form.to) || (data.supplierId>=Number(fcode) && data.supplierId <= Number(tcode)) || (data.supplierId === Number(code)))  {
                                 return data
                             }
+                            
+                          
+                          
                         }).map((item, i) => (
                             <tr>
                                 <td  className='text-center'>{item.id}</td>
@@ -52,6 +61,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
                             </tr>
                         ))
                     }
+                    </tbody>
                 </table>
             </div><div>
 

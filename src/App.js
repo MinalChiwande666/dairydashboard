@@ -37,6 +37,7 @@ import VehicleQCReport from './pages/Modules/BulkMilkModule/PurchaseBulkMilkEntr
 import RPTBulkMilkReportCom from './component/Modules/BulkMilkModule/BulkCustomized/RPTBulkMilkReportCom'
 import RPTBulkMilkReport from './pages/Modules/BulkMilkModule/BulkCustomize/RPTBulkMilkReport'
 import Vendorname from './pages/Modules/MasterModule/maimaster/Vendorname'
+import FarmerPassbook from './pages/Modules/Chillingcenter/MIlkpurchase/FarmerPassbook'
 
 const App = () => {
   const useractive = JSON.parse(localStorage.getItem('username'))
@@ -74,6 +75,7 @@ const App = () => {
           <Route path='/purratecontractmaster' element={<><PurRateContractMaster /></>} />
           <Route path='/vehicleentry' element={<><VehicleEntry /></>} />
           <Route path='/vehicleqcentry' element={<><VehicleQCEntry /></>} />
+          <Route path='/farmerpassbook' element={<><FarmerPassbook/></>}/>
           <Route path='/vehicleqcapproval' element={<><VehicleQCApproval /></>} />
           <Route path='/milkgrn' element={<><MilkGRN /></>} />
           <Route path='/milkgrntopurchase' element={<><MilkGRNtoPurchase /></>} />
