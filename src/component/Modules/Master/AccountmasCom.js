@@ -121,7 +121,7 @@ const AccountmasCom = () => {
       mainLegger: accountform.mainLegger,
       isCostCenterAllocated: costecenter
     }
-    axios.post('http://192.168.0.123:8080/saveAccountMaster', newform).then((data) => {
+    axios.post('http://103.38.50.113:8080/DairyApp/saveAccountMaster', newform).then((data) => {
       alert(data.data.message)
       if (data.status === 200) {
         setaccountform({
@@ -222,6 +222,32 @@ const AccountmasCom = () => {
       name: 'Misc Expenses(Assets)'
     }
   ]
+  const print = async()=>{
+    alert("hello")
+    const resp = await fetch('http://103.38.50.113:8080/DairyApp/print')
+    console.log(resp)
+    if(resp.redirected === false){
+       window.location.href = resp.url
+    }else
+    {
+       console.log("request was not redirected")
+    }
+  }
+  const clear = ()=>{
+    setaccountform({
+      accountName: '',
+      openingBalance: '',
+      panCardNo: '',
+      accountType: '',
+      accountGroup: '',
+      openingType: '',
+      aadharcardNo: '',
+      status: '',
+      gstNo: '',
+      mainLegger: '',
+      isCostCenterAllocated: ''
+    })
+  }
   const outerTheme = useTheme();
   return (
     <div className='container-fluid' >
@@ -585,10 +611,13 @@ const AccountmasCom = () => {
               className='bg-primary border border-none border-radius-rounded text-white'>
               Save
             </button>
-            <button className='bg-primary border border-none border-radius-rounded text-white'>
+            <button 
+            
+            onClick={()=>print()}
+            className='bg-primary border border-none border-radius-rounded text-white'>
               Print
             </button>
-            <button className='bg-primary border border-none border-radius-rounded text-white'>
+            <button onClick={()=>clear()} className='bg-primary border border-none border-radius-rounded text-white'>
               Clear
             </button>
           </div>

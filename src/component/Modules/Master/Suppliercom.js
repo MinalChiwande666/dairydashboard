@@ -335,20 +335,26 @@ const Suppliercom = () => {
     }
     const handledel = () => {
         let delobj = {
-            "id": delid
+            "id": String(delid)
         }
+        console.log(delobj)
         try {
 
-            fetch('http://103.38.50.113:8080/DairyApp/deleteCustomerDataById', {
+            fetch('http://103.38.50.113:8080/DairyApp/deleteSupplierDataById', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(delobj)
             }).then((datadel) => {
-                return datadel.json()
+                return datadel
             }).then((resdel) => {
                 console.log(resdel)
+                if(resdel)
+                {
+                    setopendailogdel(false)
+                    getcustomeralldata()
+                }
             })
         } catch (e) {
             console.log(e, "Error")
@@ -1136,7 +1142,7 @@ const Suppliercom = () => {
                         </div>
 
                         <div className='mt-3'>
-                            <button onClick={()=>setdshowtable(!tableshow)} className='bg-primary border border-none border-rounded text-white'>Customer data</button>
+                            <button onClick={()=>setdshowtable(!tableshow)} className='bg-primary border border-none border-rounded text-white'>Supplier data</button>
                         </div>
 
                       { 
@@ -1153,6 +1159,7 @@ const Suppliercom = () => {
                                         <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Category</th>
 
                                         <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Status</th>
+                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Delete</th>
 
                                     </tr>
                                 </thead>
@@ -1166,7 +1173,9 @@ const Suppliercom = () => {
                                                 <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.grp}</td>
                                                 <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.category}</td>
                                                 <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.status}</td>
-
+                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}><IconButton onClick={()=>dele(item.id)}>
+                                                    <DeleteIcon/>
+                                                    </IconButton></td>
                                             </tr>
                                         ))
 

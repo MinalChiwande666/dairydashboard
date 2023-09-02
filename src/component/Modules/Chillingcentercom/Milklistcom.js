@@ -83,8 +83,7 @@ const Milklistcom = () => {
             window.location.reload()
         })
     }
-    let snfrange = [{ snff: '1-1.4', from: 1, to: 1.4 }]
-    let fatrange = [{ fatf: '1-1.4', from: 1, to: 1.4 }]
+
 
 
 
@@ -147,14 +146,18 @@ const Milklistcom = () => {
        )
     }
     const handleupdfatchange = (itemID,newval)=>{
-    //  setsnffatdata((prev)=>
-    //  prev.map((item)=>
-     
-    //  )
-    //  )
+     setsnffatdata((prev)=>
+     prev.map((item)=>
+      item.id === itemID?{...item,fat:newval}:item
+     )
+     )
     }
-    const handleupdchange = ()=>{
-
+    const handleupdchange = (itemID,newval)=>{
+        setsnffatdata((prev)=>
+        prev.map((item)=>
+         item.id === itemID?{...item,rate:newval}:item
+        )
+        )
     }
     console.log("snffat=>", fatsnf)
     console.log("entries =>", entries)
@@ -247,44 +250,7 @@ const Milklistcom = () => {
             </div>
 
             <div className='container'>
-                <div className='row'>
-                    <div className='col-6 col-md-3'>
-                        <div>
-                            SNF start range
-                        </div>
-                        <div>
-                            <input value={ssnf} onChange={(e) => setssnf(e.target.value)} type='text' />
-                        </div>
-                    </div>
-                    <div className='col-6 col-md-3'>
-                        <div>
-                            SNF end range
-                        </div>
-                        <div>
-                            <input value={esnf} onChange={(e) => setesnf(e.target.value)} type='text' />
-                        </div>
-                    </div>
-                </div>
-
-                <div className='row'>
-                    <div className='col-6 col-md-3'>
-                        <div>
-                            FAT start range
-                        </div>
-                        <div>
-                            <input type='text' />
-                        </div>
-                    </div>
-                    <div className='col-6 col-md-3'>
-                        <div>
-                            FAT end range
-                        </div>
-                        <div>
-                            <input type='text' />
-                        </div>
-                    </div>
-                </div>
-
+              
                 <div style={{ width: '80vw', overflowX: 'scroll' }}>
                     {snffatdata.length === 0 ? <table class="table table-bordered">
                         <thead className='table-primary'>

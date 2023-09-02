@@ -23,6 +23,7 @@ const Customermastercom = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [hide1, sethide1] = useState(false)
+    const [showtable,setshowtable] = useState(false)
     const [delid, setdelid] = useState()
     const [hide2, sethide2] = useState(false)
     const [hide3, sethide3] = useState(false)
@@ -779,7 +780,7 @@ const Customermastercom = () => {
                                 <div className='col-12 col-md-3'>
                                     <ThemeProvider theme={customTheme(outerTheme)}>
                                         <TextField
-                                            label="OPening balance"
+                                            label="Opening balance"
                                             variant='standard'
                                             value={customerform.openingBalance}
                                             onChange={(e) => {
@@ -1180,8 +1181,7 @@ const Customermastercom = () => {
                                                         <th scope='col'>FSSAI No</th>
                                                         <th scope='col'>Credit Limit</th>
                                                         <th scope='col'>Security Check</th>
-                                                        <th scope='col'>FSSAI Ed</th>
-
+                      
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1303,10 +1303,11 @@ const Customermastercom = () => {
                         </div>
 
                         <div className='mt-3'>
-                            <button className='bg-primary border border-none border-rounded text-white'>Customer data</button>
+                            <button onClick={()=>setshowtable(!showtable)} className='bg-primary border border-none border-rounded text-white'>Customer data</button>
                         </div>
 
-                        <div className='col-12 mt-3 col-md-10' style={{ width: '100%', overflowX: 'scroll', height: '50vh', overflowY: 'scroll' }}>
+                       
+                       {showtable?<div className='col-12 mt-3 col-md-10' style={{ width: '100%', overflowX: 'scroll', height: '50vh', overflowY: 'scroll' }}>
                             <table class="table border">
                                 <thead >
                                     <tr >
@@ -1330,7 +1331,8 @@ const Customermastercom = () => {
                                     </tr>
                                 </thead>
                                 <tbody className='border'>
-                                    {
+                                    
+                                       {
                                         customerdata.map((item, i) => (
                                             <tr>
                                                 <th scope="row">{item.id}</th>
@@ -1352,11 +1354,11 @@ const Customermastercom = () => {
                                                 <td className='border border-left' style={{ fontSize: '0.7rem' }}><DeleteIcon onClick={() => dele(item.id)} /></td>
                                             </tr>
                                         ))
-
-                                    }
+                                        
+                                        } 
                                 </tbody>
                             </table>
-                        </div>
+                        </div>:null}
 
                         <div className='row'>
                             <div className='col-3 my-3'>

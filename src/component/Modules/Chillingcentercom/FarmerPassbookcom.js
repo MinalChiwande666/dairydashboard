@@ -131,7 +131,7 @@ const componentref = useRef()
       <div className='container farmerPassbook '>
         <hr></hr>
         <div className='row justify-content-center'>
-          <div className='col-12 mt-1 col-md-4 col-sm-12'>
+          <div className='col-12 mt-2 col-md-4 col-sm-12'>
             <div>
               <ThemeProvider theme={customTheme(outerTheme)}>
                 <TextField

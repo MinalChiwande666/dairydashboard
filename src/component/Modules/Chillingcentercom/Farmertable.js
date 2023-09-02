@@ -2,7 +2,7 @@ import React from 'react'
 
 const Farmertable = React.forwardRef((props,ref) => {
     const {allusers,dates,sid} = props
-   
+    
   return (
     <><div  style={{ height: '50vh', overflowY: 'scroll' }}>
               <table ref={ref} class="table table-bordered table-hover">
@@ -25,12 +25,13 @@ const Farmertable = React.forwardRef((props,ref) => {
                 <tbody style={{ height: '50vh', overflowY: 'auto' }}>
                   {
                     allusers.filter((da) => {
-                      if (!dates.fdate && !dates.tdate) {
+                      if ((!da.supplierId===sid.sid)||(!dates.fdate && !dates.tdate)) {
                         return da
                       }
-                      else if ((da.id === sid.sid) || (da.date >= dates.fdate && da.date <= dates.tdate)) {
+                      else if ((da.supplierId === sid.sid)||(!dates.fdate && !dates.tdate)) {
                         return da
                       }
+                     
 
                     }).map((item, i) => (
                       <tr>
