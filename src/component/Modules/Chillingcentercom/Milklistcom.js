@@ -1,15 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { SpreadSheets, Worksheet, Column } from '@grapecity/spread-sheets-react';
 import GC from '@grapecity/spread-sheets';
+import Textinputcom from './Textinputcom';
+import Snfcom from './Snfcom';
+import Fatinp from './Fatinp';
+import Textinputcom2 from './Textinputcom2';
+import Fatinp2 from './Fatinp2';
+import Snfinp from './Snfinp';
 const Milklistcom = () => {
     const [milk, setmilk] = useState('')
     const [gettype, settype] = useState('')
-    const [ssnf,setssnf] = useState()
-    const [esnf,setesnf] = useState()
+    const [miltype, setmilktype] = useState('')
+    const [basis, setbasis] = useState('')
+    const [ssnf, setssnf] = useState()
+    const [esnf, setesnf] = useState()
     const [snfra, setsnfra] = useState({})
     const [snffatdata, setsnffatdata] = useState([])
     const [code, setcode] = useState()
+    const [listarr, setlistarr] = useState([])
     const [fatra, setfatra] = useState({})
+    const [entries, setentries] = useState([])
+    const [fatsnf, setfatsnf] = useState([
+        {
+            id: 1,
+            snf: '',
+            fat: '',
+            rate: ''
+        }
+    ])
     const milktype = [
         {
             id: 1,
@@ -46,6 +64,7 @@ const Milklistcom = () => {
         },
 
     )
+
     const deletetable = () => {
         console.log(code)
         fetch(`http://103.38.50.113:8080/DairyApp/deleteMilkRateByListNo?listNo=${code}`, {
@@ -67,16 +86,78 @@ const Milklistcom = () => {
     let snfrange = [{ snff: '1-1.4', from: 1, to: 1.4 }]
     let fatrange = [{ fatf: '1-1.4', from: 1, to: 1.4 }]
 
+
+
     useEffect(() => {
-        console.log(snffat.snf.length)
-        console.log(snfra)
-        console.log("start snf",ssnf)
-        console.log("end snf",esnf)
-
-    }, [snfra,ssnf,esnf])
 
 
+    }, [])
 
+    const save = () => {
+        let obj = {
+            milktype: milk,
+            onThebasic: gettype,
+            entries: entries
+        }
+        console.log(obj)
+        try {
+            fetch('http://103.38.50.113:8080/DairyApp/saveMilkRates', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj)
+            }).then((data) => {
+                return data
+            }).then((resp) => {
+                console.log(resp)
+            })
+        } catch (e) {
+            console.log("Error", e)
+        }
+
+    }
+
+    const handlechange = (itemId, newval) => {
+        setfatsnf((prev) =>
+            prev.map((item) =>
+                itemId === item.id ? { ...item, rate: newval } : item
+            )
+        )
+    }
+    const handlesnfchange = (itemID, newval) => {
+        setfatsnf((prev) =>
+            prev.map((item) =>
+                itemID === item.id ? { ...item, snf: newval } : item
+            )
+        )
+    }
+    const handlefatchange = (itemID, newval) => {
+        setfatsnf((prev) =>
+            prev.map((item) =>
+                itemID === item.id ? { ...item, fat: newval } : item
+            )
+        )
+    }
+    const handleupdsnfchange = (itemID,newval)=>{
+       setsnffatdata((prev)=>
+       prev.map((item)=>
+       itemID === item.id ? {...item,snf:newval}:item
+       )
+       )
+    }
+    const handleupdfatchange = (itemID,newval)=>{
+    //  setsnffatdata((prev)=>
+    //  prev.map((item)=>
+     
+    //  )
+    //  )
+    }
+    const handleupdchange = ()=>{
+
+    }
+    console.log("snffat=>", fatsnf)
+    console.log("entries =>", entries)
     return (
         <div className='container-fluid'>
             <div className='row'>
@@ -172,7 +253,7 @@ const Milklistcom = () => {
                             SNF start range
                         </div>
                         <div>
-                            <input value={ssnf} onChange={(e)=>setssnf(e.target.value)} type='text' />
+                            <input value={ssnf} onChange={(e) => setssnf(e.target.value)} type='text' />
                         </div>
                     </div>
                     <div className='col-6 col-md-3'>
@@ -180,7 +261,7 @@ const Milklistcom = () => {
                             SNF end range
                         </div>
                         <div>
-                            <input value={esnf} onChange={(e)=>setesnf(e.target.value)} type='text' />
+                            <input value={esnf} onChange={(e) => setesnf(e.target.value)} type='text' />
                         </div>
                     </div>
                 </div>
@@ -208,73 +289,39 @@ const Milklistcom = () => {
                     {snffatdata.length === 0 ? <table class="table table-bordered">
                         <thead className='table-primary'>
                             <tr >
-                                <th scope="col">{'FAT/SNF'}</th>
-                                {
-                                    snffat.snf.filter((ta, i) => {
-                                        let k;
-                                        let l;
-                                        if (!snfra.from && !snfra.to) {
-                                            return ta
-                                        }
-                                        else if (ta.sn >= ssnf && ta.sn <= esnf) {
-                                            return ta
-                                        }
-
-
-                                    }).map((item, i) => (
-                                        <th>{item.sn}</th>
-                                    ))
-                                }
-
+                                <th>SNF</th>
+                                <th>FAT</th>
+                                <th>RATE</th>
+                                <th>Add</th>
                             </tr>
                         </thead>
                         <tbody>
+
                             {
-                                snffat.fat.filter((fa, i) => {
-                                    if (!fatra.from && !fatra.to) {
-                                        return fa
-                                    } else if (fa.sn >= fatra.from && fa.sn <= fatra.to) {
-                                        return fa
-                                    }
-                                }).map((item, i) => (
+                                fatsnf.map((item, i) => (
+
                                     <tr>
-                                        <td>{item.sn}</td>
+                                        <td>
+                                            <Snfcom item={item} onChange={handlesnfchange} />
+                                        </td>
+                                        <td>
+                                            <Fatinp item={item} onChange={handlefatchange} />
+                                        </td>
+                                        <td>
+                                            <Textinputcom item={item} onChange={handlechange} />
 
 
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-                                        <td><input value={item.input} style={{ width: '7vw', border: 'none', outline: 'none' }} type='text' /></td>
-
-
+                                        </td>
+                                        <td>
+                                            <button onClick={() => {
+                                                let newobj = {
+                                                    fat: parseFloat(item.fat),
+                                                    snf: parseFloat(item.snf),
+                                                    rate: parseFloat(item.rate)
+                                                }
+                                                setentries([...entries, newobj])
+                                            }}>Add</button>
+                                        </td>
                                     </tr>
                                 ))
                             }
@@ -283,41 +330,40 @@ const Milklistcom = () => {
                         <table class="table table-bordered">
                             <thead className='table-primary'>
                                 <tr>
-                                    <th scope="col">{'FAT/SNF'}</th>
-                                    {
-                                        snffatdata.map((snfda, i) => (
-                                            <>
-                                                <th>{snfda.snf}</th>
-                                            </>
-                                        ))
-                                    }
+                                    <th>SNF</th>
+                                    <th>FAT</th>
+                                    <th>RATE</th>
+                                    <th>ADD</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    snffatdata.map((fatdata, i) => {
-                                        let loop = fatdata.rate
-                                        let emarr = []
-                                        emarr.push(...emarr, fatdata.rate)
-                                        console.log(emarr)
-                                        return (
-                                            <tr>
-                                                <td>{fatdata.fat}</td>
-                                                <td>
-                                                    <input type='text' value={snffatdata[0].rate} />
-                                                </td>
-                                                <td>
-                                                    <input type='text' value={snffatdata[0].rate} />
-                                                </td>
-                                                <td>
-                                                    <input type='text' value={snffatdata[0].rate} />
-                                                </td>
-                                                <td>
-                                                    <input type='text' value={snffatdata[0].rate} />
-                                                </td>
-                                            </tr>
-                                        )
-                                    })
+                                    snffatdata.map((fatdata, i) => (
+                                        <tr>
+                                            <td>
+                                            <Snfinp item={fatdata} onChange={handleupdsnfchange} />
+                                        </td>
+                                        <td>
+                                            <Fatinp2 item={fatdata} onChange={handleupdfatchange} />
+                                        </td>
+                                        <td>
+                                            <Textinputcom2 item={fatdata} onChange={handleupdchange} />
+
+
+                                        </td>
+                                            <td>
+                                                <button onClick={() => {
+                                                    let newobj = {
+                                                        fat: parseFloat(fatdata.fat),
+                                                        snf: parseFloat(fatdata.snf),
+                                                        rate: parseFloat(fatdata.rate)
+                                                    }
+                                                    setentries([...entries, newobj])
+                                                }}>Add</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                    )
                                 }
                             </tbody>
                         </table>
@@ -337,7 +383,9 @@ const Milklistcom = () => {
                 <button className='bg-light border border-none '>Settings</button>
               </div> */}
                     <div className='col-1 col-md-1'>
-                        <button className='bg-light border border-none px-2'>Save</button>
+                        <button
+                            onClick={() => save()}
+                            className='bg-light border border-none px-2'>Save</button>
                     </div>
                     <div className='col-1 col-md-1'>
                         <button className='bg-light border border-none px-2'>clear</button>
