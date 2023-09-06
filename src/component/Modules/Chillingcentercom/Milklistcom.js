@@ -12,7 +12,9 @@ const Milklistcom = () => {
     const [gettype, settype] = useState('')
     const [miltype, setmilktype] = useState('')
     const [basis, setbasis] = useState('')
+    const [listno,setlistno] = useState('')
     const [ssnf, setssnf] = useState()
+    const [listnos, setlistnos] = useState([])
     const [esnf, setesnf] = useState()
     const [snfra, setsnfra] = useState({})
     const [snffatdata, setsnffatdata] = useState([])
@@ -22,7 +24,91 @@ const Milklistcom = () => {
     const [entries, setentries] = useState([])
     const [fatsnf, setfatsnf] = useState([
         {
-            id: 1,
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
+            snf: '',
+            fat: '',
+            rate: ''
+        },
+        {
+
             snf: '',
             fat: '',
             rate: ''
@@ -56,14 +142,14 @@ const Milklistcom = () => {
         height: '600px'
     };
 
-    const [snffat, setsnffat] = useState(
-        {
-            id: 1,
-            snf: [{ sn: 1, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 1.2, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 1.3, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 1.4, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 1.5, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 1.6, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 1.7, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 1.8, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 1.9, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 2, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 2.1, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 2.2, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 2.3, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 2.4, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 2.5, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 2.6, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 2.7, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 2.8, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 2.9, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3.1, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3.2, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3.3, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3.4, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3.5, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3.6, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3.7, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3.8, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 3.9, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }, { sn: 4, input: '', input: '', input: '', input: '', input: '', input: '', input: '', input: '' }],
-            fat: [{ sn: 1 }, { sn: 1.2 }, { sn: 1.3 }, { sn: 1.4 }, { sn: 1.5 }, { sn: 1.6 }, { sn: 1.7 }, { sn: 1.8 }, { sn: 1.9 }, { sn: 2 }],
-        },
-
-    )
+    useEffect(() => {
+        fetch('http://103.38.50.113:8080/DairyApp/getListNo').then((data) => {
+            return data.json()
+        }).then((res) => {
+            console.log(res, "dropdown list")
+            setlistnos(res)
+        })
+    }, [])
 
     const deletetable = () => {
         console.log(code)
@@ -107,9 +193,11 @@ const Milklistcom = () => {
                 },
                 body: JSON.stringify(obj)
             }).then((data) => {
-                return data
+                return data.json()
             }).then((resp) => {
-                console.log(resp)
+                console.log(resp.data.listNo)
+                localStorage.setItem("inclistno",JSON.stringify(resp.data.listNo))
+                window.location.reload()
             })
         } catch (e) {
             console.log("Error", e)
@@ -119,44 +207,44 @@ const Milklistcom = () => {
 
     const handlechange = (itemId, newval) => {
         setfatsnf((prev) =>
-            prev.map((item) =>
-                itemId === item.id ? { ...item, rate: newval } : item
+            prev.map((item, i) =>
+                itemId === i ? { ...item, rate: newval } : item
             )
         )
     }
     const handlesnfchange = (itemID, newval) => {
         setfatsnf((prev) =>
-            prev.map((item) =>
-                itemID === item.id ? { ...item, snf: newval } : item
+            prev.map((item, i) =>
+                itemID === i ? { ...item, snf: newval } : item
             )
         )
     }
     const handlefatchange = (itemID, newval) => {
         setfatsnf((prev) =>
-            prev.map((item) =>
-                itemID === item.id ? { ...item, fat: newval } : item
+            prev.map((item, i) =>
+                itemID === i ? { ...item, fat: newval } : item
             )
         )
     }
-    const handleupdsnfchange = (itemID,newval)=>{
-       setsnffatdata((prev)=>
-       prev.map((item)=>
-       itemID === item.id ? {...item,snf:newval}:item
-       )
-       )
-    }
-    const handleupdfatchange = (itemID,newval)=>{
-     setsnffatdata((prev)=>
-     prev.map((item)=>
-      item.id === itemID?{...item,fat:newval}:item
-     )
-     )
-    }
-    const handleupdchange = (itemID,newval)=>{
-        setsnffatdata((prev)=>
-        prev.map((item)=>
-         item.id === itemID?{...item,rate:newval}:item
+    const handleupdsnfchange = (itemID, newval) => {
+        setsnffatdata((prev) =>
+            prev.map((item) =>
+                itemID === item.id ? { ...item, snf: newval } : item
+            )
         )
+    }
+    const handleupdfatchange = (itemID, newval) => {
+        setsnffatdata((prev) =>
+            prev.map((item) =>
+                item.id === itemID ? { ...item, fat: newval } : item
+            )
+        )
+    }
+    const handleupdchange = (itemID, newval) => {
+        setsnffatdata((prev) =>
+            prev.map((item) =>
+                item.id === itemID ? { ...item, rate: newval } : item
+            )
         )
     }
     console.log("snffat=>", fatsnf)
@@ -167,7 +255,7 @@ const Milklistcom = () => {
                 <div className='bg-primary py-1 px-3 col-12 col-md-12'>
                     <div className='row'>
                         <div className='col-12 col-md-2'>
-                            <div className='text-white'>MILK RATE LIST</div>
+                            <div className='text-white mt-3' style={{fontWeight:"700"}}>MILK RATE LIST</div>
                         </div>
 
 
@@ -213,6 +301,10 @@ const Milklistcom = () => {
                                             {
                                                 type.map((item, i) => (
                                                     <li onClick={() => {
+                                                        if(item)
+                                                        {
+                                                            fetch('')
+                                                        }
                                                         settype(item.name)
                                                     }}><a class="dropdown-item" href="#">{item.name}</a></li>
                                                 ))
@@ -222,10 +314,37 @@ const Milklistcom = () => {
                                     </div>
                                 </div>
                                 <div className='col-5 col-md-3'>
-                                    <div className='text-white'>
+                                    <div style={{ fontSize: '0.8rem' }} className='text-white'>
                                         List No
                                     </div>
-                                    <input
+                                    <div class="dropdown">
+                                        <a class="btn btn-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                          {listno === ''?"Select":listno}
+                                        </a>
+
+                                        <ul class="dropdown-menu" style={{overflow:"scroll", height:"35vh"}}>
+                                            {
+                                                listnos.map((item, i) => (
+                                                    <li
+                                                    onClick={()=>{
+                                                        
+                                                        if(item)
+                                                        {
+                                                            fetch(`http://103.38.50.113:8080/DairyApp/findByListNo/${item}`).then((data) => {
+                                                                return data.json()
+                                                            }).then((res) => {
+                                                                console.log(res)
+                                                                setsnffatdata(res)
+                                                            })
+                                                        }
+                                                        setlistno(item)}}
+                                                    className="dropdown-item">{item}</li>
+                                                ))
+                                            }
+
+                                        </ul>
+                                    </div>
+                                    {/* <input
                                         onChange={(e) => {
                                             setcode(e.target.value)
                                             if (e.target.value) {
@@ -240,7 +359,7 @@ const Milklistcom = () => {
                                             }
 
                                         }}
-                                        type='number' style={{ width: '100%' }} />
+                                        type='number' style={{ width: '100%' }} /> */}
                                 </div>
 
                             </div>
@@ -250,15 +369,18 @@ const Milklistcom = () => {
             </div>
 
             <div className='container'>
-              
-                <div style={{ width: '80vw', overflowX: 'scroll' }}>
+                <input contentEditable={false} style={{pointerEvents:'none', color:'white',width:'8vw',border:'none',padding:'5px',fontWeight:'700',borderRadius:'0.4rem'}} className='bg-primary my-2 text-center' type='text' value={`List No.${JSON.parse(localStorage.getItem('inclistno')) + 1}`}/>
+                <div style={{ overflow: 'scroll', height:"64vh"}}>
                     {snffatdata.length === 0 ? <table class="table table-bordered">
                         <thead className='table-primary'>
-                            <tr >
+                            <tr style={{width:"100%"}} className='text-center'>
                                 <th>SNF</th>
                                 <th>FAT</th>
                                 <th>RATE</th>
                                 <th>Add</th>
+                                <th><button
+                                    onClick={() => setfatsnf([...fatsnf, { snf: '', fat: '', rate: '' }])}
+                                    className='btn btn-primary text-white' style={{fontSize:"0.9rem", fontWeight:"600"}}>+</button></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -267,19 +389,18 @@ const Milklistcom = () => {
                                 fatsnf.map((item, i) => (
 
                                     <tr>
-                                        <td>
-                                            <Snfcom item={item} onChange={handlesnfchange} />
+                                        <td className='text-center'>
+                                            <Snfcom item={item} id={i} onChange={handlesnfchange}/>
                                         </td>
-                                        <td>
-                                            <Fatinp item={item} onChange={handlefatchange} />
+                                        <td className='text-center'>
+                                            <Fatinp item={item} id={i} onChange={handlefatchange} />
                                         </td>
-                                        <td>
-                                            <Textinputcom item={item} onChange={handlechange} />
+                                        <td className='text-center'>
+                                            <Textinputcom item={item} id={i} onChange={handlechange} />
+                                        </td>
+                                        <td className='text-center'>
+                                            <button className='btn btn-primary' style={{width:"70px", fontWeight:"600"}} onClick={() => {
 
-
-                                        </td>
-                                        <td>
-                                            <button onClick={() => {
                                                 let newobj = {
                                                     fat: parseFloat(item.fat),
                                                     snf: parseFloat(item.snf),
@@ -307,16 +428,14 @@ const Milklistcom = () => {
                                     snffatdata.map((fatdata, i) => (
                                         <tr>
                                             <td>
-                                            <Snfinp item={fatdata} onChange={handleupdsnfchange} />
-                                        </td>
-                                        <td>
-                                            <Fatinp2 item={fatdata} onChange={handleupdfatchange} />
-                                        </td>
-                                        <td>
-                                            <Textinputcom2 item={fatdata} onChange={handleupdchange} />
-
-
-                                        </td>
+                                                <Snfinp item={fatdata} onChange={handleupdsnfchange} />
+                                            </td>
+                                            <td>
+                                                <Fatinp2 item={fatdata} onChange={handleupdfatchange} />
+                                            </td>
+                                            <td>
+                                                <Textinputcom2 item={fatdata} onChange={handleupdchange} />
+                                            </td>
                                             <td>
                                                 <button onClick={() => {
                                                     let newobj = {
@@ -339,11 +458,11 @@ const Milklistcom = () => {
             <div className='container'>
                 <div className='row my-4'>
                     <div className='col-1 col-md-1'>
-                        <button onClick={() => deletetable()} className='bg-danger border border-none text-white'>Delete</button>
+                        <button onClick={() => deletetable()} className='btn btn-danger border border-none text-white' style={{width:"80px", fontWeight:"600"}}>Delete</button>
                     </div>
-                    <div className='col-1 col-md-1'>
+                    {/* <div className='col-1 col-md-1'>
                         <button className='bg-light border border-none px-2'>Serach</button>
-                    </div>
+                    </div> */}
 
                     {/* <div className='col-1 col-md-1'>
                 <button className='bg-light border border-none '>Settings</button>
@@ -351,11 +470,9 @@ const Milklistcom = () => {
                     <div className='col-1 col-md-1'>
                         <button
                             onClick={() => save()}
-                            className='bg-light border border-none px-2'>Save</button>
+                            className='btn btn-primary border border-none px-2' style={{width:"80px", fontWeight:"600"}}>Save</button>
                     </div>
-                    <div className='col-1 col-md-1'>
-                        <button className='bg-light border border-none px-2'>clear</button>
-                    </div>
+                    
                 </div>
             </div>
         </div>

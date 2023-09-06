@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
-import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { DialogActions, DialogTitle, Button, IconButton } from '@mui/material';
+import Dialog from '@mui/material/Dialog'
+import Slide from '@mui/material/Slide';
+import CancelIcon from '@mui/icons-material/Cancel';
+import axios from 'axios'
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+
 const MilkPurchasecom = () => {
   const [getalldata, setalldata] = useState([])
   const [fatinp, setfatinp] = useState('')
+  const [suppid, setsuppid] = useState([])
   const [snfinp, setsnfinp] = useState('')
   const [milrate, setmilkrate] = useState()
+  const [type, settype] = useState('')
+  const [ntamt, setntamt] = useState()
+  const [qtyval, setqtyval] = useState()
   const [milkpurchaseform, setmilkpurchaseform] = useState({
     "supplier": "",
     "qty": "",
@@ -20,19 +35,25 @@ const MilkPurchasecom = () => {
     "Route": "",
     "collector": ""
   })
+
+
+  const [openDailogDel, setOpenDailogDel] = useState(false)
+  const [delId, setDelId] = useState()
+
   const save = () => {
+    console.log("net amount=>", milkpurchaseform.netAmount)
     let newform = {
-      "supplier": String(milkpurchaseform.supplier),
+      "supplierId": String(milkpurchaseform.supplier),
       "qty": String(milkpurchaseform.qty),
       "fat": String(milkpurchaseform.fat),
       "snf": String(milkpurchaseform.snf),
       "milk": String(milkpurchaseform.milk),
       "milkRate": String(milrate) || String(milkpurchaseform.milkRate),
-      "netAmount": String(milkpurchaseform.netAmount),
+      "netAmount": String(ntamt),
       "date": String(milkpurchaseform.date),
       "shift": String(milkpurchaseform.shift),
-      "Route": String(milkpurchaseform.Route),
-      "collector": String(milkpurchaseform.collector)
+      // "Route": String(milkpurchaseform.Route),
+      // "collector": String(milkpurchaseform.collector)
     }
     console.log(newform)
     try {
@@ -48,14 +69,81 @@ const MilkPurchasecom = () => {
         console.log(resp)
         alert(resp.message)
         window.location.reload()
-      }).catch((e)=>{
-        console.log(e,"Error")
+        getallmilkpurchase()
+      }).catch((e) => {
+        console.log(e, "Error")
       })
     } catch (e) {
-console.log(e,"Error")
+      console.log(e, "Error")
     }
 
   }
+
+
+  const handleDelete = () => {
+    let del = {
+        id: delId
+    }
+    console.log(del)
+    axios.post('http://103.38.50.113:8080/DairyApp/deleteMilkPurchaseById', del).then((delData) => {
+        console.log(delData.data)
+        // console.log(delData)
+        if (delData.data) {
+            setOpenDailogDel(false)
+            getallmilkpurchase()
+        }
+    }).catch((e) => {
+        console.log("Something went wrong in delete", e)
+    })
+}
+
+  const handleClose = () => {
+    setOpenDailogDel(false)
+}
+
+
+  const dailoge = () => {
+    return (
+        <>
+            <Dialog
+
+                open={openDailogDel}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogActions style={{ height: '2rem' }}>
+                    <IconButton>
+                        <CancelIcon style={{ color: 'blue' }} />
+                    </IconButton>
+                </DialogActions>
+                <div style={{ background: 'white' }}>
+
+                    <DialogTitle>
+                        Are You sure you want to delete?
+                    </DialogTitle>
+                    <DialogActions>
+                        <Button onClick={handleDelete}>Yes</Button>
+                        <Button onClick={handleClose}>No</Button>
+                    </DialogActions>
+                </div>
+            </Dialog>
+        </>
+    )
+}
+
+
+  const milktype = [
+    {
+      name: 'cow',
+    },
+    {
+      name: 'buffaloo'
+    }
+  ]
+
+
   const shift = [
     {
       id: 1,
@@ -66,6 +154,10 @@ console.log(e,"Error")
       name: 'Evening'
     }
   ]
+
+
+
+
   const getallmilkpurchase = () => {
     try {
       fetch('http://103.38.50.113:8080/DairyApp/getAllMilkPurchase').then((data) => {
@@ -78,14 +170,33 @@ console.log(e,"Error")
       console.log(e, "error")
     }
   }
+  useEffect(() => {
+    fetch('http://103.38.50.113:8080/DairyApp/getSupplierId').then((data) => {
+      return data.json()
+    }).then((res) => {
+      console.log(res)
+      setsuppid(res)
+    })
+  }, [])
+  
+  const calculation = () => {
+    console.log("milk qty=>", qtyval)
+    // fetch(`http://103.38.50.113:8080/DairyApp/netAmountCalculate?qty=20&milkRate=12`).then((data)=>{
+    //   return data.json()
+    // }).then((res)=>{
+    //   console.log("net amt=>",res)
+    // })
+  }
+
 
   useEffect(() => {
+
     getallmilkpurchase()
     try {
 
       if (fatinp && snfinp) {
 
-        fetch(`http://103.38.50.113:8080/DairyApp/getRate?fat=${fatinp}&snf=${snfinp}&milktype=cow`).then((data) => {
+        fetch(`http://103.38.50.113:8080/DairyApp/getRate?fat=${fatinp}&snf=${snfinp}&milktype=${type}`).then((data) => {
           return data.json()
         }).then((resp) => {
           console.log(resp)
@@ -99,41 +210,70 @@ console.log(e,"Error")
     } catch (e) {
       console.log(e)
     }
-  }, [fatinp, snfinp])
-  console.log("milk rate =>", milrate)
+    calculation()
+  }, [fatinp, snfinp, type])
+
+  useEffect(() => {
+    console.log(type)
+
+  }, [type])
+
+  useEffect(() => {
+    console.log("qty =>", milkpurchaseform.qty)
+    //  console.log("milkrate=>",milrate)
+    console.log("calculate")
+    fetch(`http://103.38.50.113:8080/DairyApp/netAmountCalculate?qty=${milkpurchaseform.qty}&milkRate=${milrate}`).then((data) => {
+      return data.json()
+    }).then((res) => {
+      console.log(res, "cal=>")
+      setntamt(res)
+    })
+  }, [milrate])
+  console.log(milrate)
+
+
+  const deleteMilkPurData = (id) =>{
+    setOpenDailogDel(true)
+    setDelId(id)
+  }
+
+
+
   return (
     <div className='container-fluid'>
-      <div className='row bg-primary'>
+      {dailoge()}
+      <div className='row bg-primary' style={{height:"80px"}}>
         <div className='col-12 col-md-2'>
-          <div>
+          <div className='text-white' style={{fontSize:"1.2rem"}}>
             Date
           </div>
           <div>
             <input
+              value={milkpurchaseform.date}
               onChange={(e) => {
                 setmilkpurchaseform({
                   ...milkpurchaseform,
                   date: e.target.value
                 })
               }}
-              style={{ width: '90%' }} type='date' />
+              style={{ width: '90%', fontSize: '1.1rem', padding:"0.2rem"}} type='date' />
           </div>
         </div>
         <div className='col-12 col-md-2'>
-          <div>
+          <div className='text-white' style={{fontSize:"1.2rem"}}>
             Shift
           </div>
           <div>
             <div className='dropdown'>
               <button
-                style={{ width: '90%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.9rem' }}
+                className="btn bg-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {milkpurchaseform.shift === "" ? "Select" : milkpurchaseform.shift}
                 <div className='dropdown-toggle'>
 
                 </div>
               </button>
-              <ul className="dropdown-menu">
+              <ul className="dropdown-menu" style={{ cursor: "pointer", width: "100%" }}>
                 {
                   shift.map((item, i) => (
                     <li
@@ -158,17 +298,15 @@ console.log(e,"Error")
 
       </div>
       <div>
-        <div className='mx-2 my-2' style={{ width: '95vw', overflowX: 'scroll' }}>
+        <div className='mx-2 my-2' style={{ boxShadow: "2px 2px 2px #D3D3D3" }}>
           <table className="table my-2">
             <thead>
               <tr>
-                <th scope="col">Entry No</th>
-                <th scope="col">Supplier/code Name</th>
+                {/* <th scope="col">Entry No</th> */}
+                <th scope="col">SupplierId</th>
                 <th scope="col">Qty in Kg</th>
                 <th scope="col">FAT %</th>
                 <th scope="col">SNF %</th>
-                <th scope="col">Collector</th>
-                <th scope="col">Route</th>
                 <th scope="col">Milk</th>
                 <th scope="col">Milk Rate</th>
                 <th scope="col">Net Amount</th>
@@ -177,22 +315,43 @@ console.log(e,"Error")
             </thead>
             <tbody>
               <tr>
-                <th scope="row">1</th>
-                <td><input onChange={(e) => {
-                  setmilkpurchaseform({
-                    ...milkpurchaseform,
-                    supplier: e.target.value
-                  })
-                }} type='text' /></td>
+                {/* <th scope="row">1</th> */}
+                <th scope='row'>
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {milkpurchaseform.supplier === "" ? "Select" : milkpurchaseform.supplier}
+                    </button>
+                    <ul class="dropdown-menu">
+                      {
+                        suppid.map((item) => (
+                          <li
+                            onClick={() => setmilkpurchaseform({
+                              ...milkpurchaseform,
+                              supplier: item
+                            })}
+                            className='dropdown-item'>{item}</li>
+                        ))
+
+                      }
+                    </ul>
+                  </div>
+                </th>
+                
                 <td><input
+                  style={{marginTop:"5px"}}
+                  value={milkpurchaseform.qty}
                   onChange={(e) => {
+                    setqtyval(e.target.value)
                     setmilkpurchaseform({
                       ...milkpurchaseform,
                       qty: e.target.value
                     })
                   }}
                   type='text' /></td>
+
+
                 <td><input
+                  style={{marginTop:"5px"}}
                   onChange={(e) => {
                     setfatinp(e.target.value)
                     setmilkpurchaseform({
@@ -201,7 +360,10 @@ console.log(e,"Error")
                     })
                   }}
                   type='text' /></td>
+
+
                 <td><input
+                  style={{marginTop:"5px"}}
                   onChange={(e) => {
                     setsnfinp(e.target.value)
                     setmilkpurchaseform({
@@ -210,34 +372,33 @@ console.log(e,"Error")
                     })
                   }}
                   type='text' /></td>
-                <td><input
-                  onChange={(e) => {
-                    setmilkpurchaseform({
-                      ...milkpurchaseform,
-                      collector: e.target.value
-                    })
-                  }}
-                  type='text' /></td>
-                <td><input
-                  onChange={(e) => {
-                    setmilkpurchaseform({
-                      ...milkpurchaseform,
-                      Route: e.target.value
-                    })
-                  }}
-                  type='text' /></td>
-                <td>
 
-                  <input
-                    onChange={(e) => {
-                      setmilkpurchaseform({
-                        ...milkpurchaseform,
-                        milk: e.target.value
-                      })
-                    }}
-                    type='text' /></td>
+
+                <td> <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {milkpurchaseform.milk === "" ? "Select" : milkpurchaseform.milk}
+                  </button>
+                  <ul class="dropdown-menu">
+                    {
+                      milktype.map((item) => (
+                        <li
+                          onClick={() => {
+                            settype(item.name)
+                            setmilkpurchaseform({
+                              ...milkpurchaseform,
+                              milk: item.name
+                            })
+                          }}
+                          className='dropdown-item'>{item.name}</li>
+                      ))
+
+                    }
+                  </ul>
+                </div></td>
+
                 <td><input
-                  value={milrate === null || milrate === undefined ? milkpurchaseform.milkRate : milrate}
+                  style={{marginTop:"5px"}}
+                  value={milrate === null || milrate === undefined || !milrate ? milkpurchaseform.milkRate : milrate}
                   onChange={(e) => {
                     if (milrate === null || milrate === undefined) {
                       setmilkpurchaseform({
@@ -253,106 +414,64 @@ console.log(e,"Error")
                     }
                   }}
                   type='text' /></td>
+
                 <td><input
+                  value={milkpurchaseform.netAmount === "" ? ntamt : milkpurchaseform.netAmount}
+                  style={{marginTop:"5px"}}
                   onChange={(e) => {
+                    console.log(e.target.value)
+
                     setmilkpurchaseform({
                       ...milkpurchaseform,
                       netAmount: e.target.value
                     })
+
                   }}
-                  type='text' /></td>
-                <td><button onClick={() => save()} className='bg-primary border border-none rounded text-white'>Save</button></td>
+                  type='number' /></td>
+                <td><button onClick={() => save()} className='btn btn-primary'>Save</button></td>
               </tr>
 
             </tbody>
           </table>
         </div>
 
-        <div style={{ width: '95vw', overflowX: 'scroll' }}>
-          <table class="table my-5">
+
+
+        <div className='mt-4' style={{ height:"65vh", overflow: 'scroll' }}>
+          <table class="table mt-3 table-bordered border-primary" style={{ width: "100%", fontSize: "0.9rem" }}>
             <thead>
               <tr>
-                <th scope="col">CLR(%)</th>
-                <th scope="col">SNF(in Kg)</th>
-                <th scope="col">SNF Addition</th>
-                <th scope="col">SNF Rate</th>
-                <th scope="col">SNF Amt</th>
-                <th scope="col">FAT Kg</th>
-                <th scope="col">FAT Rate</th>
-                <th scope="col">FAT Amt</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row"></th>
-                <td>0.0000</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>0.000</td>
-                <td>0.0000</td>
-
-                <td>0.0000</td>
-              </tr>
-
-            </tbody>
-          </table>
-        </div>
-
-        <div style={{ width: "95vw", overflowX: 'scroll' }}>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Tick</th>
-                <th scope="col">Code</th>
-                <th scope="col">Supplier</th>
-                <th scope="col">B/C</th>
+                <th scope="col">sr.no</th>
+                <th scope="col">SupplierId</th>
                 <th scope="col">QTY</th>
                 <th scope="col">FAT%</th>
-                <th scope="col">CLR%</th>
-                <th scope="col">SNF </th>
-                <th scope="col">SNF Kg</th>
+                <th scope="col">SNF%</th>
+                <th scope="col">Milk</th>
                 <th scope="col">Milk Rate</th>
-                <th scope="col">FAT Rate</th>
-                <th scope="col">SNF Rate</th>
-                <th scope="col">FAT Amt</th>
                 <th scope="col">Net Amt</th>
-                <th scope="col">Edit</th>
+                <th scope="col">Date</th>
+                <th scope="col">Shift</th>
                 <th scope="col">Delete</th>
-                <th scope="col">Generate bill</th>
+
               </tr>
             </thead>
             <tbody>
               {
                 getalldata.map((item, i) => (
                   <tr>
-                    <th scope="row">
-                      <div style={{ width: '1vw', height: '2vh', border: '1px solid black' }}>
-
-                      </div>
-                    </th>
-                    <td>{item.id}</td>
-                    <td>{item.supplier}</td>
-                    <td>BM</td>
+                    <th scope="row">{item.id}</th>
+                    <td>{item.supplierId}</td>
                     <td>{item.qty}</td>
                     <td>{item.fat}</td>
-                    <td>0.00</td>
                     <td>{item.snf}</td>
-                    <td>8.000</td>
-                    <td>0.320</td>
-                    <td>0.200</td>
-                    <td>26.00</td>
-                    <td>00.00</td>
+                    <td>{item.milk}</td>
+                    <td>{item.milkRate}</td>
                     <td>{item.netAmount}</td>
-                    <td><IconButton><EditIcon /></IconButton></td>
-                    <td><IconButton><DeleteIcon /></IconButton></td>
-                    <td><button className='bg-primary border border-none text-white rounded' onClick={() => {
-                      alert(item.supplierId)
-                      localStorage.setItem('suppid', JSON.stringify(item.supplierId))
-                    }}>Generate bill</button></td>
+                    <td>{item.date}</td>
+                    <td>{item.shift}</td>
+                    <td><IconButton><DeleteIcon onClick={() => deleteMilkPurData(item.id)} style={{ color: 'red', cursor: 'pointer' }}/></IconButton></td>
                   </tr>
                 ))
-
               }
 
             </tbody>

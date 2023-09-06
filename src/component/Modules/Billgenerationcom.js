@@ -84,16 +84,20 @@ const Billgenerationcom = () => {
   const [geneartebill, setgeneartebill] = useState(false)
   const [suppid, setsuppid] = useState(JSON.parse(localStorage.getItem('suppid')))
   const [selectmilktype, setselectmilktype] = useState('')
-  const [code,setcode] = useState('')
-  const [fcode,setfcode] = useState()
-  const [tcode,settcode] = useState()
+  const [code, setcode] = useState('')
+  const [fcode, setfcode] = useState()
+  const [tcode, settcode] = useState()
   const [showTable, setshowtable] = useState(false)
   const [data, setdata] = useState([])
+  const [listno, setlistno] = useState([])
+  const [listid,setlistid] = useState('')
+  // const [showTable, setShowTable] = useState(false)
 
   const [form, setform] = useState({
-    from:'',
-    to:''
+    from: '',
+    to: ''
   })
+
   const selectmilktypes = [
     {
       id: 1,
@@ -104,6 +108,7 @@ const Billgenerationcom = () => {
       name: 'Raw Milk'
     }
   ]
+
   const billgenerate = React.forwardRef((ref, props) => {
     return (
       <h1>Hello</h1>
@@ -136,8 +141,15 @@ const Billgenerationcom = () => {
     content: () => componentRef.current,
   })
 
- 
 
+  useEffect(() => {
+    fetch('http://103.38.50.113:8080/DairyApp/getSupplierId').then((data) => {
+      return data.json()
+    }).then((res) => {
+      console.log("list nos =>", res)
+      setlistno(res)
+    })
+  }, [])
 
   useEffect(() => {
     getbillgenerationdata()
@@ -155,23 +167,39 @@ const Billgenerationcom = () => {
         <div className='container' style={{ boxShadow: '10px 10px 10px 0px gray', padding: '0.5rem 0.9rem' }}>
           <hr></hr>
           <div className='row'>
+
+           
             <div className='col-12 mt-3 col-md-3 col-sm-12'>
-              <ThemeProvider theme={customTheme(outerTheme)}>
-                <TextField
-                  value={code}
-                  onChange={(e) => {
-                   setcode(e.target.value)
-                  }}
-                  style={{ width: '100%' }}
-                  label="Supplier ID" className='txtsize' variant="standard" />
-              </ThemeProvider>
+              <div style={{fontSize:'0.7rem'}}>
+                Supplier ID
+              </div>
+              <div class="dropdown"> 
+                <button class="btn btn-light dropdown-toggle d-flex align-items-center justify-content-between" style={{width:'16vw'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {listid === ''?'Select':listid}
+                </button>
+                <ul class="dropdown-menu">
+                  {
+                    listno.map((item) => (
+                      <li
+                      onClick={()=>
+                        {
+                          
+                        setlistid(item)
+                      
+                        }}
+                      ><a class="dropdown-item" href="#">{item}</a></li>
+                    ))
+                  }
+
+                </ul>
+              </div>
             </div>
             <div className='col-12 mt-3 col-md-3 col-sm-12'>
               <ThemeProvider theme={customTheme(outerTheme)}>
                 <TextField
                   value={fcode}
                   onChange={(e) => {
-                   setfcode(e.target.value)
+                    setfcode(e.target.value)
                   }}
                   style={{ width: '100%' }}
                   label="from code" className='txtsize' variant="standard" />
@@ -189,7 +217,6 @@ const Billgenerationcom = () => {
                   label="to code" className='txtsize' variant="standard" />
               </ThemeProvider>
             </div>
-           
             <div className='col-12 mt-3 col-md-3 col-sm-12'>
               <ThemeProvider theme={customTheme(outerTheme)}>
                 <div>
@@ -203,7 +230,7 @@ const Billgenerationcom = () => {
                       from: e.target.value
                     })
                   }}
-                  type='date' style={{width:'100%'}} />
+                  type='date' style={{ width: '100%' }} />
               </ThemeProvider>
             </div>
             <div className='col-12 mt-3 col-md-3 col-sm-12'>
@@ -219,7 +246,7 @@ const Billgenerationcom = () => {
                       to: e.target.value
                     })
                   }}
-                  type='date' style={{width:'100%'}} />
+                  type='date' style={{ width: '100%' }} />
               </ThemeProvider>
             </div>
 
@@ -230,26 +257,27 @@ const Billgenerationcom = () => {
 
 
           <div className="row">
-            <div className='col-12 bg-light my-3 col-md-1'>
+            <div className='col-12 my-3 col-md-1'>
               <button
-                className='bg-primary border border-none border-radius-rounded text-white'
-                onClick={() => setshowtable(!showTable)}
-              >
+                className='btn btn-primary text-white'
+                onClick={() => setshowtable(!showTable)}>
                 OK
               </button>
             </div>
 
-            <div className='col-12 bg-light my-3 col-md-2 '>
+            <div className='col-12 my-3 col-md-2 '>
 
               <button
                 onClick={handleprint}
-                className='bg-primary text-center border border-none border-radius-rounded text-white' >
+                className='btn btn-primary text-white' >
                 Genearte Bill
               </button>
             </div>
 
-
-            <Billtablecom code={code} fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} form={form} data={data} setdata={setdata} />
+            {
+              showTable &&
+              <Billtablecom code={code} fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} form={form} listid={listid} data={data} setdata={setdata} />
+            }
 
           </div>
 

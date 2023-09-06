@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Fatinp = ({item,onChange}) => {
+const Fatinp = ({item,onChange,id}) => {
   return (
-    <input type='text' value={item.fat} onChange={(e)=>onChange(item.id,e.target.value)}/>
+    <input type='text' value={item.fat} onChange={(e)=>onChange(id,e.target.value)}/>
   )
 }
 
