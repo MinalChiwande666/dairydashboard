@@ -317,11 +317,11 @@ const MilkPurchasecom = () => {
               <tr>
                 {/* <th scope="row">1</th> */}
                 <th scope='row'>
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div className="dropdown">
+                    <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       {milkpurchaseform.supplier === "" ? "Select" : milkpurchaseform.supplier}
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul className="dropdown-menu">
                       {
                         suppid.map((item) => (
                           <li
@@ -438,7 +438,7 @@ const MilkPurchasecom = () => {
 
 
         <div className='mt-4' style={{ height:"65vh", overflow: 'scroll' }}>
-          <table class="table mt-3 table-bordered border-primary" style={{ width: "100%", fontSize: "0.9rem" }}>
+          <table className="table mt-3 table-bordered border-primary" style={{ width: "100%", fontSize: "0.9rem" }}>
             <thead>
               <tr>
                 <th scope="col">sr.no</th>

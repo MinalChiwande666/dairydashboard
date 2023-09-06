@@ -39,6 +39,8 @@ import RPTBulkMilkReport from './pages/Modules/BulkMilkModule/BulkCustomize/RPTB
 import Vendorname from './pages/Modules/MasterModule/maimaster/Vendorname'
 import FarmerPassbook from './pages/Modules/Chillingcenter/MIlkpurchase/FarmerPassbook'
 import Routemaster from './pages/Modules/MasterModule/Other_master/Routemaster'
+import PlantIn from './pages/Modules/PlantModule/PlantIn'
+import PlantProfitLoss from './pages/Modules/PlantModule/PlantProfitLoss'
 
 const App = () => {
   const useractive = JSON.parse(localStorage.getItem('username'))
@@ -80,12 +82,15 @@ const App = () => {
           <Route path='/vehicleqcapproval' element={<><VehicleQCApproval /></>} />
           <Route path='/milkgrn' element={<><MilkGRN /></>} />
           <Route path='/milkgrntopurchase' element={<><MilkGRNtoPurchase /></>} />
-
           <Route path='/bulkmilkporchaserep' element={<><PurchaseMilkPurchaseRep /></>} />
           <Route path='/purchaseinwardrep' element={<><PurchaseInwardReport /></>} />
           <Route path='/vehicleqcrep' element={<><VehicleQCReport /></>} />
           <Route path='/route' element={<><Routemaster/></>}/>
           <Route path='/rptbulkmilkreport' element={<><RPTBulkMilkReport /></>} />
+
+
+          <Route path='/plantin' element={<><PlantIn /></>} />
+          <Route path='/plantprofitlosscollection' element={<><PlantProfitLoss/></>} />
 
 
 

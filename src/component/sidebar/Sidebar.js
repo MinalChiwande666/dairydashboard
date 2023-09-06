@@ -41,26 +41,26 @@ export default function Sidebar({ toggle, state, setState }) {
                                 Customer Master
                             </MenuItem>
 
-                           
-                            <MenuItem 
-                            onClick={()=>{
-                                navigate('/employee')
-                            }}
-                            style={{ fontSize: '0.9rem' }}>
+
+                            <MenuItem
+                                onClick={() => {
+                                    navigate('/employee')
+                                }}
+                                style={{ fontSize: '0.9rem' }}>
                                 Employee Master
                             </MenuItem>
                             <MenuItem
-                            onClick={()=>{
-                                navigate('/supplier')
-                            }}
-                            style={{ fontSize: '0.9rem' }}>
+                                onClick={() => {
+                                    navigate('/supplier')
+                                }}
+                                style={{ fontSize: '0.9rem' }}>
                                 Supplier Master
                             </MenuItem>
                             <MenuItem
-                            onClick={()=>{
-                                navigate('/vendor')
-                            }}
-                            style={{ fontSize: '0.9rem' }}>
+                                onClick={() => {
+                                    navigate('/vendor')
+                                }}
+                                style={{ fontSize: '0.9rem' }}>
                                 Vendor Master
                             </MenuItem>
                             <MenuItem style={{ fontSize: '0.9rem' }}>
@@ -136,7 +136,7 @@ export default function Sidebar({ toggle, state, setState }) {
                             Milk Purchase
                         </MenuItem>
                         <MenuItem onClick={() => navigate('/farmerpassbook')}>
-                           Farmer Passbook
+                            Farmer Passbook
                         </MenuItem>
                         <MenuItem onClick={() => navigate('/milklist')}>
                             Milk List
@@ -189,60 +189,68 @@ export default function Sidebar({ toggle, state, setState }) {
                     </SubMenu>
 
 
+                    <SubMenu label="Plant Module">
+                        <MenuItem onClick={() => navigate('/plantin')}>
+                            Plant In
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate('/plantprofitlosscollection')}>
+                            Profit/Loss
+                        </MenuItem>
+                    </SubMenu>
                 </Menu>
 
                 <Menu>
-                    <SubMenu label = "Sanstha Milk Module">
-                        <SubMenu label = "Sanstha Master">
-                         <MenuItem 
-                         onClick={()=> navigate('/sansthamaster')}>
-                           Sanstha master
-                         </MenuItem>
-                         <MenuItem 
-                         onClick={()=> navigate('/purchaseratecontractmaster')}>
-                            Purchase rate contract master
-                         </MenuItem>
-                         <MenuItem 
-                         onClick={()=> navigate('/purchaseratecontract')}>
-                           Purchase rate contract
-                         </MenuItem>
-                    </SubMenu>
-                    <SubMenu label = "Milk Collection">
-                         <MenuItem 
-                         onClick={()=> navigate('/milkcollectionexcelupload')}>
-                           Milk collection with Excel upload
-                         </MenuItem>
-                         <MenuItem 
-                         onClick={()=> navigate('/downloadsanthamilkcollection')}>
-                           Download sanstha Milk Collection 
-                         </MenuItem>
-                         <MenuItem 
-                         onClick={()=> navigate('/Milkcollectionwithqc')}>
-                           Combine Collection with QC
-                         </MenuItem>
-                         <MenuItem 
-                         onClick={()=> navigate('/Milkcollectionmanualkg')}>
-                           Milk Collection Manual:kg
-                         </MenuItem>
-                         <MenuItem 
-                         onClick={()=> navigate('/Milkcollectionltr')}>
-                           Milk Collection Ltr
-                         </MenuItem>
-                    </SubMenu>
+                    <SubMenu label="Sanstha Milk Module">
+                        <SubMenu label="Sanstha Master">
+                            <MenuItem
+                                onClick={() => navigate('/sansthamaster')}>
+                                Sanstha master
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => navigate('/purchaseratecontractmaster')}>
+                                Purchase rate contract master
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => navigate('/purchaseratecontract')}>
+                                Purchase rate contract
+                            </MenuItem>
+                        </SubMenu>
+                        <SubMenu label="Milk Collection">
+                            <MenuItem
+                                onClick={() => navigate('/milkcollectionexcelupload')}>
+                                Milk collection with Excel upload
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => navigate('/downloadsanthamilkcollection')}>
+                                Download sanstha Milk Collection
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => navigate('/Milkcollectionwithqc')}>
+                                Combine Collection with QC
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => navigate('/Milkcollectionmanualkg')}>
+                                Milk Collection Manual:kg
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => navigate('/Milkcollectionltr')}>
+                                Milk Collection Ltr
+                            </MenuItem>
+                        </SubMenu>
                     </SubMenu>
                 </Menu>
 
                 <Menu >
-                    <SubMenu label = 'Bill Generation'
-                     onClick={()=> navigate('/Billgeneration')}
-                           >
-                      
+                    <SubMenu label='Bill Generation'
+                        onClick={() => navigate('/Billgeneration')}
+                    >
+
                     </SubMenu>
                 </Menu>
-                        
-                 
 
-                
+
+
+
 
                 <Divider />
 
