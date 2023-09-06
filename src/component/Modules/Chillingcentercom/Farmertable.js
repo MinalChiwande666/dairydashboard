@@ -1,7 +1,8 @@
 import React from 'react'
 
 const Farmertable = React.forwardRef((props,ref) => {
-    const {allusers,dates,sid} = props
+    const {allusers,dates,sid, supplierId} = props
+
     
   return (
     <><div  style={{ height: '50vh', overflowY: 'scroll' }}>
@@ -25,12 +26,18 @@ const Farmertable = React.forwardRef((props,ref) => {
                 <tbody style={{ height: '50vh', overflowY: 'auto' }}>
                   {
                     allusers.filter((da) => {
-                      if ((!da.supplierId===sid.sid)||(!dates.fdate && !dates.tdate)) {
-                        return da
+                      if (supplierId) {
+                        // Check if da.supplierId matches the provided supplierId
+                        if (da.supplierId === Number(supplierId)) {
+                          return true;
+                        }
                       }
-                      else if ((da.supplierId === sid.sid)||(!dates.fdate && !dates.tdate)) {
-                        return da
+                      
+                      // Check if da.date is within the date range
+                      if (da.date >= dates.fdate && da.date <= dates.tdate) {
+                        return true;
                       }
+                      return false
                      
 
                     }).map((item, i) => (

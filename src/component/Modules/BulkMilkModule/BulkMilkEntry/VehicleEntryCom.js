@@ -690,7 +690,7 @@ const VehicleEntryCom = () => {
                         {
                             showTableData ?
                                 <div style={{ height: "35vh", overflow: 'scroll', marginTop: "10px" }}>
-                                    <table className='table table-bordered border-primary' style={{ width: "100%", fontSize: "0.8rem" }}>
+                                    <table className='table table-bordered border-primary' style={{ width: "100%", fontSize: "0.08rem" }}>
                                         <thead>
                                             <tr>
                                                 <th scope='col'>ID</th>

@@ -1122,7 +1122,8 @@ const Chillingcom = () => {
                                 <ThemeProvider theme={customTheme(outerTheme)}>
                                     <TextField
                                         contentEditable={false}
-                                        value={updateid === "2" ? (updatecenterform.snf ? parseInt(updatecenterform.clr) / 4 + 0.2 * parseInt(updatecenterform.fat) + 0.66 : updatecenterform.snf) : Math.fround(parseInt(chillingform.slr) / 4 + 0.2 * parseInt(chillingform.fat) + parseFloat(chillingform.countingfactor)).toString().slice(0, 4)}
+                                        // value={parseInt(chillingform.clr)/4 + 0.2 * parseInt(chillingform.fat) + parseFloat(chillingform.countingfactor)}
+                                        value={updateid === "2" ? (updatecenterform.snf ? parseInt(updatecenterform.clr) / 4 + 0.2 * parseInt(updatecenterform.fat) + 0.66 : updatecenterform.snf) : Math.round(parseInt(chillingform.clr) / 4 + 0.2 * parseInt(chillingform.fat) + parseFloat(chillingform.countingfactor)).toString().slice(0, 4)}
                                         onChange={(e) => {
                                             console.log("SNF =>", e.target.value)
                                             if (updateid !== "2") {
@@ -1631,7 +1632,7 @@ const Chillingcom = () => {
                             <div className='col-12 col-md-3 col-sm-12'>
                                 <ThemeProvider theme={customTheme(outerTheme)}>
                                     <TextField
-                                        value={updateid === "2" ? updatecenterform.supplierWeight : chillingform.supplierWeight}
+                                        value={updateid === "2" ? updatecenterform.route : chillingform.route}
                                         onChange={(e) => {
                                             if (updateid !== "2") {
                                                 setchillingform({

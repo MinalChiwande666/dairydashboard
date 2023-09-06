@@ -1,11 +1,12 @@
 import React from 'react'
 
-const Textinputcom = ({item,onChange}) => {
+const Textinputcom = ({item,onChange,id}) => {
+
   return (
    <input 
    value={item.rate}
    type='text'
-   onChange={(e)=>onChange(item.id,e.target.value)}
+   onChange={(e)=>onChange(id,e.target.value)}
    />
   )
 }
