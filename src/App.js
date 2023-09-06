@@ -38,6 +38,7 @@ import RPTBulkMilkReportCom from './component/Modules/BulkMilkModule/BulkCustomi
 import RPTBulkMilkReport from './pages/Modules/BulkMilkModule/BulkCustomize/RPTBulkMilkReport'
 import Vendorname from './pages/Modules/MasterModule/maimaster/Vendorname'
 import FarmerPassbook from './pages/Modules/Chillingcenter/MIlkpurchase/FarmerPassbook'
+import Routemaster from './pages/Modules/MasterModule/Other_master/Routemaster'
 
 const App = () => {
   const useractive = JSON.parse(localStorage.getItem('username'))
@@ -83,7 +84,7 @@ const App = () => {
           <Route path='/bulkmilkporchaserep' element={<><PurchaseMilkPurchaseRep /></>} />
           <Route path='/purchaseinwardrep' element={<><PurchaseInwardReport /></>} />
           <Route path='/vehicleqcrep' element={<><VehicleQCReport /></>} />
-
+          <Route path='/route' element={<><Routemaster/></>}/>
           <Route path='/rptbulkmilkreport' element={<><RPTBulkMilkReport /></>} />
 
 

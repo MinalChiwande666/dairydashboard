@@ -92,7 +92,7 @@ export default function Sidebar({ toggle, state, setState }) {
                             <MenuItem>
                                 Area Master
                             </MenuItem>
-                            <MenuItem>
+                            <MenuItem onClick={()=>navigate('/route')}>
                                 Route
                             </MenuItem>
                             <MenuItem>
