@@ -44,3 +44,47 @@
     font-weight: 600;
     color: white;
 }
+
+
+/* Table Css */
+
+
+.tableCont{
+    width: 100%;
+    min-width: 1000px;
+    table-layout: fixed;
+    cursor: pointer;
+}
+
+.tableCont thead th{
+    position: sticky;
+    top: 0;
+    background-color: #f6f9fc;
+    color: #8493a5;
+    font-size: 1.1rem;
+}
+
+.tableCont thead th,td{
+    border-bottom: 1px solid #dddddd;
+    padding: 8px 15px;
+    word-break: break-all;
+    text-align: center;
+}
+
+.editbtn, .deletebtn{
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.editbtn{
+    background-color: blue;
+}
+.deletebtn{
+    background-color: red;
+}

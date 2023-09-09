@@ -1,5 +1,8 @@
 import React from 'react'
 import "./Dummy.css"
+import { FiEdit } from "react-icons/fi";
+import { MdOutlineDelete } from "react-icons/md";
+
 
 const DummyFormCom = () => {
     return (
@@ -235,6 +238,352 @@ const DummyFormCom = () => {
                 <button className='btn btn-primary buttonsStyle'>Save</button>
                 <button className='btn btn-success mx-3 buttonsStyle'>Print</button>
                 <button className='btn btn-secondary buttonsStyle'>Clear</button>
+            </div>
+
+            <div className='container mt-4 p-0 dummyCont mb-3'>
+                <table className='tableCont table table-striped'>
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Product</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Owner</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr><tr>
+                            <td>1</td>
+                            <td>Shoes</td>
+                            <td>Anuj</td>
+                            <td>anuj@gmail.com</td>
+                            <td>Uday</td>
+                            <td>
+                                <button className='editbtn'><FiEdit/></button>&nbsp;&nbsp;
+                                <button className='deletebtn'><MdOutlineDelete/></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     )
