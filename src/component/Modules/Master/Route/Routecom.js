@@ -7,37 +7,36 @@ const Routecom = () => {
         routeName: '',
         areaName: ''
     })
-   const [showtable,setshowtable] = useState(false)
-    const [routedata,setroutedata] = useState([])
+    const [showtable, setshowtable] = useState(false)
+    const [routedata, setroutedata] = useState([])
 
-    const save = ()=>{
-        try{
-        fetch('http://103.38.50.113:8080/DairyApp/saveRouteMaster',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify(routeform)
-        }).then((data)=>{
+    const save = () => {
+        try {
+            fetch('http://103.38.50.113:8080/DairyApp/saveRouteMaster', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(routeform)
+            }).then((data) => {
+                return data.json()
+            }).then((res) => {
+                console.log(res)
+                alert(res.message)
+                window.location.reload()
+            })
+        } catch (e) {
+            console.log("Error =>", e)
+        }
+    }
+
+    useEffect(() => {
+        fetch('http://103.38.50.113:8080/DairyApp/getAllRouteMasterData').then((data) => {
             return data.json()
-        }).then((res)=>{
-        console.log(res)
-        alert(res.message)
-        window.location.reload()
+        }).then((res) => {
+            setroutedata(res)
         })
-    }catch(e)
-    {
-        console.log("Error =>",e)
-    }
-    }
-
-    useEffect(()=>{
-     fetch('http://103.38.50.113:8080/DairyApp/getAllRouteMasterData').then((data)=>{
-        return data.json()
-     }).then((res)=>{
-        setroutedata(res)
-     })
-    },[])
+    }, [])
     return (
         <div className='container'>
             <h3 className='text-center my-3'>Route Master</h3>
@@ -47,7 +46,7 @@ const Routecom = () => {
                         value={3}
                         label="ID"
                         variant='standard'
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                     />
                 </div>
                 <div className='col-md-3 col-12'>
@@ -61,7 +60,7 @@ const Routecom = () => {
                         }}
                         label="Km"
                         variant='standard'
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                     />
                 </div>
                 <div className='col-md-3 col-12'>
@@ -75,7 +74,7 @@ const Routecom = () => {
                         }}
                         label="Route Name"
                         variant='standard'
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                     />
                 </div>
                 <div className='col-md-3 col-12'>
@@ -89,15 +88,15 @@ const Routecom = () => {
                         }}
                         label="Area Name"
                         variant='standard'
-                        style={{width:'100%'}}
+                        style={{ width: '100%' }}
                     />
                 </div>
             </div>
-            <button onClick={()=>setshowtable(!showtable)} className='btn btn-primary my-3'>Show List</button>
+            <button onClick={() => setshowtable(!showtable)} className='btn btn-primary my-3'>Show List</button>
 
-          {  
-          showtable &&
-          <><table className="table table-bordered my-5">
+            {
+                showtable &&
+                <><table className="table table-bordered my-5">
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
@@ -119,25 +118,25 @@ const Routecom = () => {
 
                     </tbody>
                 </table>
-                
-                        <button className='btn-primary btn'>Export To Excel</button>
-                   </>
 
-}
+                    <button className='btn-primary btn'>Export To Excel</button>
+                </>
+
+            }
             <div className='row my-3'>
                 <div className='col-md-1 col-12 my-2'>
-                    <button 
-                    onClick={()=>save()}
-                    className='btn-primary btn'>Save</button>
+                    <button
+                        onClick={() => save()}
+                        className='btn-primary btn'>Save</button>
                 </div>
                 <div className='col-md-1 col-12 my-2'>
                     <button
-                    onClick={()=>setrouteform({
-                        km: '',
-                        routeName: '',
-                        areaName: ''
-                    })}
-                    className='btn-primary btn'>clear</button>
+                        onClick={() => setrouteform({
+                            km: '',
+                            routeName: '',
+                            areaName: ''
+                        })}
+                        className='btn-primary btn'>clear</button>
                 </div>
                 <div className='col-md-1 col-12 my-2'>
                     <button className='btn-primary btn'>print</button>
