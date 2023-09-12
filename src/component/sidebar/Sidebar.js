@@ -22,12 +22,8 @@ export default function Sidebar({ toggle, state, setState }) {
                     <MenuItem>
                         <h1>Dairy</h1>
                     </MenuItem>
-                    <SubMenu
-                        label="Masters Modules"
-                    >
-                        <SubMenu
-                            label="A.Main Master"
-                        >
+                    <SubMenu label="Masters Modules">
+                        <SubMenu label="Main Master">
                             <MenuItem style={{ fontSize: '0.9rem' }}
                                 onClick={() => {
                                     navigate('/accountmaster')
@@ -40,7 +36,6 @@ export default function Sidebar({ toggle, state, setState }) {
                                 }}>
                                 Customer Master
                             </MenuItem>
-
 
                             <MenuItem
                                 onClick={() => {
@@ -63,70 +58,11 @@ export default function Sidebar({ toggle, state, setState }) {
                                 style={{ fontSize: '0.9rem' }}>
                                 Vendor Master
                             </MenuItem>
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>Item Master</Link>
-                            </MenuItem>
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>Opening Stock</Link>
-                            </MenuItem>
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>HSN Code Master</Link>
-                            </MenuItem>
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>TDS Code Master</Link>
-                            </MenuItem>
-                            <MenuItem style={{ fontSize: '0.9rem' }}>
-                                <Link to={'/dashboard'}>TCS Code Master</Link>
-                            </MenuItem>
-                        </SubMenu>
-                        <SubMenu label="B.Other Modules">
-                            <MenuItem>
-                                Account Group
-                            </MenuItem>
-                            <MenuItem>
-                                Scheme Master
-                            </MenuItem>
-                            <MenuItem>
-                                Department Master
-                            </MenuItem>
-                            <MenuItem>
-                                Area Master
-                            </MenuItem>
-                            <MenuItem onClick={()=>navigate('/route')}>
-                                Route
-                            </MenuItem>
-                            <MenuItem>
-                                Unit Master
-                            </MenuItem>
-                            <MenuItem>
-                                Warehouse Master
-                            </MenuItem>
-                            <MenuItem>
-                                Rate Contract Master
-                            </MenuItem>
-                            <MenuItem>
-                                Recorded Master
-                            </MenuItem>
-                            <MenuItem>
-                                Transport Master
-                            </MenuItem>
-                            <MenuItem>
-                                Vehicle Master
-                            </MenuItem>
-                            <MenuItem>
-                                Purchase Term and Conditions
-                            </MenuItem>
-                            <MenuItem>
-                                Purchase Term and Conditions
-                            </MenuItem>
                         </SubMenu>
                     </SubMenu>
                     <SubMenu
-                        label="Direct Milk Purchase"
-                    >
-                        <MenuItem
-                            onClick={() => navigate('/chilingcenter')}
-                        >
+                        label="Direct Milk Purchase">
+                        <MenuItem onClick={() => navigate('/chilingcenter')}>
                             Chilling Center
                         </MenuItem>
                         <MenuItem onClick={() => navigate('/milkchalan')}>
@@ -142,12 +78,8 @@ export default function Sidebar({ toggle, state, setState }) {
                             Milk List
                         </MenuItem>
                     </SubMenu>
-                    <SubMenu label="Milk Chalan">
 
-
-                    </SubMenu>
-
-                    <SubMenu label="Bulk Milk Module">
+                    {/* <SubMenu label="Bulk Milk Module">
                         <SubMenu label="Bulk Milk Entry">
                             <MenuItem onClick={() => navigate('/purratecontractmaster')}>
                                 PurRate Contract Master
@@ -186,7 +118,7 @@ export default function Sidebar({ toggle, state, setState }) {
                                 RPT Bulk Milk Report
                             </MenuItem>
                         </SubMenu>
-                    </SubMenu>
+                    </SubMenu> */}
 
 
                     <SubMenu label="Plant Module">
@@ -241,20 +173,11 @@ export default function Sidebar({ toggle, state, setState }) {
                 </Menu>
 
                 <Menu >
-                    <SubMenu label='Bill Generation'
-                        onClick={() => navigate('/Billgeneration')}
-                    >
+                    <SubMenu label='Bill Generation'onClick={() => navigate('/Billgeneration')}>
 
                     </SubMenu>
                 </Menu>
-
-
-
-
-
                 <Divider />
-
-
             </Box>)
     };
 

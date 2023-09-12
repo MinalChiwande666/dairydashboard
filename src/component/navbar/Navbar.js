@@ -8,7 +8,8 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../sidebar/Sidebar';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+
 const Navbar = () => {
 
   const navigate = useNavigate()
@@ -37,7 +38,7 @@ const Navbar = () => {
     return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar
-          style={{ background: 'black' }}
+          style={{ background: 'radial-gradient(circle at 10% 20%, rgba(91, 173, 254, 0.46) 0%, rgba(91, 224, 254, 0.46) 47.2%, rgba(170, 254, 235, 0.43) 90%)', color:"rgb(81, 80, 80)"}}
           position="static">
           <Toolbar>
             <IconButton
@@ -47,10 +48,9 @@ const Navbar = () => {
               aria-label="menu"
               sx={{ mr: 2 }}
               onClick={toggleDrawer('left', true)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            ><MenuIcon /></IconButton>
+            
+            <Typography variant="h5" component="div" sx={{ flexGrow: 1, cursor:'pointer', marginTop:"5px"}} onClick={()=>navigate('/dashboard')}>
               Dashboard
             </Typography>
             <Button
