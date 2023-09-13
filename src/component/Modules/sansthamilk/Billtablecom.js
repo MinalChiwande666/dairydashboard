@@ -7,8 +7,9 @@ const Billtablecom = React.forwardRef((props, ref) => {
     let nsamt;
     let sum2;
     const [netamount, setnetamount] = useState(0)
-
+    console.log("list id =>",listid)
     useEffect(() => {
+      
         if (listid) {
             fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=${listid}`).then((data) => {
                 return data.json()
@@ -114,7 +115,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
 
                             <>
                                 {
-                                    listid === "Select" ? "Select Id To View" :
+                                    listid === "Select"? "Select Id To View" :
                                         suppiddata.map((item, i) => (
                                             <tr>
                                                 <td className='text-center'>{item.id}</td>

@@ -3,11 +3,13 @@ import React, { useEffect, useRef, useState } from 'react'
 // import axios from 'axios'
 import { useReactToPrint } from 'react-to-print';
 import './Billgeneration.css'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import TextField from '@mui/material/TextField'
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 // import { convertLength } from '@mui/material/styles/cssUtils';
 import Billtablecom from './sansthamilk/Billtablecom';
+
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,6 +19,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { IconButton } from '@mui/material';
 
 
 
@@ -24,6 +27,7 @@ const Billgenerationcom = () => {
   // const [geneartebill, setgeneartebill] = useState(false)
   const [suppid, setsuppid] = useState(JSON.parse(localStorage.getItem('suppid')))
   // const [selectmilktype, setselectmilktype] = useState('')
+  const [drop, setdrop] = useState(false)
   const [code, setcode] = useState('')
   const [fcode, setfcode] = useState()
   const [tcode, settcode] = useState()
@@ -68,6 +72,8 @@ const Billgenerationcom = () => {
     console.log(suppid)
   }, [])
 
+
+
   const outerTheme = useTheme();
 
 
@@ -76,9 +82,41 @@ const Billgenerationcom = () => {
       <div className='p-2 p-sm-0'>
         <div className='container mt-4 billCont'>
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Bill Generation</h3></div>
-          <div className='row mt-3'>
-            <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
-              {/* <div style={{ fontSize: '0.7rem' }}>
+          <div className='row mt-4'>
+            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
+              <div >
+                <TextField
+                  variant='standard'
+                  label="Select Id"
+                  value={listid === ""?"":listid}
+                />
+
+                {
+                  drop ?
+                    <div className='position-absolute' style={{background: 'white', zIndex: '999', left: '70px', width: '30ch', boxShadow: '5px 5px 5px 0px gray' }}>
+                      <ul>
+                        {
+                          listno.map((item) => (
+                            <li
+                              style={{listStyle:'none'}}
+                              onClick={() => {
+                                setlistid(item)
+                                setdrop(false)
+                              }}
+                            >{item}</li>
+                          ))
+                        }
+                      </ul>
+                    </div> : null}
+              </div>
+              <div className='mt-4'>
+                <IconButton onClick={() => setdrop(!drop)}>
+                  <KeyboardArrowDownIcon />
+                </IconButton>
+              </div>
+            </div>
+            {/* <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
+              <div style={{ fontSize: '0.7rem' }}>
                 Supplier ID
               </div>
               <div class="dropdown">
@@ -89,30 +127,17 @@ const Billgenerationcom = () => {
                   {
                     listno.map((item) => (
                       <li
+                        className='dropdown-item'
                         onClick={() => {
                           setlistid(item)
                         }}
-                      ><a class="dropdown-item" href="#">{item}</a></li>
+                      >{item}</li>
                     ))
                   }
                 </ul>
-              </div> */}
-              <Box >
-                <FormControl variant="standard" sx={{ width: '30ch', m: 1 }}>
-                  <InputLabel id="demo-simple-select-standard-label">Supplier Id</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-standard-label"
-                    id="demo-simple-select-standard"
-                    label="Supplier hello">
-                    {
-                      listno.map((item) => (
-                        <MenuItem key={item} value={item} onClick={() => { setlistid(item) }}>{item}</MenuItem>
-                      ))
-                    }
-                  </Select>
-                </FormControl>
-              </Box>
-            </div>
+              </div>
+            
+            </div> */}
             <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
               <Box
                 component="form"

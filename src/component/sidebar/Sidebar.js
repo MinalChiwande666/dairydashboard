@@ -2,34 +2,53 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
-
+import './sidebar.css'
 import Divider from '@mui/material/Divider';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import { createTheme,ThemeProvider } from '@mui/material/styles';
 
 export default function Sidebar({ toggle, state, setState }) {
-
+    const colorTheme = createTheme({
+        palette: {
+          primary: {
+            main: '#800080'
+          },
+        },
+      });
     const navigate = useNavigate()
+    const hoverEffect = {
+        backgroundColor: 'red', // Normal background color
+        transition: 'background-color 0.3s', // Transition effect
+      };
     const list = (anchor) => {
         return (
             <Box
+                style={{height:'100vh'}}
+                className="bg-dark text-white"
                 sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
                 role="presentation"
                 onClick={toggle(anchor, true)}
                 onKeyDown={toggle(anchor, true)}
             >
-                <Menu>
+              
+                <Menu
+                
+               
+                >
                     <MenuItem>
-                        <h1>Dairy</h1>
+                        <h1 className='text-center'>Dairy</h1>
                     </MenuItem>
                     <SubMenu label="Masters Modules">
                         <SubMenu label="Main Master">
                             <MenuItem style={{ fontSize: '0.9rem' }}
+                            className='bg-dark text-white'
                                 onClick={() => {
                                     navigate('/accountmaster')
                                 }}>Account Master</MenuItem>
 
                             <MenuItem
+                            className='bg-dark text-white'
                                 style={{ fontSize: '0.9rem' }}
                                 onClick={() => {
                                     navigate('/customermaster')
@@ -38,6 +57,7 @@ export default function Sidebar({ toggle, state, setState }) {
                             </MenuItem>
 
                             <MenuItem
+                            className='bg-dark text-white'
                                 onClick={() => {
                                     navigate('/employee')
                                 }}
@@ -45,6 +65,7 @@ export default function Sidebar({ toggle, state, setState }) {
                                 Employee Master
                             </MenuItem>
                             <MenuItem
+                            className='bg-dark text-white'
                                 onClick={() => {
                                     navigate('/supplier')
                                 }}
@@ -52,6 +73,7 @@ export default function Sidebar({ toggle, state, setState }) {
                                 Supplier Master
                             </MenuItem>
                             <MenuItem
+                            className='bg-dark text-white'
                                 onClick={() => {
                                     navigate('/vendor')
                                 }}
@@ -129,9 +151,6 @@ export default function Sidebar({ toggle, state, setState }) {
                             Profit/Loss
                         </MenuItem>
                     </SubMenu>
-                </Menu>
-
-                <Menu>
                     <SubMenu label="Sanstha Milk Module">
                         <SubMenu label="Sanstha Master">
                             <MenuItem

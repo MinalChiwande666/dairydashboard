@@ -55,7 +55,18 @@ const Sidebarcom = () => {
             {
                 show &&
                 <Sidebar className="sidebar">
-                    <Menu>
+                    <Menu
+                     menuItemStyles={{
+                        button: ({ level, active, disabled }) => {
+                          // only apply styles on first level elements of the tree
+                          if (level === 0)
+                            return {
+                              color: disabled ? '#f5d9ff' : '#d359ff',
+                              backgroundColor: active ? '#eecef9' : undefined,
+                            };
+                        },
+                      }}
+                    >
                         <MenuItem
                             icon={<HorizontalSplitIcon />}
                             className="menu1">
@@ -64,6 +75,7 @@ const Sidebarcom = () => {
 
 
                         <SubMenu
+                            children={{}}
                             icon={<HorizontalSplitIcon />}
                             style={{ fontSize: '0.9rem' }}
                             label="Masters Modules">
