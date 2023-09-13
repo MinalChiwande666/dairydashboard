@@ -1,5 +1,5 @@
 import React from 'react'
-
+// import { AiOutlineHome } from "react-icons/ai";
 import './sidebar.css'
 import { useState } from 'react'
 import Sidebarcom from './Sidebarcom'
@@ -12,7 +12,9 @@ const Header = ({setshow,show}) => {
         <div >
           <button onClick={()=>setshow(!show)}>open</button>
         </div>
-        <p>Dashboard</p>
+        <div>
+          <p>Dashboard</p>
+        </div>
       </div>
     </>
   )

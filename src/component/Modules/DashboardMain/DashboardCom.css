@@ -1,0 +1,44 @@
+.boxshadow {
+    box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.05),
+                inset -5px -5px 5px rgba(255, 255, 255, 0.5),
+                5px 5px 5px rgba(0, 0, 0, 0.05),
+                -5px -5px 5px rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    transition: 0.5s;
+}
+.boxshadow:hover{
+    transform: scale(1.1);
+}
+
+.boxshadow:hover .bottomButtonHover .iconHover3 {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.boxshadow:hover .smallcard{
+    background: radial-gradient(circle at 10% 20%, rgb(148, 241, 246) 0%, rgb(148, 189, 246) 100.7%);
+}
+
+.text-box {
+    position: relative;
+    left: 15px;
+    gap: 0.5rem;
+}
+
+.smallcard {
+    width: 4.8rem;
+    height: 4.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: 	#5acbf1;
+    box-shadow: 0px 2px 5px rgb(184, 184, 184);
+}
+
+
+.cardtext {
+    font-size: 23px;
+    font-weight: 600;
+    color: rgb(81, 80, 80);
+}

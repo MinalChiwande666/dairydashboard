@@ -1858,7 +1858,6 @@ const Chillingcom = () => {
                                                 <th scope="col">inwordId</th>
                                                 <th scope="col">collectionType</th>
                                                 <th scope="col">vendorName</th>
-
                                                 <th scope="col">address</th>
                                                 <th scope="col">mobileNo</th>
                                                 <th scope='col'>milkType</th>

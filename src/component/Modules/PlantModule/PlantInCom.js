@@ -125,7 +125,7 @@ const PlantInCom = () => {
       }
     }
     return (
-        <div className='container-fluid '>
+        <div className='container-fluid'>
             <div className='row text-center bg-primary'>
                 <h4 className='text-white mt-2'>Plant In</h4>
             </div>

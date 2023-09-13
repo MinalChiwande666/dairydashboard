@@ -2,15 +2,17 @@ import React, { useState } from 'react'
 import './login.css'
 import { useNavigate, useNavigation } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+// import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { IconButton, TextField } from '@mui/material'
+
+
 const Logincom = () => {
   const [loginuser, setloginuser] = useState({
     username: '',
     password: ''
   })
   const [usernameerr, setusernameerr] = useState(false)
-  const [passworderr, setpassworderr] = useState(false)
+  // const [passworderr, setpassworderr] = useState(false)
 
   const navigate = useNavigate()
 

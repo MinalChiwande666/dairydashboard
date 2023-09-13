@@ -2,21 +2,19 @@ import React, { useState } from 'react'
 
 const PlantProfitLossCom = () => {
 
-
-
   return (
     <div className='container-fluid'>
       <div className='row bg-primary'>
-        <div className='col-md-6'>
+        <div className='col-md-6 col-12'>
           <h4 className='text-white mt-3'>Profit/Loss (From Collection)</h4>
         </div>
-        <div className='col-md-3 mb-2'>
+        <div className='col-md-3 mb-2 col-12'>
           <div className='text-white' style={{ fontSize: "1.2rem" }}>From Date</div>
           <div>
             <input style={{ fontSize: '1.1rem', padding: "0.2rem" }} type='date' />
           </div>
         </div>
-        <div className='col-md-3 mb-2'>
+        <div className='col-md-3 mb-2 col-12'>
           <div className='text-white' style={{ fontSize: "1.2rem" }}>To Date</div>
           <div>
             <input style={{ fontSize: '1.1rem', padding: "0.2rem" }} type='date' />

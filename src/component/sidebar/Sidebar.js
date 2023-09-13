@@ -39,15 +39,8 @@ export default function Sidebar({ toggle, state, setState }) {
                     <MenuItem>
                         <h1 className='text-center'>Dairy</h1>
                     </MenuItem>
-                    <SubMenu
-                      rootStyles={hoverEffect}
-                      
-                        label="Masters Modules"
-                    >
-                        <SubMenu
-                            label="A.Main Master"
-                            className='bg-dark text-white'
-                        >
+                    <SubMenu label="Masters Modules">
+                        <SubMenu label="Main Master">
                             <MenuItem style={{ fontSize: '0.9rem' }}
                             className='bg-dark text-white'
                                 onClick={() => {
@@ -62,7 +55,6 @@ export default function Sidebar({ toggle, state, setState }) {
                                 }}>
                                 Customer Master
                             </MenuItem>
-
 
                             <MenuItem
                             className='bg-dark text-white'
@@ -88,33 +80,11 @@ export default function Sidebar({ toggle, state, setState }) {
                                 style={{ fontSize: '0.9rem' }}>
                                 Vendor Master
                             </MenuItem>
-                           
-                        </SubMenu>
-                        <SubMenu className='bg-dark text-white' label="B.Other Modules">
-                            <MenuItem className='bg-dark text-white'>
-                                Account Group
-                            </MenuItem>
-                            <MenuItem className='bg-dark text-white'>
-                                Scheme Master
-                            </MenuItem>
-                            <MenuItem className='bg-dark text-white'>
-                                Department Master
-                            </MenuItem>
-                            <MenuItem className='bg-dark text-white'>
-                                Area Master
-                            </MenuItem>
-                            <MenuItem className='bg-dark text-white' onClick={()=>navigate('/route')}>
-                                Route
-                            </MenuItem>
-                           
                         </SubMenu>
                     </SubMenu>
                     <SubMenu
-                        label="Direct Milk Purchase"
-                    >
-                        <MenuItem
-                            onClick={() => navigate('/chilingcenter')}
-                        >
+                        label="Direct Milk Purchase">
+                        <MenuItem onClick={() => navigate('/chilingcenter')}>
                             Chilling Center
                         </MenuItem>
                         <MenuItem onClick={() => navigate('/milkchalan')}>
@@ -130,12 +100,8 @@ export default function Sidebar({ toggle, state, setState }) {
                             Milk List
                         </MenuItem>
                     </SubMenu>
-                    <SubMenu label="Milk Chalan">
 
-
-                    </SubMenu>
-
-                    <SubMenu label="Bulk Milk Module">
+                    {/* <SubMenu label="Bulk Milk Module">
                         <SubMenu label="Bulk Milk Entry">
                             <MenuItem onClick={() => navigate('/purratecontractmaster')}>
                                 PurRate Contract Master
@@ -174,7 +140,7 @@ export default function Sidebar({ toggle, state, setState }) {
                                 RPT Bulk Milk Report
                             </MenuItem>
                         </SubMenu>
-                    </SubMenu>
+                    </SubMenu> */}
 
 
                     <SubMenu label="Plant Module">
@@ -223,24 +189,14 @@ export default function Sidebar({ toggle, state, setState }) {
                             </MenuItem>
                         </SubMenu>
                     </SubMenu>
-                    <SubMenu label='Bill Generation'
-                        onClick={() => navigate('/Billgeneration')}
-                    >
+                </Menu>
+
+                <Menu >
+                    <SubMenu label='Bill Generation'onClick={() => navigate('/Billgeneration')}>
 
                     </SubMenu>
                 </Menu>
-
-               
-
-              
-
-            
-
-
-
                 <Divider />
-
-
             </Box>)
     };
 

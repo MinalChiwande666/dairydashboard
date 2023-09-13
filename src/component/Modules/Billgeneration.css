@@ -1,3 +1,43 @@
-.fontsize{
-    font-size: 13px;
+.billCont{
+    width: 100%;
+    height: 40vh;
+    border-radius: 10px;
+    transition: 0.5s;
+    box-shadow: 0px 2px 3px rgb(184, 184, 184);
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+.billCont::-webkit-scrollbar{
+    display: none;
+}
+
+
+.tableBillCont{
+    width: 100%;
+    min-width: 1000px;
+    table-layout: fixed;
+    cursor: pointer;
+}
+
+.tableBillCont thead th{
+    position: sticky;
+    top: 0;
+    background-color: #3bc5f3;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.tableBillCont thead th,td{
+    border-bottom: 1px solid #dddddd;
+    padding: 8px 15px;
+    word-break: break-all;
+    text-align: center;
+}
+
+.totalAmt{
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+

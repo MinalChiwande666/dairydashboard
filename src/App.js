@@ -41,6 +41,7 @@ import FarmerPassbook from './pages/Modules/Chillingcenter/MIlkpurchase/FarmerPa
 import Routemaster from './pages/Modules/MasterModule/Other_master/Routemaster'
 import PlantIn from './pages/Modules/PlantModule/PlantIn'
 import PlantProfitLoss from './pages/Modules/PlantModule/PlantProfitLoss'
+import DummyForm from './pages/Modules/DummyForm/DummyForm'
 
 const App = () => {
   const useractive = JSON.parse(localStorage.getItem('username'))
@@ -92,6 +93,7 @@ const App = () => {
           <Route path='/plantin' element={<><PlantIn /></>} />
           <Route path='/plantprofitlosscollection' element={<><PlantProfitLoss/></>} />
 
+          <Route path='/dummy' element={<><DummyForm /></>} />
 
 
         </Routes>

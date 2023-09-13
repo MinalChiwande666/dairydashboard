@@ -199,8 +199,9 @@ const MilkPurchasecom = () => {
         fetch(`http://103.38.50.113:8080/DairyApp/getRate?fat=${fatinp}&snf=${snfinp}&milktype=${type}`).then((data) => {
           return data.json()
         }).then((resp) => {
-          console.log(resp)
+         console.log("resp +>",resp)
           setmilkrate(resp)
+          
         }).catch((e) => {
           console.log(e)
         })
@@ -405,8 +406,8 @@ const MilkPurchasecom = () => {
                         ...milkpurchaseform,
                         milkRate: e.target.value
                       })
+                      console.log(e.target.value)
                     } else {
-
                       setmilkpurchaseform({
                         ...milkpurchaseform,
                         milkRate: milrate
