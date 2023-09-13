@@ -114,7 +114,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
 
                             <>
                                 {
-                                    listid === "Select" || listid !=="1" || listid !=="2" ? "Select Id To View" :
+                                    listid === "Select" ? "Select Id To View" :
                                         suppiddata.map((item, i) => (
                                             <tr>
                                                 <td className='text-center'>{item.id}</td>

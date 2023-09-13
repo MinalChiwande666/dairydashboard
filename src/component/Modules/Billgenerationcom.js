@@ -18,74 +18,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-const customTheme = (outerTheme) =>
 
-
-  createTheme({
-    palette: {
-      mode: outerTheme.palette.mode,
-    },
-    components: {
-      MuiTextField: {
-        styleOverrides: {
-          root: {
-            '--TextField-brandBorderColor': '#E0E3E7',
-            '--TextField-brandBorderHoverColor': '#B2BAC2',
-            '--TextField-brandBorderFocusedColor': '#6F7E8C',
-            '& label.Mui-focused': {
-              color: 'var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-      MuiOutlinedInput: {
-        styleOverrides: {
-          notchedOutline: {
-            borderColor: 'var(--TextField-brandBorderColor)',
-          },
-          root: {
-            [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-              borderColor: 'var(--TextField-brandBorderHoverColor)',
-            },
-            [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-              borderColor: 'var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-      MuiFilledInput: {
-        styleOverrides: {
-          root: {
-            '&:before, &:after': {
-              borderBottom: '2px solid var(--TextField-brandBorderColor)',
-            },
-            '&:hover:not(.Mui-disabled, .Mui-error):before': {
-              borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-            },
-            '&.Mui-focused:after': {
-              borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-      MuiInput: {
-        styleOverrides: {
-          root: {
-            '&:before': {
-              borderBottom: '2px solid var(--TextField-brandBorderColor)',
-            },
-            '&:hover:not(.Mui-disabled, .Mui-error):before': {
-              borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-            },
-
-            '&.Mui-focused:after': {
-              borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-    },
-  });
 
 const Billgenerationcom = () => {
   // const [geneartebill, setgeneartebill] = useState(false)
@@ -103,11 +36,6 @@ const Billgenerationcom = () => {
     to: ''
   })
 
-  // const billgenerate = React.forwardRef((ref, props) => {
-  //   return (
-  //     <h1>Hello</h1>
-  //   )
-  // })
 
   function getbillgenerationdata() {
     fetch("http://103.38.50.113:8080/DairyApp/getAllMilkPurchase").then((res) => {
@@ -148,7 +76,7 @@ const Billgenerationcom = () => {
       <div className='p-2 p-sm-0'>
         <div className='container mt-4 billCont'>
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Bill Generation</h3></div>
-          <div className='row mt-4'>
+          <div className='row mt-3'>
             <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
               {/* <div style={{ fontSize: '0.7rem' }}>
                 Supplier ID
@@ -219,15 +147,30 @@ const Billgenerationcom = () => {
                   }}
                   type='date' style={{ width: '100%' }} />
               </ThemeProvider> */}
-
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker']}>
-                  <DatePicker label={'"From Date"'} />
+              <LocalizationProvider dateAdapter={AdapterDayjs} >
+                <DemoContainer components={['DatePicker']} sx={{ width: '30ch', m: 1, borderLeftStyle:'none'}}>
+                  <DatePicker 
+                  
+                  InputLabelProps={{
+                    shrink: true, // This shrinks the label when there's a value
+                  }}
+                  sx={{
+                    '& .MuiInputBase-root.MuiInput-root input': {
+                      borderBottom: 'none',
+                      // You can add more custom styles here as needed
+                    },
+                  }}
+                  label={"From Date"} value={form.fDate} onChange={(e) => {
+                    setform({
+                      ...form,
+                      from: e.target.value
+                    })
+                  }} />
                 </DemoContainer>
               </LocalizationProvider>
             </div>
             <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
-              <ThemeProvider theme={customTheme(outerTheme)}>
+              {/* <ThemeProvider theme={customTheme(outerTheme)}>
                 <div>
                   <label className="fontsize">to Date</label>
                 </div>
@@ -240,11 +183,26 @@ const Billgenerationcom = () => {
                     })
                   }}
                   type='date' style={{ width: '100%' }} />
-              </ThemeProvider>
+              </ThemeProvider> */}
+              {/* <LocalizationProvider dateAdapter={AdapterDayjs} >
+                <DemoContainer components={['DatePicker']} sx={{ width: '30ch', m: 1 }}>
+                  <DatePicker label={'"To Date"'} value={form.tDate} onChange={(e) => {
+                    setform({
+                      ...form,
+                      to: e.target.value
+                    })
+                  }}/>
+                </DemoContainer>
+              </LocalizationProvider> */}
+              <div class="floating-label">
+                <label for="date-input">Date</label>
+                <input type="date" id="date-input" required/>
+              </div>
+
             </div>
           </div>
-          <div className='container mt-4 mx-5 mb-2 mb-sm-0'>
-            <button className='btn btn-primary' onClick={() => setshowtable(!showTable)}>Show Table</button>
+          <div className='container mt-4 mx-5 mx-sm-5 mb-2 mb-sm-0'>
+            <button className='btn btn-primary mx-0 mx-sm-3 mx-md-3' onClick={() => setshowtable(!showTable)}>Show Table</button>
             <button className='btn btn-primary mx-3' onClick={handleprint}>Generate Bill</button>
           </div>
         </div>
