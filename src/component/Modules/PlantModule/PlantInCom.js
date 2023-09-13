@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 
 
 const PlantInCom = () => {
 
+    const [routelist, setroutelist] = useState([])
     const [showTable, setShowTable] = useState(false)
-
+    const [plantdata, setplantdata] = useState([])
+    const [plantinform, setplantinform] = useState({
+        "date": "",
+        "shift": "",
+        "route": "",
+        "collector": "",
+        "quantity": null,
+        "fat": null,
+        "clr": null,
+    })
     const plantShift = [
         {
             id: 1,
@@ -18,17 +28,27 @@ const PlantInCom = () => {
         }
     ]
 
-    const plantRoute = [
-        {
-            id: 1,
-            name: "Barnala"
-        },
-        {
-            id: 2,
-            name: "Dummy"
-        }
-    ]
 
+    useEffect(() => {
+        fetch('http://103.38.50.113:8080/DairyApp/getRoute').then((res) => {
+            return res.json()
+        }).then((data) => {
+            console.log(data)
+            setroutelist(data)
+        })
+    }, [])
+
+    const getalldata = ()=>{
+        fetch('http://103.38.50.113:8080/DairyApp/getallPlantIn').then((data) => {
+            return data.json()
+        }).then((res) => {
+            console.log("response =>", res)
+            setplantdata(res)
+        })
+    }
+    useEffect(() => {
+       getalldata()
+    }, [])
     const plantCollector = [
         {
             id: 1,
@@ -40,14 +60,78 @@ const PlantInCom = () => {
         }
     ]
 
+    const save = () => {
+        console.log("plantform=>", plantinform)
+
+        try {
+            let neobj = {
+                "date": plantinform.date,
+                "shift": plantinform.shift,
+                "route": plantinform.route,
+                "collector": plantinform.collector,
+                "quantity": Number(plantinform.quantity),
+                "fat": Number(plantinform.fat),
+                "clr": Number(plantinform.clr)
+            }
+            console.log("plant form=>", neobj)
+            fetch('http://103.38.50.113:8080/DairyApp/savePlantIn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(neobj)
+            }).then((data) => {
+                return data.json()
+            }).then((res) => {
+                console.log("respones saved =>", res)
+                alert(res.message)
+                if (res.message === "Data Saved...!") {
+                    setplantinform({
+                        "date": "",
+                        "shift": "",
+                        "route": "",
+                        "collector": "",
+                        "quantity": "",
+                        "fat": "",
+                        "clr": "",
+                    })
+                }
+            }).catch((e) => {
+                console.log("server error=>", e)
+            })
+        } catch (e) {
+            console.log("Error =>", e)
+        }
+    }
+
+    const del = (id)=>{
+      try{
+        fetch('http://103.38.50.113:8080/DairyApp/deletePlantin',{
+            method:'POST',
+            headers:{
+                'Content-type':'application/json'
+            },
+            body: JSON.stringify({
+                "id":id
+            })
+        }).then((res)=>{
+            return res
+        }).then((data)=>{
+           console.log(data)
+           getalldata()
+        })
+      }catch(e){
+      console.log("Error=>",e)
+      }
+    }
     return (
         <div className='container-fluid '>
             <div className='row text-center bg-primary'>
                 <h4 className='text-white mt-2'>Plant In</h4>
             </div>
             <div>
-                <div style={{ boxShadow: "2px 2px 2px #D3D3D3", overflowY:"scroll"}} >
-                    <table className='table' style={{ width: "100%"}}>
+                <div style={{ boxShadow: "2px 2px 2px #D3D3D3", overflowY: "scroll" }} >
+                    <table className='table' style={{ width: "100%" }}>
                         <thead>
                             <tr>
                                 <th scope='col'>Date</th>
@@ -62,17 +146,32 @@ const PlantInCom = () => {
                         </thead>
                         <tbody>
                             <th scope='row'>
-                                <input type="date" style={{ fontSize: '1.1rem', padding: "0.2rem", marginTop: "9px", border: "1px solid gray" }} />
+                                <input
+                                    value={plantinform.date}
+                                    onChange={(e) => {
+                                        setplantinform({
+                                            ...plantinform,
+                                            date: e.target.value
+                                        })
+                                    }}
+                                    type="date" style={{ fontSize: '1.1rem', padding: "0.2rem", marginTop: "9px", border: "1px solid gray" }} />
                             </th>
                             <td>
                                 <div className='dropdown'>
                                     <button className='btn btn-secondary dropdown-toggle' type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Select
+                                        {plantinform.shift === "" ? "Select" : plantinform.shift}
                                     </button>
                                     <ul className="dropdown-menu">
                                         {
                                             plantShift.map((item) => (
-                                                <li className='dropdown-item'>{item.name}</li>
+                                                <li
+                                                    onClick={() => {
+                                                        setplantinform({
+                                                            ...plantinform,
+                                                            shift: item.name
+                                                        })
+                                                    }}
+                                                    className='dropdown-item'>{item.name}</li>
                                             ))
                                         }
                                     </ul>
@@ -81,12 +180,19 @@ const PlantInCom = () => {
                             <td>
                                 <div className='dropdown'>
                                     <button className='btn btn-secondary dropdown-toggle' type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Select
+                                        {plantinform.route === "" ? "Select" : plantinform.route}
                                     </button>
                                     <ul className="dropdown-menu">
                                         {
-                                            plantRoute.map((item) => (
-                                                <li className='dropdown-item'>{item.name}</li>
+                                            routelist.map((item) => (
+                                                <li
+                                                    onClick={() => {
+                                                        setplantinform({
+                                                            ...plantinform,
+                                                            route: item
+                                                        })
+                                                    }}
+                                                    className='dropdown-item'>{item}</li>
                                             ))
                                         }
                                     </ul>
@@ -96,12 +202,19 @@ const PlantInCom = () => {
                             <td>
                                 <div className='dropdown'>
                                     <button className='btn btn-secondary dropdown-toggle' type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Select
+                                        {plantinform.collector === "" ? "Select" : plantinform.collector}
                                     </button>
                                     <ul className="dropdown-menu">
                                         {
                                             plantCollector.map((item) => (
-                                                <li className='dropdown-item'>{item.name}</li>
+                                                <li
+                                                    onClick={() => {
+                                                        setplantinform({
+                                                            ...plantinform,
+                                                            collector: item.name
+                                                        })
+                                                    }}
+                                                    className='dropdown-item'>{item.name}</li>
                                             ))
                                         }
                                     </ul>
@@ -109,18 +222,46 @@ const PlantInCom = () => {
                             </td>
 
                             <td>
-                                <input type="text" style={{ marginTop: "9px", height: "35px", border: "1px solid gray" }} />
+                                <input
+                                    onChange={(e) => {
+                                        setplantinform({
+                                            ...plantinform,
+                                            quantity: e.target.value
+                                        })
+                                    }}
+
+                                    type="text"
+                                    value={plantinform.quantity}
+                                    style={{ marginTop: "9px", height: "35px", border: "1px solid gray" }} />
                             </td>
 
                             <td>
-                                <input type="text" style={{ marginTop: "9px", height: "35px", border: "1px solid gray" }} />
+                                <input
+                                    onChange={(e) => {
+                                        setplantinform({
+                                            ...plantinform,
+                                            fat: e.target.value
+                                        })
+                                    }}
+                                    value={plantinform.fat}
+                                    type="text" style={{ marginTop: "9px", height: "35px", border: "1px solid gray" }} />
                             </td>
 
                             <td>
-                                <input type="text" style={{ marginTop: "9px", height: "35px", border: "1px solid gray" }} />
+                                <input
+                                    onChange={(e) => {
+                                        setplantinform({
+                                            ...plantinform,
+                                            clr: e.target.value
+                                        })
+                                    }}
+                                    value={plantinform.clr}
+                                    type="text" style={{ marginTop: "9px", height: "35px", border: "1px solid gray" }} />
                             </td>
                             <td>
-                                <button className='btn btn-primary mt-1 bg-primary text-white' style={{ width: "70px", fontSize: "1rem" }}>Save</button>
+                                <button
+                                    onClick={() => save()}
+                                    className='btn btn-primary mt-1 bg-primary text-white' style={{ width: "70px", fontSize: "1rem" }}>Save</button>
                             </td>
                         </tbody>
                     </table>
@@ -149,17 +290,21 @@ const PlantInCom = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>1.2</td>
-                                        <td>2.6</td>
-                                        <td>6.5</td>
-                                        <td>95.5</td>
-                                        <td>548</td>
-                                        <td>452</td>
-                                        <td>987</td>
-                                        <td><IconButton><DeleteIcon style={{ color: 'red', cursor: 'pointer' }} /></IconButton></td>
-                                    </tr>
+                                    {
+                                        plantdata.map((item,i) => (
+                                            <tr>
+                                               <td>{item.id}</td>
+                                                <td>{item.date}</td>
+                                                <td>{item.shift}</td>
+                                                <td>{item.route}</td>
+                                                <td>{item.collector}</td>
+                                                <td>{item.quantity}</td>
+                                                <td>{item.fat}</td>
+                                                <td>{item.clr}</td>
+                                                <td><IconButton onClick={()=>del(item.id)}><DeleteIcon style={{ color: 'red', cursor: 'pointer' }} /></IconButton></td>
+                                            </tr>
+                                        ))
+                                    }
                                 </tbody>
                             </table>
                         </div> : null
