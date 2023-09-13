@@ -11,7 +11,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
     useEffect(() => {
       
         if (listid) {
-            fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=1`).then((data) => {
+            fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=${listid}`).then((data) => {
                 return data.json()
             }).then((res) => {
               
