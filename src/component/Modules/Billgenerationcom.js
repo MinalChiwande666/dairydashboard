@@ -89,12 +89,13 @@ const Billgenerationcom = () => {
                   variant='standard'
                   label="Select Id"
                   value={listid === ""?"":listid}
+                  sx={{width:"25ch"}}
                 />
 
                 {
                   drop ?
-                    <div className='position-absolute' style={{background: 'white', zIndex: '999', left: '70px', width: '30ch', boxShadow: '5px 5px 5px 0px gray' }}>
-                      <ul>
+                    <div className='billgenSelect'>
+                      <ul className='d-flex justify-content-center flex-column m-0 p-0'>
                         {
                           listno.map((item) => (
                             <li
@@ -175,14 +176,14 @@ const Billgenerationcom = () => {
               <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DemoContainer components={['DatePicker']} sx={{ width: '30ch', m: 1, borderLeftStyle:'none'}}>
                   <DatePicker 
-                  
                   InputLabelProps={{
                     shrink: true, // This shrinks the label when there's a value
                   }}
                   sx={{
-                    '& .MuiInputBase-root.MuiInput-root input': {
-                      borderBottom: 'none',
-                      // You can add more custom styles here as needed
+                    '& .MuiInput-root': {
+                      '& input': {
+                        border: 'none', // Remove the border from all sides
+                      },
                     },
                   }}
                   label={"From Date"} value={form.fDate} onChange={(e) => {

@@ -1,6 +1,42 @@
-.hover{
+/* .hover{
     background-color: blueviolet;
 }
 .hover:hover{
     background-color: blueviolet;
+} */
+
+.sidebarstyle {
+    background: #B5F6FF;
+    background: linear-gradient(135deg, #B5F6FF, #0D87D3);
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.2rem;
+}
+
+.submenuSidebarstyle {
+    background: #8ec9ee;
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.menuside:hover {
+    background-color: red;
+}
+
+
+.ps-menuitem-root {
+    background: transparent;
+}
+
+.ps-menu-button:hover{
+    /* background:none !important; */
+    background: #8ec9ee !important;
+}
+
+.sidebarTitle:hover {
+    font-family: 'Roboto Condensed', sans-serif;
+    background: linear-gradient(to right, #f32170,
+            #ff6b08, #cf23cf, #eedd44);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
 }

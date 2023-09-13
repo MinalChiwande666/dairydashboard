@@ -11,7 +11,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
     useEffect(() => {
       
         if (listid) {
-            fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=${listid}`).then((data) => {
+            fetch(`http://103.38.50.113:8080/DairyApp/getdatabysupplierId?supplierId=${listid}`).then((data) => {
                 return data.json()
             }).then((res) => {
               
@@ -64,7 +64,8 @@ const Billtablecom = React.forwardRef((props, ref) => {
             <table ref={ref} className="tableBillCont table table-striped">
                 <thead>
                     <tr>
-                        <th>Suppier Name</th>
+                        <th>ID</th>
+                        <th>Supplier Name</th>
                         <th>SupplierId</th>
                         <th>Date</th>
                         <th>Shift</th>
@@ -100,6 +101,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
                         }).map((item, i) => (
                             <tr>
                                 <td className='text-center'>{item.id}</td>
+                                <td className='text-center'>{item.supplierName}</td>
                                 <td className='text-center'>{item.supplierId}</td>
                                 <td className='text-center'>{item.date}</td>
                                 <td className='text-center'>{item.shift}</td>
