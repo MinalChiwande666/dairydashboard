@@ -6,37 +6,62 @@
 } */
 
 .sidebarstyle {
-    background: #B5F6FF;
-    background: linear-gradient(135deg, #B5F6FF, #0D87D3);
+    background: #59dff1;
+    /* background: linear-gradient(135deg, #B5F6FF, #0D87D3); */
     color: white;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 1.2rem;
 }
 
-.submenuSidebarstyle {
-    background: #8ec9ee;
+/* .submenuSidebarstyle {
+    background: #B5F6FF;
+    background: linear-gradient(135deg, #B5F6FF, #0D87D3);
     color: white;
     font-family: 'Roboto Condensed', sans-serif;
+} */
+.sidebarmain{
+    font-size: 1.1rem;
 }
 
-.menuside:hover {
+.sidebarcolor{
+    font-size: 1.05rem;
+}
+
+/* .menuside:hover {
     background-color: red;
-}
+} */
 
-
-.ps-menuitem-root {
-    background: transparent;
-}
 
 .ps-menu-button:hover{
-    /* background:none !important; */
-    background: #8ec9ee !important;
+    /* background:white !important; */
+    background: none !important;
+    /* color: black; */
+    /* background: #8ec9ee !important; */
 }
+
+.ps-submenu-root{
+    background: #59dff1;
+}
+
+.ps-submenu-root :hover{
+    /* background:#59dff1 !important; */
+    color:  rgb(255, 255, 255) !important;
+    background: transparent !important;
+
+}
+.ps-menu-button{
+    background: #59dff1;
+}
+.ps-menu-button:hover{
+    background: linear-gradient(135deg, #B5F6FF, #0D87D3) !important;
+}
+
+
 
 .sidebarTitle:hover {
     font-family: 'Roboto Condensed', sans-serif;
-    background: linear-gradient(to right, #f32170,
-            #ff6b08, #cf23cf, #eedd44);
+    background: linear-gradient(135deg, #B5F6FF, #0D87D3);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
+    cursor: pointer;
 }

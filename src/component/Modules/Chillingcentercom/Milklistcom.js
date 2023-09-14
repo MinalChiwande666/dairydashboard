@@ -369,7 +369,7 @@ const Milklistcom = () => {
             </div>
 
             <div className='container'>
-                <input contentEditable={false} style={{pointerEvents:'none', color:'white',width:'8vw',border:'none',padding:'5px',fontWeight:'700',borderRadius:'0.4rem'}} className='bg-primary my-2 text-center' type='text' value={`List No.${JSON.parse(localStorage.getItem('inclistno')) + 1}`}/>
+                <input contentEditable={false} style={{width:"80px", pointerEvents:'none', color:'white', border:'none',padding:'5px',fontWeight:'700',borderRadius:'0.4rem'}} className='bg-primary my-2 text-center' type='text' value={`List No.${JSON.parse(localStorage.getItem('inclistno')) + 1}`}/>
                 <div style={{ overflow: 'scroll', height:"64vh"}}>
                     {snffatdata.length === 0 ? <table class="table table-bordered">
                         <thead className='table-primary'>
@@ -457,20 +457,13 @@ const Milklistcom = () => {
             </div>
             <div className='container'>
                 <div className='row my-4'>
-                    <div className='col-1 col-md-1'>
-                        <button onClick={() => deletetable()} className='btn btn-danger border border-none text-white' style={{width:"80px", fontWeight:"600"}}>Delete</button>
+                    <div className='col-12 col-md-1'>
+                        <button onClick={() => deletetable()} className='btn btn-danger text-white' style={{width:"80px", fontWeight:"600"}}>Delete</button>
                     </div>
-                    {/* <div className='col-1 col-md-1'>
-                        <button className='bg-light border border-none px-2'>Serach</button>
-                    </div> */}
-
-                    {/* <div className='col-1 col-md-1'>
-                <button className='bg-light border border-none '>Settings</button>
-              </div> */}
-                    <div className='col-1 col-md-1'>
+                    <div className='col-12 col-md-1'>
                         <button
                             onClick={() => save()}
-                            className='btn btn-primary border border-none px-2' style={{width:"80px", fontWeight:"600"}}>Save</button>
+                            className='btn btn-primary mt-sm-0 mt-2' style={{width:"80px", fontWeight:"600"}}>Save</button>
                     </div>
                     
                 </div>

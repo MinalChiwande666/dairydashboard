@@ -28,20 +28,19 @@ export default function Sidebar({ toggle, state, setState }) {
                 onKeyDown={toggle(anchor, true)}>
 
                 <Menu>
-                    <MenuItem>
+                    <span>
                         <h1 className='text-center sidebarTitle'>Dairy</h1>
-                    </MenuItem>
+                    </span>
                     <SubMenu label="Masters Modules">
-                        <SubMenu label="Main Master" style={{background:"#8ec9ee", color:"white", fontFamily:"Roboto Condensed', sans-serif"}}>
-                            <MenuItem style={{ fontSize: '0.9rem' }}
-                                className='submenuSidebarstyle'
+                        <SubMenu label="Main Master" className='sidebarmain'>
+                            <MenuItem
+                                className='sidebarcolor'
                                 onClick={() => {
                                     navigate('/accountmaster')
                                 }}>Account Master</MenuItem>
 
                             <MenuItem
-                                className='submenuSidebarstyle'
-                                style={{ fontSize: '0.9rem' }}
+                                className='sidebarcolor'
                                 onClick={() => {
                                     navigate('/customermaster')
                                 }}>
@@ -49,46 +48,46 @@ export default function Sidebar({ toggle, state, setState }) {
                             </MenuItem>
 
                             <MenuItem
-                                className='submenuSidebarstyle'
+                                className='sidebarcolor'
                                 onClick={() => {
                                     navigate('/employee')
                                 }}
-                                style={{ fontSize: '0.9rem' }}>
+                                >
                                 Employee Master
                             </MenuItem>
                             <MenuItem
-                                className='submenuSidebarstyle'
+                                className='sidebarcolor'
                                 onClick={() => {
                                     navigate('/supplier')
                                 }}
-                                style={{ fontSize: '0.9rem' }}>
+                                >
                                 Supplier Master
                             </MenuItem>
                             <MenuItem
-                                className='submenuSidebarstyle'
+                                className='sidebarcolor'
                                 onClick={() => {
                                     navigate('/vendor')
                                 }}
-                                style={{ fontSize: '0.9rem' }}>
+                                >
                                 Vendor Master
                             </MenuItem>
                         </SubMenu>
                     </SubMenu>
                     <SubMenu
                         label="Direct Milk Purchase">
-                        <MenuItem onClick={() => navigate('/chilingcenter')} className='submenuSidebarstyle'>
+                        <MenuItem onClick={() => navigate('/chilingcenter')}className='sidebarmain'>
                             Chilling Center
                         </MenuItem>
-                        <MenuItem onClick={() => navigate('/milkchalan')} className='submenuSidebarstyle'>
+                        <MenuItem onClick={() => navigate('/milkchalan')} className='sidebarmain'>
                             Milk Chalan
                         </MenuItem>
-                        <MenuItem onClick={() => navigate('/milkpurchase')} className='submenuSidebarstyle'>
+                        <MenuItem onClick={() => navigate('/milkpurchase')} className='sidebarmain'>
                             Milk Purchase
                         </MenuItem>
-                        <MenuItem onClick={() => navigate('/farmerpassbook')} className='submenuSidebarstyle'>
+                        <MenuItem onClick={() => navigate('/farmerpassbook')} className='sidebarmain'>
                             Farmer Passbook
                         </MenuItem>
-                        <MenuItem onClick={() => navigate('/milklist')} className='submenuSidebarstyle'>
+                        <MenuItem onClick={() => navigate('/milklist')} className='sidebarmain'>
                             Milk List
                         </MenuItem>
                     </SubMenu>
@@ -136,47 +135,47 @@ export default function Sidebar({ toggle, state, setState }) {
 
 
                     <SubMenu label="Plant Module">
-                        <MenuItem onClick={() => navigate('/plantin')} className='submenuSidebarstyle'>
+                        <MenuItem onClick={() => navigate('/plantin')} className='sidebarmain'>
                             Plant In
                         </MenuItem>
-                        <MenuItem onClick={() => navigate('/plantprofitlosscollection')} className='submenuSidebarstyle'>
+                        <MenuItem onClick={() => navigate('/plantprofitlosscollection')} className='sidebarmain'>
                             Profit/Loss
                         </MenuItem>
                     </SubMenu>
                     <SubMenu label="Sanstha Milk Module">
-                        <SubMenu label="Sanstha Master" className='submenuSidebarstyle'>
+                        <SubMenu label="Sanstha Master" className='sidebarmain'>
                             <MenuItem
-                                onClick={() => navigate('/sansthamaster')} className='submenuSidebarstyle'>
+                                onClick={() => navigate('/sansthamaster')} className="sidebarcolor">
                                 Sanstha master
                             </MenuItem>
                             <MenuItem
-                                onClick={() => navigate('/purchaseratecontractmaster')} className='submenuSidebarstyle'>
+                                onClick={() => navigate('/purchaseratecontractmaster')} className="sidebarcolor">
                                 Purchase rate contract master
                             </MenuItem>
                             <MenuItem
-                                onClick={() => navigate('/purchaseratecontract')} className='submenuSidebarstyle'>
+                                onClick={() => navigate('/purchaseratecontract')} className="sidebarcolor">
                                 Purchase rate contract
                             </MenuItem>
                         </SubMenu>
-                        <SubMenu label="Milk Collection" className='submenuSidebarstyle'>
+                        <SubMenu label="Milk Collection" className='sidebarmain'>
                             <MenuItem
-                                onClick={() => navigate('/milkcollectionexcelupload')} className='submenuSidebarstyle'>
+                                onClick={() => navigate('/milkcollectionexcelupload')} className="sidebarcolor">
                                 Milk collection with Excel upload
                             </MenuItem>
                             <MenuItem
-                                onClick={() => navigate('/downloadsanthamilkcollection')} className='submenuSidebarstyle'>
+                                onClick={() => navigate('/downloadsanthamilkcollection')} className="sidebarcolor">
                                 Download sanstha Milk Collection
                             </MenuItem>
                             <MenuItem
-                                onClick={() => navigate('/Milkcollectionwithqc')} className='submenuSidebarstyle'>
+                                onClick={() => navigate('/Milkcollectionwithqc')} className="sidebarcolor">
                                 Combine Collection with QC
                             </MenuItem>
                             <MenuItem
-                                onClick={() => navigate('/Milkcollectionmanualkg')} className='submenuSidebarstyle'>
+                                onClick={() => navigate('/Milkcollectionmanualkg')} className="sidebarcolor">
                                 Milk Collection Manual:kg
                             </MenuItem>
                             <MenuItem
-                                onClick={() => navigate('/Milkcollectionltr')} className='submenuSidebarstyle'>
+                                onClick={() => navigate('/Milkcollectionltr')} className="sidebarcolor">
                                 Milk Collection Ltr
                             </MenuItem>
                         </SubMenu>

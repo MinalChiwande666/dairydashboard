@@ -159,7 +159,8 @@ const Billgenerationcom = () => {
           </div>
           <div className='row mt-4'>
             <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
-              {/* <ThemeProvider theme={customTheme(outerTheme)}>
+              {/* <ThemeProvider theme={customTheme(outerTheme)}> */}
+                <div style={{width:"30ch"}}>
                 <div>
                   <label className="fontsize">From Date</label>
                 </div>
@@ -172,8 +173,10 @@ const Billgenerationcom = () => {
                     })
                   }}
                   type='date' style={{ width: '100%' }} />
-              </ThemeProvider> */}
-              <LocalizationProvider dateAdapter={AdapterDayjs} >
+                </div>
+                
+              {/* </ThemeProvider> */}
+              {/* <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DemoContainer components={['DatePicker']} sx={{ width: '30ch', m: 1, borderLeftStyle:'none'}}>
                   <DatePicker 
                   InputLabelProps={{
@@ -193,10 +196,11 @@ const Billgenerationcom = () => {
                     })
                   }} />
                 </DemoContainer>
-              </LocalizationProvider>
+              </LocalizationProvider> */}
             </div>
             <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
-              {/* <ThemeProvider theme={customTheme(outerTheme)}>
+              {/* <ThemeProvider theme={customTheme(outerTheme)}> */}
+                <div style={{width:"30ch"}}>
                 <div>
                   <label className="fontsize">to Date</label>
                 </div>
@@ -209,7 +213,9 @@ const Billgenerationcom = () => {
                     })
                   }}
                   type='date' style={{ width: '100%' }} />
-              </ThemeProvider> */}
+                </div>
+                
+              {/* </ThemeProvider> */}
               {/* <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DemoContainer components={['DatePicker']} sx={{ width: '30ch', m: 1 }}>
                   <DatePicker label={'"To Date"'} value={form.tDate} onChange={(e) => {
@@ -220,10 +226,10 @@ const Billgenerationcom = () => {
                   }}/>
                 </DemoContainer>
               </LocalizationProvider> */}
-              <div class="floating-label">
+              {/* <div class="floating-label">
                 <label for="date-input">Date</label>
                 <input type="date" id="date-input" required/>
-              </div>
+              </div> */}
 
             </div>
           </div>

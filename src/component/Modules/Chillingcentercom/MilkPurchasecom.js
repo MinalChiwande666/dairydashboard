@@ -243,8 +243,8 @@ const MilkPurchasecom = () => {
   return (
     <div className='container-fluid'>
       {dailoge()}
-      <div className='row bg-primary' style={{height:"80px"}}>
-        <div className='col-12 col-md-2'>
+      <div className='row bg-primary'>
+        <div className='col-12 col-md-2 pb-2'>
           <div className='text-white' style={{fontSize:"1.2rem"}}>
             Date
           </div>
@@ -260,7 +260,7 @@ const MilkPurchasecom = () => {
               style={{ width: '90%', fontSize: '1.1rem', padding:"0.2rem"}} type='date' />
           </div>
         </div>
-        <div className='col-12 col-md-2'>
+        <div className='col-12 col-md-2 pb-2'>
           <div className='text-white' style={{fontSize:"1.2rem"}}>
             Shift
           </div>
@@ -299,7 +299,7 @@ const MilkPurchasecom = () => {
 
       </div>
       <div>
-        <div className='mx-2 my-2' style={{ boxShadow: "2px 2px 2px #D3D3D3" }}>
+        <div className='mx-2 my-2' style={{ boxShadow: "2px 2px 2px #D3D3D3", overflowX:"scroll" }}>
           <table className="table my-2">
             <thead>
               <tr>
@@ -322,7 +322,7 @@ const MilkPurchasecom = () => {
                     <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       {milkpurchaseform.supplier === "" ? "Select" : milkpurchaseform.supplier}
                     </button>
-                    <ul className="dropdown-menu">
+                    <ul className="dropdown-menu" >
                       {
                         suppid.map((item) => (
                           <li
@@ -392,7 +392,6 @@ const MilkPurchasecom = () => {
                           }}
                           className='dropdown-item'>{item.name}</li>
                       ))
-
                     }
                   </ul>
                 </div></td>
@@ -428,8 +427,9 @@ const MilkPurchasecom = () => {
                     })
 
                   }}
-                  type='number' /></td>
-                <td><button onClick={() => save()} className='btn btn-primary'>Save</button></td>
+                  type='number'/>
+                </td>
+                <td><button onClick={() => save()} className='btn btn-primary' style={{width:"90px"}}>Save</button></td>
               </tr>
 
             </tbody>
