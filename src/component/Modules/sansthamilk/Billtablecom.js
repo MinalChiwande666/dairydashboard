@@ -2,24 +2,27 @@ import React, { useEffect, useState } from 'react'
 
 const Billtablecom = React.forwardRef((props, ref) => {
     const [suppiddata, setsuppiddata] = useState([])
+    const [totalamt,settotalamt] = useState()
     const { data, suppid, tcode, fcode, form, code, setdata, listid } = props
     let namt;
     let nsamt;
     let sum2;
     const [netamount, setnetamount] = useState(0)
-    console.log("list id =>",listid)
+    // console.log("list id =>",listid)
     useEffect(() => {
-      
-        if (listid) {
-            fetch(`http://103.38.50.113:8080/DairyApp/getdatabysupplierId?supplierId=${listid}`).then((data) => {
+        if(listid){
+            fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=${listid}`).then((data) => {
                 return data.json()
             }).then((res) => {
               
-                console.log("res by id=>", res)
-                setsuppiddata(res)
+                console.log("res by id=>", res.filteredMilkPurchases)
+                setsuppiddata(res?.filteredMilkPurchases)
+                settotalamt(res?.totalNetAmount)
+                
 
             })
         }
+        
     }, [listid])
 
     console.log(sum2, "second ntamnt")
@@ -121,6 +124,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
                                         suppiddata.map((item, i) => (
                                             <tr>
                                                 <td className='text-center'>{item.id}</td>
+                                                <td className='text-center'>{item.supplierName}</td>
                                                 <td className='text-center'>{item.supplierId}</td>
                                                 <td className='text-center'>{item.date}</td>
                                                 <td className='text-center'>{item.shift}</td>
@@ -139,8 +143,8 @@ const Billtablecom = React.forwardRef((props, ref) => {
                     {
                         listid === "Select" ? "" :
                         <tr>
-                            <td colSpan={"9"} className='totalAmt'>Total</td>
-                            <td className='totalAmt' style={{color:"red"}}>{gettotal()}</td>
+                            <td colSpan={"10"} className='totalAmt'>Total</td>
+                            <td className='totalAmt' style={{color:"red"}}>{totalamt}</td>
                         </tr>
                     }
                     
