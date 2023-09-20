@@ -7,6 +7,8 @@ import * as FileSaver from 'file-saver'
 import * as XLSX from "xlsx";
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
+import { IconButton } from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const customTheme = (outerTheme) =>
 
@@ -80,10 +82,18 @@ const AccountmasCom = () => {
   const [status, setstatus] = useState('')
   const [costecenter, setcostcenter] = useState('No')
   const [showtable, setshowtable] = useState(false)
-
+  const [drop, setdrop] = useState(false)
   const [selaccountgroup, setselaccountgroup] = useState('')
   const [selopentype, setopentype] = useState('')
   const [allusers, setallusers] = useState([])
+  const [togg, settogg] = useState(false)
+  const [togg1, settogg1] = useState(false)
+  const [togg2, settogg2] = useState(false)
+  const [togg3, settogg3] = useState(false)
+
+
+
+
   const [accountform, setaccountform] = useState(
     {
       accountName: '',
@@ -99,13 +109,17 @@ const AccountmasCom = () => {
       isCostCenterAllocated: ''
     }
   )
-  useEffect(() => {
+
+  const getData = () =>{
     axios.get('http://103.38.50.113:8080/DairyApp/getAllAccountMasterData').then((data) => {
       console.log(data.data)
       setallusers(data.data)
     }).catch((e) => {
       console.log("error=>", e)
     })
+  }
+  useEffect(() => {
+    getData()
   }, [])
 
   const saveform = async () => {
@@ -122,6 +136,7 @@ const AccountmasCom = () => {
       mainLegger: accountform.mainLegger,
       isCostCenterAllocated: costecenter
     }
+
     axios.post('http://103.38.50.113:8080/DairyApp/saveAccountMaster', newform).then((data) => {
       alert(data.data.message)
       if (data.status === 200) {
@@ -138,6 +153,10 @@ const AccountmasCom = () => {
           mainLegger: '',
           isCostCenterAllocated: ''
         })
+
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
       }
     }).catch((e) => {
       console.log("error")
@@ -252,7 +271,7 @@ const AccountmasCom = () => {
   return (
     <>
 
-      {/* <div className='p-2 sm-0'>
+      <div className='p-2 sm-0'>
         <div className='container mt-4 accCont'>
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Account Master</h3></div>
           <div className='row mt-4'>
@@ -264,15 +283,341 @@ const AccountmasCom = () => {
                 <TextField label="Account No" variant="standard" />
               </Box>
             </div>
+
             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-              
+              <div>
+                <TextField
+                  variant='standard'
+                  label="Account Type"
+                  value={selectaccounaset === '' ? '' : selectaccounaset}
+                  sx={{ width: "25ch" }}
+                />
+                {
+                  drop ?
+                    <div className='masterSelect'>
+                      <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                        {
+                          items.map((item) => (
+                            <li
+                              style={{ listStyle: 'none' }}
+                              onClick={() => {
+                                setaccountasset(item.name)
+                                setdrop(false)
+                              }}
+                            >{item.name}</li>
+                          ))
+                        }
+                      </ul>
+                    </div> : null}
+              </div>
+              <div className='mt-4'>
+                <IconButton onClick={() => setdrop(!drop)}>
+                  <KeyboardArrowDownIcon />
+                </IconButton>
+              </div>
+            </div>
+
+            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <div>
+                <TextField
+                  variant='standard'
+                  label="Status"
+                  value={status === '' ? '' : status}
+                  sx={{ width: "25ch" }}
+                />
+                {
+                  togg ?
+                    <div className='masterSelect'>
+                      <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                        {
+                          Status.map((item) => (
+                            <li
+                              style={{ listStyle: 'none' }}
+                              onClick={() => {
+                                setstatus(item.stat)
+                                settogg(false)
+                              }}
+                            >{item.stat}</li>
+                          ))
+                        }
+                      </ul>
+                    </div> : null}
+              </div>
+              <div className='mt-4'>
+                <IconButton onClick={() => settogg(!togg)}>
+                  <KeyboardArrowDownIcon />
+                </IconButton>
+              </div>
+            </div>
+
+            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <Box
+                component="form"
+                sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                autoComplete="off">
+                <TextField value={accountform.accountName}
+                  onChange={(e) => {
+                    setaccountform({
+                      ...accountform,
+                      accountName: e.target.value
+                    })
+                  }}
+                  label="Account Name" variant="standard" />
+              </Box>
             </div>
           </div>
+
+          <div className='row mt-4'>
+            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <div>
+                <TextField
+                  variant='standard'
+                  label="Account Group"
+                  value={selaccountgroup === '' ? '' : selaccountgroup}
+                  sx={{ width: "25ch" }}
+                />
+                {
+                  togg1 ?
+                    <div className='masterSelect'>
+                      <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                        {
+                          accountgroup.map((item) => (
+                            <li
+                              style={{ listStyle: 'none' }}
+                              onClick={() => {
+                                setselaccountgroup(item.name)
+                                settogg1(false)
+                              }}
+                            >{item.name}</li>
+                          ))
+                        }
+                      </ul>
+                    </div> : null}
+              </div>
+              <div className='mt-4'>
+                <IconButton onClick={() => settogg1(!togg1)}>
+                  <KeyboardArrowDownIcon />
+                </IconButton>
+              </div>
+            </div>
+
+            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <Box
+                component="form"
+                sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                autoComplete="off">
+                <TextField value={accountform.gstNo}
+                  onChange={(e) => {
+                    setaccountform({
+                      ...accountform,
+                      gstNo: e.target.value
+                    })
+                  }}
+                  label="GST No" variant="standard" />
+              </Box>
+            </div>
+
+            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <Box
+                component="form"
+                sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                autoComplete="off">
+                <TextField value={accountform.openingBalance}
+                  onChange={(e) => {
+                    setaccountform({
+                      ...accountform,
+                      openingBalance: e.target.value
+                    })
+                  }}
+                  label="Opening Balance" variant="standard" />
+              </Box>
+            </div>
+
+            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <div>
+                <TextField
+                  variant='standard'
+                  label="Opening Type"
+                  value={selopentype === '' ? '' : selopentype}
+                  sx={{ width: "25ch" }}
+                />
+                {
+                  togg2 ?
+                    <div className='masterSelect'>
+                      <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                        {
+                          opentype.map((item) => (
+                            <li
+                              style={{ listStyle: 'none' }}
+                              onClick={() => {
+                                setopentype(item.name)
+                                settogg2(false)
+                              }}
+                            >{item.name}</li>
+                          ))
+                        }
+                      </ul>
+                    </div> : null}
+              </div>
+              <div className='mt-4'>
+                <IconButton onClick={() => settogg2(!togg2)}>
+                  <KeyboardArrowDownIcon />
+                </IconButton>
+              </div>
+            </div>
+
+          </div>
+
+          <div className='row mt-4'>
+            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <Box
+                component="form"
+                sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                autoComplete="off">
+                <TextField value={accountform.mainLegger}
+                  onChange={(e) => {
+                    setaccountform({
+                      ...accountform,
+                      mainLegger: e.target.value
+                    })
+                  }}
+                  label="Main Ledger" variant="standard" />
+              </Box>
+            </div>
+
+            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <Box
+                component="form"
+                sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                autoComplete="off">
+                <TextField value={accountform.panCardNo}
+                  onChange={(e) => {
+                    setaccountform({
+                      ...accountform,
+                      panCardNo: e.target.value
+                    })
+                  }}
+                  label="PAN Card No" variant="standard" />
+              </Box>
+            </div>
+
+            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <Box
+                component="form"
+                sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                autoComplete="off">
+                <TextField value={accountform.aadharcardNo}
+                  onChange={(e) => {
+                    setaccountform({
+                      ...accountform,
+                      aadharcardNo: e.target.value
+                    })
+                  }}
+                  label="Adhaar Card No" variant="standard" />
+              </Box>
+            </div>
+          </div>
+          <div><h3 className='text-center pt-4' style={{ textDecoration: "underline" }}>Cost Center</h3></div>
+          <div className='row mt-3'>
+            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center mt-3'>
+              <p>Is Cost Center Allocated </p>
+            </div>
+
+            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <div>
+                <TextField
+                  variant='standard'
+                  label=""
+                  value={costecenter === '' ? '' : costecenter}
+                  sx={{ width: "25ch" }}
+                />
+                {
+                  togg3 ?
+                    <div className='masterSelect'>
+                      <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                        {
+                          costcenterstat.map((item) => (
+                            <li
+                              style={{ listStyle: 'none' }}
+                              onClick={() => {
+                                setcostcenter(item.status)
+                                settogg3(false)
+                              }}
+                            >{item.status}</li>
+                          ))
+                        }
+                      </ul>
+                    </div> : null}
+              </div>
+              <div className='mt-2'>
+                <IconButton onClick={() => settogg3(!togg3)}>
+                  <KeyboardArrowDownIcon />
+                </IconButton>
+              </div>
+            </div>
+          </div>
+
+          <div className='container mt-4 mb-2 mb-sm-0'>
+            <button className='btn btn-primary mx-0 mx-sm-3 mx-md-3' onClick={() => setshowtable(!showtable)}>Show Table</button>
+            <button className='btn btn-primary mx-3' onClick={() => saveform()}>Save</button>
+            <button className='btn btn-primary mx-3' onClick={() => clear()}>Clear</button>
+            <button className='btn btn-primary mx-3' onClick={() => print()}>Print</button>
+            <button className='btn btn-primary mx-3' onClick={() => exporttoexcel()}>Export To Excel</button>
+          </div>
         </div>
-      </div> */}
+      </div>
 
 
-      <div className='container-fluid' >
+      {/* Table Code */}
+      {
+        showtable && 
+        <>
+      
+      <div className='container mt-4 accMastTable mb-3 p-0'>
+        <table className='tableAccMaster table table-stripped'>
+          <thead>
+            <tr>
+              <th scope="col">Account Id</th>
+              <th scope="col">Account Name</th>
+              <th scope="col">Account Type</th>
+              <th scope="col">Group</th>
+              <th scope="col">Main Ledger</th>
+              <th scope="col">Opening Balance</th>
+              <th scope="col">Opening Type</th>
+              <th scope="col">GST No</th>
+              <th scope="col">PAN Card No</th>
+              <th scope="col">Adhaar Card No</th>
+              <th scope="col">Account Group</th>
+              <th scope="col">Cost Center</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              allusers.map((item, i) => (
+                <tr>
+                  <th scope="row">{item.id}</th>
+                  <td>{item.accountName}</td>
+                  <td>{item.accountType}</td>
+                  <td>Current Assets</td>
+                  <td>{item.mainLegger}</td>
+                  <td>{item.openingBalance}</td>
+                  <td>{item.openingType}</td>
+                  <td>{item.gstNo}</td>
+                  <td>{item.panCardNo}</td>
+                  <td>{item.aadharcardNo}</td>
+                  <td>{item.accountGroup}</td>
+                  <td>{item.isCostCenterAllocated}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      </>}
+
+
+
+      {/* <div className='container-fluid' >
         <div
           style={{ fontSize: '2rem', }}
           className='text-center'>
@@ -350,6 +695,7 @@ const AccountmasCom = () => {
           </div>
 
           <div className='row mt-3 justify-content-center'>
+
             <div className='col-12 mt-2 col-md-3 col-sm-12 '>
               <div >
                 <ThemeProvider theme={customTheme(outerTheme)}>
@@ -366,6 +712,8 @@ const AccountmasCom = () => {
                 </ThemeProvider>
               </div>
             </div>
+
+
             <div className='col-12 mt-1 col-md-3 col-sm-12'>
               <div style={{ fontSize: '0.8rem' }}>
                 Account Group
@@ -627,9 +975,7 @@ const AccountmasCom = () => {
                 </div></>}
             <div className='text-center d-flex'>
               <button
-                onClick={
-                  () => saveform()
-                }
+                onClick={() => saveform()}
                 className='bg-primary border border-none border-radius-rounded text-white'>
                 Save
               </button>
@@ -646,7 +992,7 @@ const AccountmasCom = () => {
           </div>
 
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

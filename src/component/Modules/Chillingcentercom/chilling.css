@@ -40,3 +40,16 @@
         color: black;
     }
 }
+
+.milkpurchasestyle{
+    /* box-shadow: -15px -15px 15px rgba(255,255,255,0.2),
+    15px 15px 15px rgba(0,0,0,0.1); */
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    height: 15vh;
+}
+
+.milkpurchasestyle::-webkit-scrollbar{
+    display: none;
+}

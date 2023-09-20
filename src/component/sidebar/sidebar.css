@@ -6,7 +6,7 @@
 } */
 
 .sidebarstyle {
-    background: #59dff1;
+    background: #99e3ed;
     /* background: linear-gradient(135deg, #B5F6FF, #0D87D3); */
     color: white;
     font-family: 'Roboto Condensed', sans-serif;
@@ -40,7 +40,7 @@
 }
 
 .ps-submenu-root{
-    background: #59dff1;
+    background: #99e3ed;
 }
 
 .ps-submenu-root :hover{
@@ -50,7 +50,7 @@
 
 }
 .ps-menu-button{
-    background: #59dff1;
+    background: #99e3ed;
 }
 .ps-menu-button:hover{
     background: linear-gradient(135deg, #B5F6FF, #0D87D3) !important;
