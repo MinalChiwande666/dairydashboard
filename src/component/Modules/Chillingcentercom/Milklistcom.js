@@ -13,11 +13,19 @@ const Milklistcom = () => {
     const [miltype, setmilktype] = useState('')
     const [basis, setbasis] = useState('')
     const [listno,setlistno] = useState('')
+    const [fromfat,setfromfat] = useState('')
+    const [tofat,settofat] = useState('')
+    const [fromsnf,setfromsnf] = useState('')
+    const [tosnf,settosnf] = useState('')
+    const [snfrange,setsnfrange] = useState([])
+    const [fatrange,setfatrange] = useState([])
+    const [newarr,setnewarr] = useState([])
     const [ssnf, setssnf] = useState()
     const [listnos, setlistnos] = useState([])
     const [esnf, setesnf] = useState()
     const [snfra, setsnfra] = useState({})
     const [snffatdata, setsnffatdata] = useState([])
+    const [inputdata,setinputdata] = useState({})
     const [code, setcode] = useState()
     const [listarr, setlistarr] = useState([])
     const [fatra, setfatra] = useState({})
@@ -182,7 +190,7 @@ const Milklistcom = () => {
         let obj = {
             milktype: milk,
             onThebasic: gettype,
-            entries: entries
+            entries: newarr
         }
         console.log(obj)
         try {
@@ -195,9 +203,17 @@ const Milklistcom = () => {
             }).then((data) => {
                 return data.json()
             }).then((resp) => {
+                console.log(resp," server response")
                 console.log(resp.data.listNo)
                 localStorage.setItem("inclistno",JSON.stringify(resp.data.listNo))
-                window.location.reload()
+                alert(resp.message)
+                if(resp.message === 'Milk Rate data saved successfully.')
+                {
+                    setTimeout(()=>{
+                        window.location.reload()
+                    },4000)
+                }
+                // 
             })
         } catch (e) {
             console.log("Error", e)
@@ -247,9 +263,56 @@ const Milklistcom = () => {
             )
         )
     }
-    console.log("snffat=>", fatsnf)
-    console.log("entries =>", entries)
+
+    useEffect(()=>{
+        if(fromsnf && tosnf){
+      fetch(`http://103.38.50.113:8080/DairyApp/generateSnfRange?minsnf=${fromsnf}&maxsnf=${tosnf}`).then((data)=>{
+        return data.json()
+      }).then((res)=>{
+        console.log("snf range=>",res)
+        setsnfrange(res)
+      })
+    }
+    },[fromsnf,tosnf])
+
+    useEffect(()=>{
+        if(fromfat && tofat)
+        {
+            fetch(`http://103.38.50.113:8080/DairyApp/generateFatRange?minfat=${fromfat}&maxfat=${tofat}`).then((data)=>{
+                return data.json()
+            }).then((res)=>{
+                console.log("fat res=>",res)
+                setfatrange(res)
+            })
+        }
+    },[fromfat,tofat])
+
+    const handlesheet = (row,col,value) =>{
+        setinputdata({
+            ...inputdata,
+            snf:col,
+            fat:row,
+            rate:value,
+            [`${row}-${col}`]: value,
+        })
+    //   console.log("row=>",row,"Col=>",col,"val=>",value)
+    }
+
+    useEffect(()=>{
+     console.log("input data=>",inputdata)
+     let obj = {
+        snf:inputdata.snf,
+        fat:inputdata.fat,
+        rate:inputdata.rate || ""
+     }
+     if(obj.rate.length > 1)
+     {
+        setnewarr([...newarr,obj])
+     }
+    },[inputdata])
+  console.log("newarr=>",newarr)
     return (
+
         <div className='container-fluid'>
             <div className='row'>
                 <div className='bg-primary py-1 px-3 col-12 col-md-12'>
@@ -344,22 +407,7 @@ const Milklistcom = () => {
 
                                         </ul>
                                     </div>
-                                    {/* <input
-                                        onChange={(e) => {
-                                            setcode(e.target.value)
-                                            if (e.target.value) {
-                                                fetch(`http://103.38.50.113:8080/DairyApp/findByListNo/${e.target.value}`).then((data) => {
-                                                    return data.json()
-                                                }).then((res) => {
-                                                    console.log(res)
-                                                    setsnffatdata(res)
-                                                })
-                                            } else if (e.target.value === '') {
-                                                setsnffatdata([])
-                                            }
-
-                                        }}
-                                        type='number' style={{ width: '100%' }} /> */}
+                                   
                                 </div>
 
                             </div>
@@ -370,48 +418,41 @@ const Milklistcom = () => {
 
             <div className='container'>
                 <input contentEditable={false} style={{width:"80px", pointerEvents:'none', color:'white', border:'none',padding:'5px',fontWeight:'700',borderRadius:'0.4rem'}} className='bg-primary my-2 text-center' type='text' value={`List No.${JSON.parse(localStorage.getItem('inclistno')) + 1}`}/>
+                <h2 className='mx-2'>SNF RANGE</h2>
+                <input type='text' placeholder='Min Snf' value={fromsnf} onChange={(e)=>setfromsnf(e.target.value)}/><input type='text' placeholder='Max Snf' value={tosnf} onChange={(e)=>settosnf(e.target.value)}/>
+                <h2 className='mx-2'>FAT RANGE</h2>
+                <input type='text' placeholder='Min Fat' value={fromfat} onChange={(e)=>setfromfat(e.target.value)}/><input type='text' placeholder='Max Fat' value={tofat} onChange={(e)=>settofat(e.target.value)}/>
                 <div style={{ overflow: 'scroll', height:"64vh"}}>
                     {snffatdata.length === 0 ? <table class="table table-bordered">
                         <thead className='table-primary'>
                             <tr style={{width:"100%"}} className='text-center'>
-                                <th>SNF</th>
-                                <th>FAT</th>
-                                <th>RATE</th>
-                                <th>Add</th>
-                                <th><button
-                                    onClick={() => setfatsnf([...fatsnf, { snf: '', fat: '', rate: '' }])}
-                                    className='btn btn-primary text-white' style={{fontSize:"0.9rem", fontWeight:"600"}}>+</button></th>
+                                <th>FAT/SNF</th>
+                                {
+                                    snfrange.map((col)=>(
+                                        <>
+                                        <th>{col}</th>
+                                        </>
+                                    ))
+                                }
                             </tr>
                         </thead>
                         <tbody>
 
-                            {
-                                fatsnf.map((item, i) => (
-
-                                    <tr>
-                                        <td className='text-center'>
-                                            <Snfcom item={item} id={i} onChange={handlesnfchange}/>
-                                        </td>
-                                        <td className='text-center'>
-                                            <Fatinp item={item} id={i} onChange={handlefatchange} />
-                                        </td>
-                                        <td className='text-center'>
-                                            <Textinputcom item={item} id={i} onChange={handlechange} />
-                                        </td>
-                                        <td className='text-center'>
-                                            <button className='btn btn-primary' style={{width:"70px", fontWeight:"600"}} onClick={() => {
-
-                                                let newobj = {
-                                                    fat: parseFloat(item.fat),
-                                                    snf: parseFloat(item.snf),
-                                                    rate: parseFloat(item.rate)
-                                                }
-                                                setentries([...entries, newobj])
-                                            }}>Add</button>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
+                           {
+                            fatrange.map((row)=>(
+                                <tr>
+                                <td>{row}</td>
+                                {
+                                    snfrange.map((col)=>(
+                                        <>
+                                        <td><input value={inputdata[`${row}-${col}`]||""}  type='text' onChange={(e)=>handlesheet(row,col,e.target.value)}/></td>
+                                        </>
+                                    ))
+                                }
+                                </tr>
+                                
+                            ))
+                           }
                         </tbody>
                     </table> :
                         <table class="table table-bordered">

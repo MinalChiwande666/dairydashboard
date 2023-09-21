@@ -23,6 +23,7 @@ const Customermastercom = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [hide1, sethide1] = useState(false)
+    const [inwardid,setinwardid] = useState()
     const [showtable,setshowtable] = useState(false)
     const [delid, setdelid] = useState()
     const [hide2, sethide2] = useState(false)
@@ -30,6 +31,7 @@ const Customermastercom = () => {
     const [hide4, sethide4] = useState(false)
     const [hide5, sethide5] = useState(false)
     const [customerform, setcustomerform] = useState({
+        "inwardId":""||JSON.parse(localStorage.getItem("inwardId"))+1,
         "customerName": "",
         "salesPerson": "",
         "emailID": "",
@@ -213,7 +215,7 @@ const Customermastercom = () => {
     ]
 
     const save = () => {
-        alert(customerform)
+        // alert(customerform)
         console.log(customerform)
         try {
             fetch('http://103.38.50.113:8080/DairyApp/saveCustomerMaster',
@@ -226,6 +228,12 @@ const Customermastercom = () => {
                 }).then((data) => {
                     return data.json()
                 }).then((res) => {
+                    console.log(res)
+                    localStorage.setItem('inwardid',JSON.stringify(res.data.inwardId))
+                //    setcustomerform({
+                //     ...customerform,
+                //     inwardId:res.data.inwardId
+                //    })
                     toast.success(`${res.message}`, {
                         position: "top-center",
                         autoClose: 5000,
@@ -434,10 +442,10 @@ const Customermastercom = () => {
                                 <div className='col-12 col-md-3'>
                                     <ThemeProvider theme={customTheme(outerTheme)}>
                                         <TextField
-                                            value={1}
+                                            value={JSON.parse(localStorage.getItem('inwardid'))+1 || ""}
                                             style={{ pointerEvents: 'none' }}
                                             contentEditable={false}
-
+                                            type='number'
                                             label="Customer No." variant="standard"
                                         />
                                     </ThemeProvider>

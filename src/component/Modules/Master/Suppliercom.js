@@ -296,6 +296,7 @@ const Suppliercom = () => {
                 }).then((data) => {
                     return data.json()
                 }).then((res) => {
+                    console.log(res)
                     toast.success(`${res.message}`, {
                         position: "top-center",
                         autoClose: 5000,

@@ -5,6 +5,8 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 import { IconButton } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify'
+import * as FileSaver from 'file-saver'
+import * as XLSX from "xlsx";
 import './accountmaster.css'
 const Employeemastercom = () => {
   const outerTheme = useTheme()
@@ -71,6 +73,59 @@ const Employeemastercom = () => {
 
   })
 
+  const clear = ()=>{
+    setemployeeform({
+
+      "employeeName": "",
+      "status": "",
+      "gender": "",
+      "accountGroup": "",
+      "type": "",
+      "category": "",
+      "grp": "",
+      "dateOfBirth": "",
+      "retirementDate": "",
+      "jobProfile": "",
+      "noticeDays": "",
+      "joiningDate": "",
+      "salary": "",
+      "department": "",
+      "companyEmail": "",
+      "contractEndDate": "",
+      "salaryMode": "",
+      "designation": "",
+      "attendanceID": "",
+      "enterCast": "",
+      "address": "",
+      "mobile": "",
+      "eMail": "",
+      "city": "",
+      "district": "",
+      "pinCode": "",
+      "state": "",
+      "country": "",
+      "openingBalance": "",
+      "uanNo": "",
+      "debitCredit": "",
+      "epfNo": "",
+      "panNo": "",
+      "esiNo": "",
+      "accountNo": "",
+      "bankName": "",
+      "branch": "",
+      "ifscCode": "",
+      "micrNo": "",
+      "bankAddress": "",
+      "bloodGroup": "",
+      "aadharCardNo": "",
+      "education": "",
+      "managers": "",
+      "isCostCenterAllocated": "",
+      "subLedgerName": "",
+      "grp1": ""
+  
+    })
+  }
   const getallemployee = async () => {
     setloader(true)
     try{
@@ -306,6 +361,17 @@ const Employeemastercom = () => {
         },
       },
     });
+    const exporttoexcel = async () => {
+      const fileName = "myfile";
+      const fileType =
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+      const fileExtension = ".xlsx";
+      const ws = XLSX.utils.json_to_sheet(employeealldata)
+      const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+      const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+      const data = new Blob([excelBuffer], { type: fileType });
+      FileSaver.saveAs(data, fileName + fileExtension);
+    }
   return (
 
    <>
@@ -1383,10 +1449,12 @@ const Employeemastercom = () => {
               className='bg-primary border border-none rounded text-white'>Save</button>
           </div>
           <div className='col-12 col-md-3'>
-            <button className='bg-primary border border-none rounded text-white'>export</button>
+            <button 
+            onClick={()=>exporttoexcel()}
+            className='bg-primary border border-none rounded text-white'>export</button>
           </div>
           <div className='col-12 col-md-3'>
-            <button className='bg-primary border border-none rounded text-white'>clear</button>
+            <button onClick={()=>clear()} className='bg-primary border border-none rounded text-white'>clear</button>
           </div>
         </div>
 
