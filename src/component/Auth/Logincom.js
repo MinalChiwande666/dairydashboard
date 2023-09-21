@@ -34,7 +34,25 @@ const Logincom = () => {
         }).then((res) => {
           return res.json()
         }).then((data) => {
-         let info = toast.success(`${data.status} Login`, {
+          if(data.status === " Success"){
+            let info = toast.success(`${data.status} Login`, {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            })
+            if(info)
+            {
+              setTimeout(()=>{
+                navigate('/dashboard')
+              },2000)
+            }
+          }else
+          {toast.error(`${data.status} Login`, {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -44,12 +62,8 @@ const Logincom = () => {
             progress: undefined,
             theme: "light",
           })
-          if(info)
-          {
-            setTimeout(()=>{
-              navigate('/dashboard')
-            },2000)
           }
+        
          
         })
       }
