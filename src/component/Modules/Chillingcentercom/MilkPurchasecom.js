@@ -6,6 +6,7 @@ import Dialog from '@mui/material/Dialog'
 import Slide from '@mui/material/Slide';
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from 'axios'
+import "./chilling.css"
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -243,7 +244,7 @@ const MilkPurchasecom = () => {
   return (
     <div className='container-fluid'>
       {dailoge()}
-      <div className='row bg-primary'>
+      <div className='row' style={{ background: 'radial-gradient(circle at 10% 20%, rgba(95, 173, 254, 0.46) 0%, rgba(91, 224, 254, 0.46) 47.2%, rgba(170, 254, 235, 0.43) 90%)', color:"rgb(81, 80, 80)"}}>
         <div className='col-12 col-md-2 pb-2'>
           <div className='text-white' style={{fontSize:"1.2rem"}}>
             Date
@@ -294,12 +295,12 @@ const MilkPurchasecom = () => {
           </div>
         </div>
         <div className='col-12 my-3 col-md-4 text-center text-white'>
-          <h5>Milk Purchase</h5>
+          <h3>Milk Purchase</h3>
         </div>
 
       </div>
       <div>
-        <div className='mx-2 my-2' style={{ boxShadow: "2px 2px 2px #D3D3D3", overflowX:"scroll" }}>
+        <div className='mx-2 my-2 milkpurchasestyle'>
           <table className="table my-2">
             <thead>
               <tr>
@@ -330,7 +331,7 @@ const MilkPurchasecom = () => {
                               ...milkpurchaseform,
                               supplier: item
                             })}
-                            className='dropdown-item'>{item}</li>
+                            className='dropdown-item' style={{zIndex:"1"}}>{item}</li>
                         ))
 
                       }

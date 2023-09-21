@@ -83,13 +83,14 @@ const Billgenerationcom = () => {
         <div className='container mt-4 billCont'>
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Bill Generation</h3></div>
           <div className='row mt-4'>
+
             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
               <div >
                 <TextField
                   variant='standard'
                   label="Select Id"
-                  value={listid === ""?"":listid}
-                  sx={{width:"25ch"}}
+                  value={listid === "" ? "" : listid}
+                  sx={{ width: "25ch" }}
                 />
 
                 {
@@ -99,7 +100,7 @@ const Billgenerationcom = () => {
                         {
                           listno.map((item) => (
                             <li
-                              style={{listStyle:'none'}}
+                              style={{ listStyle: 'none' }}
                               onClick={() => {
                                 setlistid(item)
                                 setdrop(false)
@@ -160,7 +161,7 @@ const Billgenerationcom = () => {
           <div className='row mt-4'>
             <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
               {/* <ThemeProvider theme={customTheme(outerTheme)}> */}
-                <div style={{width:"30ch"}}>
+              <div style={{ width: "30ch" }}>
                 <div>
                   <label className="fontsize">From Date</label>
                 </div>
@@ -173,8 +174,8 @@ const Billgenerationcom = () => {
                     })
                   }}
                   type='date' style={{ width: '100%' }} />
-                </div>
-                
+              </div>
+
               {/* </ThemeProvider> */}
               {/* <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DemoContainer components={['DatePicker']} sx={{ width: '30ch', m: 1, borderLeftStyle:'none'}}>
@@ -200,7 +201,7 @@ const Billgenerationcom = () => {
             </div>
             <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
               {/* <ThemeProvider theme={customTheme(outerTheme)}> */}
-                <div style={{width:"30ch"}}>
+              <div style={{ width: "30ch" }}>
                 <div>
                   <label className="fontsize">to Date</label>
                 </div>
@@ -213,8 +214,8 @@ const Billgenerationcom = () => {
                     })
                   }}
                   type='date' style={{ width: '100%' }} />
-                </div>
-                
+              </div>
+
               {/* </ThemeProvider> */}
               {/* <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DemoContainer components={['DatePicker']} sx={{ width: '30ch', m: 1 }}>
