@@ -5,7 +5,7 @@ const Textinputcom = ({item,onChange,id}) => {
   return (
    <input 
    value={item.rate}
-   type='text'
+   type='text' 
    onChange={(e)=>onChange(id,e.target.value)}
    />
   )
