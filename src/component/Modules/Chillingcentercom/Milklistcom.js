@@ -172,19 +172,17 @@ const Milklistcom = () => {
     const deletetable = () => {
         console.log(code)
         fetch(`http://103.38.50.113:8080/DairyApp/deleteMilkRateByListNo?listNo=${code}`, {
-            method: 'Post',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                id: code
-            })
+          
         }).then((data) => {
             return data
         }).then((resp) => {
             alert(resp)
             console.log(resp)
-            window.location.reload()
+            // window.location.reload()
         })
     }
 
@@ -418,6 +416,7 @@ const Milklistcom = () => {
                                                         <li
                                                             style={{ listStyle: 'none' }}
                                                             onClick={() => {
+                                                                setcode(item)
                                                                 if (item) {
                                                                     fetch(`http://103.38.50.113:8080/DairyApp/findByListNo/${item}`).then((data) => {
                                                                         return data.json()
