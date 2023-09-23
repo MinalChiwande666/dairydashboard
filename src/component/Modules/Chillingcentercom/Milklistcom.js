@@ -19,6 +19,7 @@ const Milklistcom = () => {
     const [togg, settogg] = useState(false)
     const [togg2, settogg2] = useState(false)
     const [togg3, settogg3] = useState(false)
+    const [idinc,setidinc] = useState('')
 
     const [miltype, setmilktype] = useState('')
     const [basis, setbasis] = useState('')
@@ -169,9 +170,20 @@ const Milklistcom = () => {
         })
     }, [])
 
+
+    useEffect(()=>{
+        fetch('http://103.38.50.113:8080/DairyApp/getListNo').then((data)=>{
+         return data.json()
+        }).then((res)=>{
+         let id = res.pop()
+         setidinc(id)
+        })
+      },[])
+
+
     const deletetable = () => {
-        console.log(code)
-        fetch(`http://103.38.50.113:8080/DairyApp/deleteMilkRateByListNo?listNo=${code}`, {
+        console.log(idinc)
+        fetch(`http://103.38.50.113:8080/DairyApp/deleteMilkRateByListNo?listNo=${idinc}`, {
             method: 'Post',
             headers: {
                 'Content-Type': 'application/json'
@@ -188,13 +200,6 @@ const Milklistcom = () => {
         })
     }
 
-
-
-
-    useEffect(() => {
-
-
-    }, [])
 
     const save = () => {
         let obj = {
@@ -447,7 +452,7 @@ const Milklistcom = () => {
 
                 <div className='container mt-4 chillingCenterCont'>
                     <div className='d-flex justify-content-center align-items-center'>
-                        <input contentEditable={false} style={{ width: "100px", pointerEvents: 'none', color: 'white', border: 'none', padding: '5px', fontWeight: '700', borderRadius: '0.4rem' }} className='bg-primary my-2 text-center' type='text' value={`List No.${JSON.parse(localStorage.getItem('inclistno')) + 1}`} />
+                        <input contentEditable={false} style={{ width: "100px", pointerEvents: 'none', color: 'white', border: 'none', padding: '5px', fontWeight: '700', borderRadius: '0.4rem' }} className='bg-primary my-2 text-center' type='text' value={`List No.${!localStorage.getItem('listno')?parseInt(idinc)+1:JSON.parse(localStorage.getItem('listno'))+1}`} />
                     </div>
                     <div className='row mt-3'>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>

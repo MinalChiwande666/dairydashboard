@@ -1,5 +1,5 @@
 import React from 'react'
-
+import "./Navbar.css"
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -50,12 +50,10 @@ const Navbar = () => {
               onClick={toggleDrawer('left', true)}
             ><MenuIcon /></IconButton>
             
-            <Typography variant="h5" component="div" sx={{ flexGrow: 1, cursor:'pointer', marginTop:"5px"}} onClick={()=>navigate('/dashboard')}>
-              Dashboard
+            <Typography variant="h5" component="div" sx={{ flexGrow: 1, cursor:'pointer', fontWeight:"600"}} onClick={()=>navigate('/dashboard')}>
+              DASHBOARD
             </Typography>
-            <Button
-              onClick={()=>logoutuser()}
-              color="inherit">Logout</Button>
+            <Button className='logoutbtn' onClick={()=>logoutuser()}>Logout</Button>
           </Toolbar>
         </AppBar>
         <Sidebar toggle={toggleDrawer} state={state} setState={setState} />
