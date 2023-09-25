@@ -25,6 +25,7 @@ const VendorNamcom = () => {
     const [hide1, sethide1] = useState(false)
     const [showtable,setshowtable] = useState(false)
     const [delid,setdelid] = useState()
+    const [venincid,setvenincid] = useState()
     const [hide2, sethide2] = useState(false)
     const [hide3, sethide3] = useState(false)
     const [hide4, sethide4] = useState(false)
@@ -410,6 +411,15 @@ const VendorNamcom = () => {
     useEffect(() => {
         getcustomeralldata()
     }, [])
+
+    useEffect(()=>{
+      fetch('http://103.38.50.113:8080/DairyApp/getAllVendorMaster').then((data)=>{
+        return data.json()
+      }).then((res)=>{
+         let id = res.pop()
+         setvenincid(id.id)
+      })
+    },[])
     return (
 
         <>
@@ -435,9 +445,9 @@ const VendorNamcom = () => {
                                 <div className='col-12 col-md-3'>
                                     <ThemeProvider theme={customTheme(outerTheme)}>
                                         <TextField
-                                            value={1}
+                                            value={venincid + 1}
                                             style={{ pointerEvents: 'none' }}
-                                            contentEditable={false}
+                                            // contentEditable={false}
 
                                             label="Vendor No." variant="standard"
                                         />

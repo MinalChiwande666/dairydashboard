@@ -44,8 +44,8 @@ export const dashboardDummyData = [
         icon: <GiMilkCarton style={{ fontSize: "40px" }} />
     },
     {
-        title: "Milk Chalan",
-        link: "/milkchalan",
+        title: "Route Master",
+        link: "/route",
         icon: <CgNotes style={{ fontSize: "40px" }} />
     },
     {

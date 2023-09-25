@@ -17,6 +17,7 @@ const Milklistcom = () => {
     const [milk, setmilk] = useState('')
     const [gettype, settype] = useState('')
     const [togg, settogg] = useState(false)
+    const [lisid,setlistid] = useState()
     const [togg2, settogg2] = useState(false)
     const [togg3, settogg3] = useState(false)
 
@@ -178,11 +179,14 @@ const Milklistcom = () => {
             },
           
         }).then((data) => {
-            return data
+            return data.json()
         }).then((resp) => {
-            alert(resp)
+            alert(resp.message)
             console.log(resp)
-            // window.location.reload()
+
+            setTimeout(()=>{
+                window.location.reload()
+            },3000)
         })
     }
 
@@ -315,6 +319,15 @@ const Milklistcom = () => {
             setnewarr([...newarr, obj])
         }
     }, [inputdata])
+
+    useEffect(()=>{
+        fetch('http://103.38.50.113:8080/DairyApp/getListNo1').then((data)=>{
+            return data.json()
+        }).then((res)=>{
+            console.log("res id =>",res)
+            setlistid(res)
+        })
+    })
     console.log("newarr=>", newarr)
     return (
         <>
@@ -446,7 +459,7 @@ const Milklistcom = () => {
 
                 <div className='container mt-4 chillingCenterCont'>
                     <div className='d-flex justify-content-center align-items-center'>
-                        <input contentEditable={false} style={{ width: "100px", pointerEvents: 'none', color: 'white', border: 'none', padding: '5px', fontWeight: '700', borderRadius: '0.4rem' }} className='bg-primary my-2 text-center' type='text' value={`List No.${JSON.parse(localStorage.getItem('inclistno')) + 1}`} />
+                        <input contentEditable={false} style={{ width: "100px", pointerEvents: 'none', color: 'white', border: 'none', padding: '5px', fontWeight: '700', borderRadius: '0.4rem' }} className='bg-primary my-2 text-center' type='text' value={`List No.${lisid}`} />
                     </div>
                     <div className='row mt-3'>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>

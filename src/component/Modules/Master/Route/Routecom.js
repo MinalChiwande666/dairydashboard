@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-
+import * as FileSaver from 'file-saver'
+import * as XLSX from "xlsx";
 const Routecom = () => {
     const [routeform, setrouteform] = useState({
         km: '',
@@ -37,6 +38,18 @@ const Routecom = () => {
             setroutedata(res)
         })
     }, [])
+
+  const exporttoexcel = async()=>{
+    const fileName = "myfile";
+    const fileType =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+    const ws = XLSX.utils.json_to_sheet(routedata)
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
+  }
     return (
         <div className='container'>
             <h3 className='text-center my-3'>Route Master</h3>
@@ -119,7 +132,7 @@ const Routecom = () => {
                     </tbody>
                 </table>
 
-                    <button className='btn-primary btn'>Export To Excel</button>
+                    <button onClick={()=>exporttoexcel()} className='btn-primary btn'>Export To Excel</button>
                 </>
 
             }

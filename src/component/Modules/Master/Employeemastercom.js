@@ -15,6 +15,7 @@ const Employeemastercom = () => {
   const [joiningdetailshow, setjoiningdetailsshow] = useState(false)
   const [showaccountdetail, setshowaccountdetail] = useState(false)
   const [loader,setloader] = useState(false)
+  const [empincid,setempincid] = useState()
   const [showothersetail, setshowotherdetail] = useState(false)
   const [showcostcenter, setshowcostcenter] = useState(false)
   const [showmanager, setshowmanager] = useState(false)
@@ -372,6 +373,16 @@ const Employeemastercom = () => {
       const data = new Blob([excelBuffer], { type: fileType });
       FileSaver.saveAs(data, fileName + fileExtension);
     }
+
+    useEffect(()=>{
+     fetch('http://103.38.50.113:8080/DairyApp/getAllEmployeeData').then((data)=>{
+      return data.json()
+     }).then((res)=>{
+      let id = res.pop()
+      // console.log(id.id)
+      setempincid(id.id)
+     })
+    },[])
   return (
 
    <>
@@ -395,7 +406,7 @@ const Employeemastercom = () => {
           <div className='col-12 col-md-3'>
             <ThemeProvider theme={customTheme(outerTheme)}>
               <TextField
-                value={1}
+                value={empincid + 1}
                 label={"Employee No"}
                 variant='standard'
               />
