@@ -350,6 +350,16 @@ const MilkPurchasecom = () => {
                 component="form"
                 sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
                 autoComplete="off">
+                <TextField
+                label="Supplier Name" variant="standard" />
+              </Box>
+            </div>
+
+            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+              <Box
+                component="form"
+                sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                autoComplete="off">
                 <TextField value={milkpurchaseform.qty}
                   onChange={(e) => {
                     setqtyval(e.target.value)
@@ -379,7 +389,13 @@ const MilkPurchasecom = () => {
               </Box>
             </div>
 
-            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+            
+
+          </div>
+
+          <div className='row mt-4'>
+
+          <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
               <Box
                 component="form"
                 sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
@@ -396,9 +412,6 @@ const MilkPurchasecom = () => {
               </Box>
             </div>
 
-          </div>
-
-          <div className='row mt-4'>
             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center'>
               <div className='mt-2'>
                 <TextField
@@ -495,6 +508,7 @@ const MilkPurchasecom = () => {
               <tr>
                 <th scope="col">sr.no</th>
                 <th scope="col">SupplierId</th>
+                <th scope="col">Supplier Name</th>
                 <th scope="col">QTY</th>
                 <th scope="col">FAT%</th>
                 <th scope="col">SNF%</th>
@@ -511,7 +525,8 @@ const MilkPurchasecom = () => {
               {
                 getalldata.map((item, i) => (
                   <tr>
-                    <th scope="row">{item.id}</th>
+                    <th scope="row" className='text-center'>{item.id}</th>
+                    <td>{item.supplierId}</td>
                     <td>{item.supplierId}</td>
                     <td>{item.qty}</td>
                     <td>{item.fat}</td>

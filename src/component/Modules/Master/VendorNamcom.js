@@ -457,17 +457,20 @@ const VendorNamcom = () => {
 
                     <div className='container mt-4 accCont' style={{ height: "85vh" }}>
                         {dailoge()}
+                        <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Vendor Master</h3></div>
                         <div className='row mt-4'>
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+                                    <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={venincid + 1}
                                         style={{ pointerEvents: 'none' }}
                                         // contentEditable={false}
-
                                         label="Vendor No." variant="standard"
                                     />
-                                </ThemeProvider>
+                                    </Box>
+                                    
                             </div>
 
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -1061,7 +1064,7 @@ const VendorNamcom = () => {
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div className="d-flex flex-column">
                                     <label style={{ fontSize: "14px" }}>
-                                        Aniivery Date
+                                        Anniversary Date
                                     </label>
                                     <TextField
                                         style={{ width: '30ch' }}
@@ -1563,155 +1566,440 @@ const VendorNamcom = () => {
                         </div>
                     </div>
 
-                    <div className='container mt-4 accCont' style={{ height: "25vh" }}>
+                    <div className='container mt-4 accCont' style={{ height: "40vh" }}>
                         {dailoge()}
-                        <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Contact And Address details</h3></div>
-                        <table className='table mt-3 tableMilkList table-bordered'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Address</th>
-                                    <th scope="col">Area</th>
-                                    <th scope="col">Taluka</th>
-                                    <th scope='col'>District</th>
-                                    <th scope='col'>City</th>
-                                    <th scope='col'>PinCode</th>
-                                    <th scope='col'>State</th>
-                                    <th scope='col'>Phone No</th>
-                                    <th scope='col'>Mobile No</th>
-                                    <th scope='col'>Transit Days</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" className='text-center'>1</th>
-                                    <td><input className='inp-size' value={customerform.address} onChange={(e) => setcustomerform({ ...customerform, address: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.area} onChange={(e) => setcustomerform({ ...customerform, area: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.taluka} onChange={(e) => setcustomerform({ ...customerform, taluka: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.district} onChange={(e) => setcustomerform({ ...customerform, district: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.city} onChange={(e) => setcustomerform({ ...customerform, city: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.pinCode} onChange={(e) => setcustomerform({ ...customerform, pinCode: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.state} onChange={(e) => setcustomerform({ ...customerform, state: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.phoneNo} onChange={(e) => setcustomerform({ ...customerform, phoneNo: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.mobileNo} onChange={(e) => setcustomerform({ ...customerform, mobileNo: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.transitDays} onChange={(e) => setcustomerform({ ...customerform, transitDays: e.target.value })} type='text' /></td>
-                                </tr>
+                        <div><h5 className='text-center pt-3' style={{ textDecoration: "underline" }}>Contact And Address details</h5></div>
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.address}
+                                        onChange={(e) => setcustomerform({ ...customerform, address: e.target.value })}
+                                        label="Address" variant="standard"
+                                    />
+                                </Box>
+                            </div>
 
-                            </tbody>
-                        </table>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.area}
+                                        onChange={(e) => setcustomerform({ ...customerform, area: e.target.value })}
+                                        label="Area" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.taluka}
+                                        onChange={(e) => setcustomerform({ ...customerform, taluka: e.target.value })}
+                                        label="Taluka" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.district}
+                                        onChange={(e) => setcustomerform({ ...customerform, district: e.target.value })}
+                                        label="District" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+                        </div>
+
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.city}
+                                        onChange={(e) => setcustomerform({ ...customerform, city: e.target.value })}
+                                        label="City" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.pinCode}
+                                        onChange={(e) => setcustomerform({ ...customerform, pinCode: e.target.value })}
+                                        label="PinCode" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.state}
+                                        onChange={(e) => setcustomerform({ ...customerform, state: e.target.value })}
+                                        label="State" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.phoneNo}
+                                        onChange={(e) => setcustomerform({ ...customerform, phoneNo: e.target.value })}
+                                        label="Phone No" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+                        </div>
+
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.mobileNo}
+                                        onChange={(e) => setcustomerform({ ...customerform, mobileNo: e.target.value })}
+                                        label="Mobile No" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.transitDays}
+                                        onChange={(e) => setcustomerform({ ...customerform, transitDays: e.target.value })}
+                                        label="Transit Days" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='container mt-4 accCont' style={{ height: "25vh" }}>
+                    <div className='container mt-4 accCont' style={{ height: "40vh" }}>
                         {dailoge()}
-                        <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Contact details</h3></div>
-                        <table className='table mt-3 tableMilkList table-bordered'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Contact Person</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Designation</th>
-                                    <th scope='col'>District</th>
-                                    <th scope='col'>E-Mail</th>
-                                    <th scope='col'>Date of Birth</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" className='text-center'>1</th>
-                                    <td><input className='inp-size' value={customerform.contactPerson} onChange={(e) => setcustomerform({ ...customerform, contactPerson: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.mobile} onChange={(e) => setcustomerform({ ...customerform, mobile: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.designation} onChange={(e) => setcustomerform({ ...customerform, designation: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.district} onChange={(e) => setcustomerform({ ...customerform, district: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.eMail} onChange={(e) => setcustomerform({ ...customerform, eMail: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.dateofBirth} onChange={(e) => setcustomerform({ ...customerform, dateofBirth: e.target.value })} type='date' /></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div><h5 className='text-center pt-3' style={{ textDecoration: "underline" }}>Contact Details</h5></div>
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.contactPerson}
+                                        onChange={(e) => setcustomerform({ ...customerform, contactPerson: e.target.value })}
+                                        label="Contact Person" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.mobile}
+                                        onChange={(e) => setcustomerform({ ...customerform, mobile: e.target.value })}
+                                        label="Mobile" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.designation}
+                                        onChange={(e) => setcustomerform({ ...customerform, designation: e.target.value })}
+                                        label="Designation" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.district}
+                                        onChange={(e) => setcustomerform({ ...customerform, district: e.target.value })}
+                                        label="District" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+                        </div>
+
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.eMail}
+                                        onChange={(e) => setcustomerform({ ...customerform, eMail: e.target.value })}
+                                        label="E-Mail" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.dateofBirth}
+                                        onChange={(e) => setcustomerform({ ...customerform, dateofBirth: e.target.value })}
+                                        label="Date of Birth" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='container mt-4 accCont' style={{ height: "25vh" }}>
+                    <div className='container mt-4 accCont' style={{ height: "35vh" }}>
                         {dailoge()}
-                        <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Account details</h3></div>
-                        <table className='table mt-3 tableMilkList table-bordered'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Pass No</th>
-                                    <th scope="col">Credit Days</th>
-                                    <th scope="col">Intrest Calculation</th>
-                                    <th scope="col">Customer Type</th>
-                                    <th scope='col'>FSSAI No</th>
-                                    <th scope='col'>Credit Limit</th>
-                                    <th scope='col'>Security Check</th>
-                                    <th scope='col'>FSSAI Ed</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" className='text-center'>1</th>
-                                    {/* <td><input className='inp-size' value={customerform.panNo} onChange={(e) => setcustomerform({ ...customerform, panNo: e.target.value })} type='text' /></td> */}
-                                    <td><input className='inp-size' value={customerform.creditDays} onChange={(e) => setcustomerform({ ...customerform, creditDays: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.interestCalculation} onChange={(e) => setcustomerform({ ...customerform, interestCalculation: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.customerType} onChange={(e) => setcustomerform({ ...customerform, customerType: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.fssaiNo} onChange={(e) => setcustomerform({ ...customerform, fssaiNo: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.creditLimit} onChange={(e) => setcustomerform({ ...customerform, creditLimit: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.securityCheck} onChange={(e) => setcustomerform({ ...customerform, securityCheck: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.fssaiED} onChange={(e) => setcustomerform({ ...customerform, fssaiED: e.target.value })} type='text' /></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div><h5 className='text-center pt-3' style={{ textDecoration: "underline" }}>Account Details</h5></div>
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.panNo}
+                                        onChange={(e) => setcustomerform({ ...customerform, panNo: e.target.value })}
+                                        label="Pan No" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.creditDays}
+                                        onChange={(e) => setcustomerform({ ...customerform, creditDays: e.target.value })}
+                                        label="Credit Days" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.interestCalculation}
+                                        onChange={(e) => setcustomerform({ ...customerform, interestCalculation: e.target.value })}
+                                        label="Intrest Calculation" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.customerType}
+                                        onChange={(e) => setcustomerform({ ...customerform, customerType: e.target.value })}
+                                        label="Customer Type" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+                        </div>
+
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.fssaiNo}
+                                        onChange={(e) => setcustomerform({ ...customerform, fssaiNo: e.target.value })}
+                                        label="FSSAI No" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.creditLimit}
+                                        onChange={(e) => setcustomerform({ ...customerform, creditLimit: e.target.value })}
+                                        label="Credit Limit" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.securityCheck}
+                                        onChange={(e) => setcustomerform({ ...customerform, securityCheck: e.target.value })}
+                                        label="Security Check" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.fssaiED}
+                                        onChange={(e) => setcustomerform({ ...customerform, fssaiED: e.target.value })}
+                                        label="FSSAI Id" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='container mt-4 accCont' style={{ height: "25vh" }}>
+                    <div className='container mt-4 accCont' style={{ height: "35vh" }}>
                         {dailoge()}
-                        <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Bank details</h3></div>
-                        <table className='table mt-3 tableMilkList table-bordered'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Account No</th>
-                                    <th scope="col">Bank Name</th>
-                                    <th scope="col">Branch</th>
-                                    <th scope='col'>IFSC No</th>
-                                    <th scope='col'>MICR No</th>
-                                    <th scope='col'>Address</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" className='text-center'>1</th>
-                                    <td><input className='inp-size' value={customerform.accountNo} onChange={(e) => setcustomerform({ ...customerform, accountNo: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.bankName} onChange={(e) => setcustomerform({ ...customerform, bankName: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.branch} onChange={(e) => setcustomerform({ ...customerform, branch: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.ifscNo} onChange={(e) => setcustomerform({ ...customerform, ifscNo: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.micrNo} onChange={(e) => setcustomerform({ ...customerform, micrNo: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.address1} onChange={(e) => setcustomerform({ ...customerform, address1: e.target.value })} type='text' /></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div><h5 className='text-center pt-3' style={{ textDecoration: "underline" }}>Bank Details</h5></div>
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.accountNo}
+                                        onChange={(e) => setcustomerform({ ...customerform, accountNo: e.target.value })}
+                                        label="Account No" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.bankName}
+                                        onChange={(e) => setcustomerform({ ...customerform, bankName: e.target.value })}
+                                        label="Bank Name" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.branch}
+                                        onChange={(e) => setcustomerform({ ...customerform, branch: e.target.value })}
+                                        label="Branch" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.ifscNo}
+                                        onChange={(e) => setcustomerform({ ...customerform, ifscNo: e.target.value })}
+                                        label="IFSC No" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+                        </div>
+
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.micrNo}
+                                        onChange={(e) => setcustomerform({ ...customerform, micrNo: e.target.value })}
+                                        label="MICR No" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.address1}
+                                        onChange={(e) => setcustomerform({ ...customerform, address1: e.target.value })}
+                                        label="Address" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='container mt-4 accCont' style={{ height: "25vh" }}>
+                    <div className='container mt-4 accCont' style={{ height: "20vh" }}>
                         {dailoge()}
-                        <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Create Ledger</h3></div>
-                        <table className='table mt-3 tableMilkList table-bordered'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Sub Ledger Name</th>
-                                    <th scope="col">Group</th>
-                                    <th scope="col">AMID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" className='text-center'>1</th>
-                                    <td><input className='inp-size' value={customerform.subLedgerName} type='text' onChange={(e) => setcustomerform({ ...customerform, subLedgerName: e.target.value })} /></td>
-                                    <td><input className='inp-size' value={customerform.grp} onChange={(e) => setcustomerform({ ...customerform, grp: e.target.value })} type='text' /></td>
-                                    <td><input className='inp-size' value={customerform.amid} onChange={(e) => setcustomerform({ ...customerform, amid: e.target.value })} type='text' /></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div><h5 className='text-center pt-3' style={{ textDecoration: "underline" }}>Create Ledger</h5></div>
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.subLedgerName}
+                                        onChange={(e) => setcustomerform({ ...customerform, subLedgerName: e.target.value })}
+                                        label="Sub Ledger Name" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.grp}
+                                        onChange={(e) => setcustomerform({ ...customerform, grp: e.target.value })}
+                                        label="Group" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
+                                        value={customerform.amid}
+                                        onChange={(e) => setcustomerform({ ...customerform, amid: e.target.value })}
+                                        label="AMID" variant="standard"
+                                    />
+                                </Box>
+                            </div>
+                        </div>
                     </div>
 
                     <div className='container mt-4 mb-2 mb-sm-0'>
@@ -1999,7 +2287,7 @@ const VendorNamcom = () => {
                                         <th style={{ width: "150px" }}>Delete</th>
                                     </tr>
                                 </thead>
-                                <tbody className='border'>
+                                <tbody>
                                     {
                                         customerdata.map((item, i) => (
                                             <tr>

@@ -468,7 +468,7 @@ const Milklistcom = () => {
                     </div>
                     <div className='row mt-3'>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-                            <h3 className='mt-3'>SNF RANGE</h3>
+                            <h5 className='mt-3'>SNF RANGE</h5>
                         </div>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                             <Box
@@ -494,7 +494,7 @@ const Milklistcom = () => {
 
                     <div className='row mt-3'>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-                            <h3 className='mt-3'>FAT RANGE</h3>
+                            <h5 className='mt-3'>FAT RANGE</h5>
                         </div>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                             <Box
