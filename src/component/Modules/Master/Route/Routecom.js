@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import "../accountmaster.css"
+import * as FileSaver from 'file-saver'
+import * as XLSX from "xlsx";
 import Box from '@mui/material/Box';
 
 
@@ -40,6 +41,18 @@ const Routecom = () => {
             setroutedata(res)
         })
     }, [])
+
+    const exporttoexcel = async () => {
+        const fileName = "myfile";
+        const fileType =
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+        const fileExtension = ".xlsx";
+        const ws = XLSX.utils.json_to_sheet(routedata)
+        const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+        const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+        const data = new Blob([excelBuffer], { type: fileType });
+        FileSaver.saveAs(data, fileName + fileExtension);
+    }
     return (
         <>
             <div className='p-2 sm-0'>
@@ -101,47 +114,47 @@ const Routecom = () => {
                         </div>
                     </div>
 
-                    <div className='container mt-4 mb-2 mb-sm-0'>
-                        <button className='btn btn-primary mx-0 mx-sm-3 mx-md-3 mt-2 mt-sm-0' onClick={() => setshowtable(!showtable)}>Show Table</button>
-                        <button className='btn btn-primary mx-3 mt-2 mt-sm-0' onClick={() => save()}>Save</button>
-                        <button className='btn btn-primary mx-3 mt-2 mt-sm-0' onClick={() => setrouteform({
-                            km: '',
-                            routeName: '',
-                            areaName: ''
-                        })}>Clear</button>
-                        <button className='btn btn-primary mx-3 mt-2 mt-sm-0' >Print</button>
-                    </div>
-                </div>
+    <div className='container mt-4 mb-2 mb-sm-0'>
+        <button className='btn btn-primary mx-0 mx-sm-3 mx-md-3 mt-2 mt-sm-0' onClick={() => setshowtable(!showtable)}>Show Table</button>
+        <button className='btn btn-primary mx-3 mt-2 mt-sm-0' onClick={() => save()}>Save</button>
+        <button className='btn btn-primary mx-3 mt-2 mt-sm-0' onClick={() => setrouteform({
+            km: '',
+            routeName: '',
+            areaName: ''
+        })}>Clear</button>
+        <button className='btn btn-primary mx-3 mt-2 mt-sm-0' >Print</button>
+    </div>
+                </div >
 
-                {
-                    showtable &&
-                    <div className='container mt-4 accMastTable mb-3 p-0'>
-                        <table className='tableAccMaster table table-stripped'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Route Name</th>
-                                    <th scope="col">KM</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {routedata.map((item, i) => (
+{
+    showtable &&
+    <div className='container mt-4 accMastTable mb-3 p-0'>
+        <table className='tableAccMaster table table-stripped'>
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Route Name</th>
+                    <th scope="col">KM</th>
+                </tr>
+            </thead>
+            <tbody>
+                {routedata.map((item, i) => (
 
-                                    <tr>
-                                        <td>{item.id}</td>
-                                        <td>{item.routeName}</td>
-                                        <td>{item.km}</td>
+                    <tr>
+                        <td>{item.id}</td>
+                        <td>{item.routeName}</td>
+                        <td>{item.km}</td>
 
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    </div>
                 }
-            </div>
+            </div >
 
 
-            {/* <div className='container'>
+{/* <div className='container'>
                 <h3 className='text-center my-3'>Route Master</h3>
                 <div style={{ boxShadow: '10px 10px 10px 0px lightgray' }} className='row py-4'>
                     <div className='col-md-3 col-12'>

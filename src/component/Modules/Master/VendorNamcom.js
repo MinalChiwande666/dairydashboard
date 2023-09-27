@@ -44,6 +44,7 @@ const VendorNamcom = () => {
     const [hide1, sethide1] = useState(false)
     const [showtable, setshowtable] = useState(false)
     const [delid, setdelid] = useState()
+    const [venincid, setvenincid] = useState()
     const [hide2, sethide2] = useState(false)
     const [hide3, sethide3] = useState(false)
     const [hide4, sethide4] = useState(false)
@@ -426,6 +427,15 @@ const VendorNamcom = () => {
     useEffect(() => {
         getcustomeralldata()
     }, [])
+
+    useEffect(() => {
+        fetch('http://103.38.50.113:8080/DairyApp/getAllVendorMaster').then((data) => {
+            return data.json()
+        }).then((res) => {
+            let id = res.pop()
+            setvenincid(id.id)
+        })
+    }, [])
     return (
 
         <>
@@ -447,19 +457,17 @@ const VendorNamcom = () => {
 
                     <div className='container mt-4 accCont' style={{ height: "85vh" }}>
                         {dailoge()}
-                        <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Vendor Master</h3></div>
                         <div className='row mt-4'>
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-                                <Box component="form"
-                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
-                                    autoComplete="off">
+                                <ThemeProvider theme={customTheme(outerTheme)}>
                                     <TextField
-                                        value={1}
+                                        value={venincid + 1}
                                         style={{ pointerEvents: 'none' }}
-                                        contentEditable={false}
+                                        // contentEditable={false}
+
                                         label="Vendor No." variant="standard"
                                     />
-                                </Box>
+                                </ThemeProvider>
                             </div>
 
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -604,6 +612,7 @@ const VendorNamcom = () => {
                                 </div> */}
                             </div>
                         </div>
+
 
                         <div className='row mt-4'>
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -1966,58 +1975,58 @@ const VendorNamcom = () => {
                         </div>
                     </> */}
 
-                    {showtable ? 
-                    <div className='container mt-4 accMastTable mb-3 p-0'>
-                        <table className="tableAccMaster table table-stripped">
-                            <thead >
-                                <tr >
-                                    <th style={{width:"150px"}}>Id</th>
-                                    <th style={{width:"150px"}}>Vendor Name</th>
-                                    <th style={{width:"150px"}}>Opening Balance</th>
-                                    <th style={{width:"150px"}}>Debit/Credit</th>
-                                    <th style={{width:"150px"}}>Gst No</th>
-                                    <th style={{width:"150px"}}>Category</th>
-                                    <th style={{width:"150px"}}>Gst State</th>
-                                    <th style={{width:"150px"}}>Status</th>
-                                    <th style={{width:"150px"}}>Acount Group</th>
-                                    <th style={{width:"150px"}}>Area</th>
-                                    <th style={{width:"150px"}}>Mobile No</th>
-                                    <th style={{width:"150px"}}>Sales Person</th>
-                                    <th style={{width:"150px"}}>Contact Person</th>
-                                    <th style={{width:"150px"}}>Email Id</th>
-                                    <th style={{width:"150px"}}>Date of birth</th>
-                                    <th style={{width:"150px"}}>Route</th>
-                                    <th style={{width:"150px"}}>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody className='border'>
-                                {
-                                    customerdata.map((item, i) => (
-                                        <tr>
-                                            <th scope="row" className='text-center'>{item.id}</th>
-                                            <td>{item.vendorName}</td>
-                                            <td>{item.openingBalance}</td>
-                                            <td>{item.debitCredit}</td>
-                                            <td>{item.gstNo}</td>
-                                            <td>{item.category}</td>
-                                            <td>{item.gstState}</td>
-                                            <td>{item.status}</td>
-                                            <td>{item.accountGroup}</td>
-                                            <td>{item.area}</td>
-                                            <td>{item.mobileNo}</td>
-                                            <td>{item.salesPerson}</td>
-                                            <td>{item.contactPerson}</td>
-                                            <td>{item.emailID}</td>
-                                            <td>{item.dateofBirth}</td>
-                                            <td>{item.selectRouteName}</td>
-                                            <td><DeleteIcon onClick={() => dele(item.id)} /></td>
-                                        </tr>
-                                    ))
+                    {showtable ?
+                        <div className='container mt-4 accMastTable mb-3 p-0'>
+                            <table className="tableAccMaster table table-stripped">
+                                <thead >
+                                    <tr >
+                                        <th style={{ width: "150px" }}>Id</th>
+                                        <th style={{ width: "150px" }}>Vendor Name</th>
+                                        <th style={{ width: "150px" }}>Opening Balance</th>
+                                        <th style={{ width: "150px" }}>Debit/Credit</th>
+                                        <th style={{ width: "150px" }}>Gst No</th>
+                                        <th style={{ width: "150px" }}>Category</th>
+                                        <th style={{ width: "150px" }}>Gst State</th>
+                                        <th style={{ width: "150px" }}>Status</th>
+                                        <th style={{ width: "150px" }}>Acount Group</th>
+                                        <th style={{ width: "150px" }}>Area</th>
+                                        <th style={{ width: "150px" }}>Mobile No</th>
+                                        <th style={{ width: "150px" }}>Sales Person</th>
+                                        <th style={{ width: "150px" }}>Contact Person</th>
+                                        <th style={{ width: "150px" }}>Email Id</th>
+                                        <th style={{ width: "150px" }}>Date of birth</th>
+                                        <th style={{ width: "150px" }}>Route</th>
+                                        <th style={{ width: "150px" }}>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody className='border'>
+                                    {
+                                        customerdata.map((item, i) => (
+                                            <tr>
+                                                <th scope="row" className='text-center'>{item.id}</th>
+                                                <td>{item.vendorName}</td>
+                                                <td>{item.openingBalance}</td>
+                                                <td>{item.debitCredit}</td>
+                                                <td>{item.gstNo}</td>
+                                                <td>{item.category}</td>
+                                                <td>{item.gstState}</td>
+                                                <td>{item.status}</td>
+                                                <td>{item.accountGroup}</td>
+                                                <td>{item.area}</td>
+                                                <td>{item.mobileNo}</td>
+                                                <td>{item.salesPerson}</td>
+                                                <td>{item.contactPerson}</td>
+                                                <td>{item.emailID}</td>
+                                                <td>{item.dateofBirth}</td>
+                                                <td>{item.selectRouteName}</td>
+                                                <td><DeleteIcon onClick={() => dele(item.id)} /></td>
+                                            </tr>
+                                        ))
 
-                                }
-                            </tbody>
-                        </table>
-                    </div> : null
+                                    }
+                                </tbody>
+                            </table>
+                        </div> : null
                     }
                 </div>
             }

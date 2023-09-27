@@ -79,6 +79,14 @@ export default function Sidebar({ toggle, state, setState }) {
                                 >
                                 Vendor Master
                             </MenuItem>
+                            <MenuItem
+                                className='sidebarcolor'
+                                onClick={() => {
+                                    navigate('/route')
+                                }}
+                                >
+                                Route Master
+                            </MenuItem>
                         </SubMenu>
                     </SubMenu>
                     <SubMenu
