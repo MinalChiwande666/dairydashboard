@@ -145,7 +145,7 @@ const FarmerPassbookcom = () => {
     <>
 
       <div className="p-2 sm-0">
-        <div className="container mt-4 farmerpassbookCont">
+        <div className="container mt-4 chillingCenterCont" style={{height:"35vh"}}>
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Farmer Passbook</h3></div>
           <div className="row mt-3">
 

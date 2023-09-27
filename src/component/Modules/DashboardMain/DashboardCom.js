@@ -11,7 +11,7 @@ const DashboardCom = () => {
 
   return (
     <div className='container-fluid'>
-      <div className='container'>
+      <div className='container dashbordcont'>
         <div className='row mt-4 p-3 p-sm-0 '>
           {
             dashboardDummyData.map((item, id) => {

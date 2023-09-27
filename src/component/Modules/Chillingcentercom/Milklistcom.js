@@ -182,15 +182,13 @@ const Milklistcom = () => {
 
 
     const deletetable = () => {
-        console.log(idinc)
-        fetch(`http://103.38.50.113:8080/DairyApp/deleteMilkRateByListNo?listNo=${idinc}`, {
-            method: 'Post',
+        console.log(code)
+        fetch(`http://103.38.50.113:8080/DairyApp/deleteMilkRateByListNo?listNo=${code}`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                id: code
-            })
+          
         }).then((data) => {
             return data
         }).then((resp) => {
@@ -416,13 +414,14 @@ const Milklistcom = () => {
                                 />
                                 {
                                     togg3 ?
-                                        <div className='masterSelect' style={{ height: "20vh", overflowY: "scroll" }}>
+                                        <div className='masterSelect' style={{ height: "13vh", overflowY: "scroll" }}>
                                             <ul className='d-flex justify-content-center flex-column m-0 p-0' >
                                                 {
                                                     listnos.map((item) => (
                                                         <li
                                                             style={{ listStyle: 'none' }}
                                                             onClick={() => {
+                                                                setcode(item)
                                                                 if (item) {
                                                                     fetch(`http://103.38.50.113:8080/DairyApp/findByListNo/${item}`).then((data) => {
                                                                         return data.json()
