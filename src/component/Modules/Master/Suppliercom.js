@@ -1337,15 +1337,16 @@ const Suppliercom = () => {
 
                         <div className='row mt-3'>
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-                                <Box component="form"
-                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
-                                    autoComplete="off">
+                                <div className="d-flex flex-column">
+                                    <label style={{ fontSize: "14px" }}>
+                                        Date of Birth
+                                    </label>
                                     <TextField
+                                        style={{ width: '30ch' }}
                                         value={customerform.dateofBirth}
-                                        onChange={(e) => setcustomerform({ ...customerform, dateofBirth: e.target.value })}
-                                        label="Date of Birth" variant="standard"
-                                    />
-                                </Box>
+                                        variant="standard" type="date"
+                                        onChange={(e) => setcustomerform({ ...customerform, dateofBirth: e.target.value })}/>
+                                </div>
                             </div>
                         </div>
                     </div>
