@@ -224,11 +224,11 @@ const Milklistcom = () => {
                 console.log(resp.data.listNo)
                 localStorage.setItem("inclistno", JSON.stringify(resp.data.listNo))
                 alert(resp.message)
-                if (resp.message === 'Milk Rate data saved successfully.') {
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 4000)
-                }
+                // if (resp.message === 'Milk Rate data saved successfully.') {
+                //     setTimeout(() => {
+                //         window.location.reload()
+                //     }, 4000)
+                // }
                 // 
             })
         } catch (e) {
@@ -261,6 +261,7 @@ const Milklistcom = () => {
     const handleupdsnfchange = (itemID, newval) => {
         setsnffatdata((prev) =>
             prev.map((item) =>
+             
                 itemID === item.id ? { ...item, snf: newval } : item
             )
         )
@@ -577,12 +578,14 @@ const Milklistcom = () => {
                                                 </td>
                                                 <td>
                                                     <button className='btn btn-primary' onClick={() => {
+                                                         alert(fatdata)
                                                         let newobj = {
                                                             fat: parseFloat(fatdata.fat),
                                                             snf: parseFloat(fatdata.snf),
                                                             rate: parseFloat(fatdata.rate)
                                                         }
-                                                        setentries([...entries, newobj])
+                                                        console.log(newobj)
+                                                        setnewarr([...newarr, newobj])
                                                     }}>Add</button>
                                                 </td>
                                             </tr>

@@ -30,6 +30,7 @@ const MilkPurchasecom = () => {
   const [snfinp, setsnfinp] = useState('')
   const [milrate, setmilkrate] = useState()
   const [type, settype] = useState('')
+  const [suppname,setsuppname] = useState('')
   const [ntamt, setntamt] = useState()
   const [qtyval, setqtyval] = useState()
   const [milkpurchaseform, setmilkpurchaseform] = useState({
@@ -249,7 +250,20 @@ const MilkPurchasecom = () => {
   }
 
 
+ useEffect(()=>{
+  if(milkpurchaseform.supplier){
+ fetch(`http://103.38.50.113:8080/DairyApp/getdatabysupplierId?supplierId=${milkpurchaseform.supplier}`).then((data)=>{
+  return data.json()
+ }).then((res)=>{
+  console.log(res)
+  res.filter((item)=>{
+    console.log(item.supplierName)
+    setsuppname(item.supplierName)
+  })
 
+ })
+}
+ },[milkpurchaseform.supplier])
   return (
     <>
       <div className='p-2 sm-0'>
@@ -351,6 +365,8 @@ const MilkPurchasecom = () => {
                 sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
                 autoComplete="off">
                 <TextField
+                value={suppname}
+                
                 label="Supplier Name" variant="standard" />
               </Box>
             </div>
@@ -536,7 +552,7 @@ const MilkPurchasecom = () => {
                     <td>{item.netAmount}</td>
                     <td>{item.date}</td>
                     <td>{item.shift}</td>
-                    <td><IconButton><DeleteIcon onClick={() => deleteMilkPurData(item.id)} style={{ color: 'red', cursor: 'pointer' }} /></IconButton></td>
+                    <td><DeleteIcon onClick={() => deleteMilkPurData(item.id)} style={{color:"red"}} /></td>
                   </tr>
                 ))
               }

@@ -1853,7 +1853,7 @@ const Suppliercom = () => {
                                                     <td>{item.grp}</td>
                                                     <td>{item.category}</td>
                                                     <td>{item.status}</td>
-                                                    <td><IconButton onClick={() => dele(item.id)}><DeleteIcon /></IconButton></td>
+                                                    <td><DeleteIcon onClick={() => dele(item.id)} style={{color:'red'}}/></td>
                                                 </tr>
                                             ))
 

@@ -279,7 +279,6 @@ const Chillingcom = () => {
 
     const save = () => {
         try {
-
             let newform = {
                 "inwordId": String(chillingform.inwordId),
                 "date": String(chillingform.date),
@@ -322,7 +321,7 @@ const Chillingcom = () => {
             }
             console.log("new form => ", newform)
             axios.post('http://103.38.50.113:8080/DairyApp/savePurchesInvoice', newform).then((data) => {
-                alert(data.data.message)
+            alert(data.data.message)
                 let toatsuccessmsg = toast.success(`${data.data.message}`, {
                     position: "top-center",
                     autoClose: 5000,
@@ -854,13 +853,11 @@ const Chillingcom = () => {
                                                                     ...chillingform,
                                                                     vendorName: ""
                                                                 })
-                                                                setTogg2(false)
                                                             } else {
                                                                 setchillingform({
                                                                     ...chillingform,
                                                                     vendorName: vendorobj.vendorName
                                                                 })
-                                                                setTogg2(false)
                                                             }
                                                         }}
                                                     >{!vendorobj ? "" : vendorobj.vendorName}</li>
@@ -2194,16 +2191,8 @@ const Chillingcom = () => {
                                                 <td>{item.driverName}</td>
                                                 <td>{item.driverNo}</td>
                                                 <td>{item.dremark}</td>
-
-                                                <td className='text-center mt-2'>
-                                                    <DeleteIcon
-                                                        onClick={() => delet(item.id)}
-                                                        style={{ color: 'red', fontSize: '1rem' }} className='' /></td>
-                                                <td className='text-center mt-2'>
-                                                    <EditIcon
-                                                        onClick={() => editform(item, "2")}
-                                                        style={{ color: 'green', fontSize: '1rem' }} className='' />
-                                                </td>
+                                                <td className='text-center mt-2'><DeleteIcon onClick={() => delet(item.id)} style={{ color: 'red'}}/></td>
+                                                <td className='text-center mt-2'><EditIcon onClick={() => editform(item, "2")} style={{ color: 'green'}}/></td>
                                             </tr>
                                         ))
                                     }

@@ -16,6 +16,7 @@ const Billgenerationcom = () => {
   const [drop, setdrop] = useState(false)
   const [code, setcode] = useState('')
   const [fcode, setfcode] = useState()
+  const [databyid,setdatabyid] = useState([])
   const [tcode, settcode] = useState()
   const [showTable, setshowtable] = useState(false)
   const [data, setdata] = useState([])
@@ -40,7 +41,7 @@ const Billgenerationcom = () => {
     content: () => componentRef.current,
   })
 
-
+console.log("list id=>",listid)
   useEffect(() => {
     fetch('http://103.38.50.113:8080/DairyApp/getSupplierId').then((data) => {
       return data.json()
@@ -53,9 +54,26 @@ const Billgenerationcom = () => {
   useEffect(() => {
     getbillgenerationdata()
   }, [])
+  
 
+  useEffect(()=>{
+    if(listid)
+    {
+      fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=${listid}`).then((data) => {
+        return data.json()
+    }).then((res) => {
+      
+      //  console.log(res?.filteredMilkPurchases)
+        setdatabyid(res?.filteredMilkPurchases)
+        
 
+    }).catch((e)=>{
+        console.log(e)
+    })
+    }
+  },[listid])
 
+//  console.log(databyid)
   const outerTheme = useTheme();
 
 
@@ -225,7 +243,7 @@ const Billgenerationcom = () => {
         <div>
           {
             showTable &&
-            <Billtablecom code={code} fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} form={form} listid={listid} data={data} setdata={setdata} />
+            <Billtablecom code={code} databyid={databyid} fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} form={form} listid={listid} data={data} setdata={setdata} />
           }
         </div>
       </div>

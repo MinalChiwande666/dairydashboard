@@ -349,7 +349,7 @@ const PlantInCom = () => {
                                                 <td>{item.quantity}</td>
                                                 <td>{item.fat}</td>
                                                 <td>{item.clr}</td>
-                                                <td><IconButton onClick={() => del(item.id)}><DeleteIcon style={{ color: 'red', cursor: 'pointer' }} /></IconButton></td>
+                                                <td><DeleteIcon onClick={() => del(item.id)} style={{ color: 'red'}} /></td>
                                             </tr>
                                         ))
                                     }

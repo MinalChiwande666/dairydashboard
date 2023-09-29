@@ -1608,16 +1608,16 @@ const Employeemastercom = () => {
               <table className="tableAccMaster table table-stripped">
                 <thead>
                   <tr>
-                    <th>EID</th>
-                    <th>Employee name</th>
-                    <th>Gender</th>
-                    <th>Joining Date</th>
-                    <th>Department</th>
-                    <th>Designation</th>
-                    <th>Salary</th>
-                    <th>Group</th>
-                    <th>Category</th>
-                    <th>Account Group</th>
+                    <th scope='col' style={{width:"150px"}}>EID</th>
+                    <th scope='col' style={{width:"150px"}}>Employee name</th>
+                    <th scope='col' style={{width:"150px"}}>Gender</th>
+                    <th scope='col' style={{width:"150px"}}>Joining Date</th>
+                    <th scope='col' style={{width:"150px"}}>Department</th>
+                    <th scope='col' style={{width:"150px"}}>Designation</th>
+                    <th scope='col' style={{width:"150px"}}>Salary</th>
+                    <th scope='col' style={{width:"150px"}}>Group</th>
+                    <th scope='col' style={{width:"150px"}}>Category</th>
+                    <th scope='col' style={{width:"150px"}}>Account Group</th>
                   </tr>
                 </thead>
                 <tbody>

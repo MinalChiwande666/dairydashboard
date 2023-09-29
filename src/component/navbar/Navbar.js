@@ -38,8 +38,8 @@ const Navbar = () => {
     return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar
-          style={{ background: 'radial-gradient(circle at 10% 20%, rgba(91, 173, 254, 0.46) 0%, rgba(91, 224, 254, 0.46) 47.2%, rgba(170, 254, 235, 0.43) 90%)', color:"rgb(81, 80, 80)"}}
-          position="static">
+          style={{ background: 'radial-gradient(circle at 10% 20%, rgba(91, 173, 254, 0.46) 0%, rgba(91, 224, 254, 0.46) 47.2%, rgba(170, 254, 235, 0.43) 90%)', color:"rgb(81, 80, 80)", position:"sticky", top:"0"}}
+          >
           <Toolbar>
             <IconButton
               size="large"
