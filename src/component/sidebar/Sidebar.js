@@ -37,7 +37,15 @@ export default function Sidebar({ toggle, state, setState }) {
                                 className='sidebarcolor'
                                 onClick={() => {
                                     navigate('/accountmaster')
-                                }}>Account Master</MenuItem>
+                                }}>Account Master
+                            </MenuItem>
+
+                            <MenuItem
+                                className='sidebarcolor'
+                                onClick={() => {
+                                    navigate('/route')
+                                }}>Route Master
+                            </MenuItem>
 
                             <MenuItem
                                 className='sidebarcolor'
@@ -86,9 +94,9 @@ export default function Sidebar({ toggle, state, setState }) {
                         <MenuItem onClick={() => navigate('/chilingcenter')}className='sidebarmain'>
                             Chilling Center
                         </MenuItem>
-                        <MenuItem onClick={() => navigate('/milkchalan')} className='sidebarmain'>
+                        {/* <MenuItem onClick={() => navigate('/milkchalan')} className='sidebarmain'>
                             Milk Chalan
-                        </MenuItem>
+                        </MenuItem> */}
                         <MenuItem onClick={() => navigate('/milkpurchase')} className='sidebarmain'>
                             Milk Purchase
                         </MenuItem>
@@ -150,7 +158,8 @@ export default function Sidebar({ toggle, state, setState }) {
                             Profit/Loss
                         </MenuItem>
                     </SubMenu>
-                    <SubMenu label="Sanstha Milk Module">
+
+                    {/* <SubMenu label="Sanstha Milk Module">
                         <SubMenu label="Sanstha Master" className='sidebarmain'>
                             <MenuItem
                                 onClick={() => navigate('/sansthamaster')} className="sidebarcolor">
@@ -187,7 +196,7 @@ export default function Sidebar({ toggle, state, setState }) {
                                 Milk Collection Ltr
                             </MenuItem>
                         </SubMenu>
-                    </SubMenu>
+                    </SubMenu> */}
                 </Menu>
 
                 <Menu >

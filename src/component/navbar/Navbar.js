@@ -1,5 +1,5 @@
 import React from 'react'
-
+import "./Navbar.css"
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -38,8 +38,8 @@ const Navbar = () => {
     return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar
-          style={{ background: 'radial-gradient(circle at 10% 20%, rgba(91, 173, 254, 0.46) 0%, rgba(91, 224, 254, 0.46) 47.2%, rgba(170, 254, 235, 0.43) 90%)', color:"rgb(81, 80, 80)"}}
-          position="static">
+          style={{ background: 'radial-gradient(circle at 10% 20%, rgba(91, 173, 254, 0.46) 0%, rgba(91, 224, 254, 0.46) 47.2%, rgba(170, 254, 235, 0.43) 90%)', color:"rgb(81, 80, 80)", position:"sticky", top:"0"}}
+          >
           <Toolbar>
             <IconButton
               size="large"
@@ -50,12 +50,10 @@ const Navbar = () => {
               onClick={toggleDrawer('left', true)}
             ><MenuIcon /></IconButton>
             
-            <Typography variant="h5" component="div" sx={{ flexGrow: 1, cursor:'pointer', marginTop:"5px"}} onClick={()=>navigate('/dashboard')}>
-              Dashboard
+            <Typography variant="h5" component="div" sx={{ flexGrow: 1, cursor:'pointer', fontWeight:"600"}} onClick={()=>navigate('/dashboard')}>
+              DASHBOARD
             </Typography>
-            <Button
-              onClick={()=>logoutuser()}
-              color="inherit">Logout</Button>
+            <Button className='logoutbtn' onClick={()=>logoutuser()}>Logout</Button>
           </Toolbar>
         </AppBar>
         <Sidebar toggle={toggleDrawer} state={state} setState={setState} />

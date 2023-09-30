@@ -272,7 +272,7 @@ const AccountmasCom = () => {
     <>
 
       <div className='p-2 sm-0'>
-        <div className='container mt-4 accCont'>
+        <div className='container mt-4 accCont' style={{height:"70vh"}}>
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Account Master</h3></div>
           <div className='row mt-4'>
             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -577,25 +577,25 @@ const AccountmasCom = () => {
         <table className='tableAccMaster table table-stripped'>
           <thead>
             <tr>
-              <th scope="col">Account Id</th>
-              <th scope="col">Account Name</th>
-              <th scope="col">Account Type</th>
-              <th scope="col">Group</th>
-              <th scope="col">Main Ledger</th>
-              <th scope="col">Opening Balance</th>
-              <th scope="col">Opening Type</th>
-              <th scope="col">GST No</th>
-              <th scope="col">PAN Card No</th>
-              <th scope="col">Adhaar Card No</th>
-              <th scope="col">Account Group</th>
-              <th scope="col">Cost Center</th>
+              <th scope="col" style={{width:"150px"}}>Account Id</th>
+              <th scope="col" style={{width:"150px"}}>Account Name</th>
+              <th scope="col" style={{width:"150px"}}>Account Type</th>
+              <th scope="col" style={{width:"150px"}}>Group</th>
+              <th scope="col" style={{width:"150px"}}>Main Ledger</th>
+              <th scope="col" style={{width:"150px"}}>Opening Balance</th>
+              <th scope="col" style={{width:"150px"}}>Opening Type</th>
+              <th scope="col" style={{width:"150px"}}>GST No</th>
+              <th scope="col" style={{width:"150px"}}>PAN Card No</th>
+              <th scope="col" style={{width:"150px"}}>Adhaar Card No</th>
+              <th scope="col" style={{width:"150px"}}>Account Group</th>
+              <th scope="col" style={{width:"150px"}}>Cost Center</th>
             </tr>
           </thead>
           <tbody>
             {
               allusers.map((item, i) => (
                 <tr>
-                  <th scope="row">{item.id}</th>
+                  <th scope="row" className='text-center'>{item.id}</th>
                   <td>{item.accountName}</td>
                   <td>{item.accountType}</td>
                   <td>Current Assets</td>

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-
 import EditIcon from '@mui/icons-material/Edit';
 import './chilling.css'
 import { useReactToPrint } from 'react-to-print';
@@ -15,6 +14,9 @@ import Dialog from '@mui/material/Dialog'
 import Slide from '@mui/material/Slide';
 import CancelIcon from '@mui/icons-material/Cancel';
 import 'react-toastify/dist/ReactToastify.css';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Box from '@mui/material/Box';
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -23,6 +25,12 @@ const Chillingcom = () => {
     const [vendorcode, setvendorcode] = useState({
         id: null
     })
+    const [togg1, setTogg1] = useState(false)
+    const [togg2, setTogg2] = useState(false)
+    const [togg3, setTogg3] = useState(false)
+    const [togg4, setTogg4] = useState(false)
+    const [togg5, setTogg5] = useState(false)
+    const [togg6, setTogg6] = useState(false)
     const [vendorobj, setvendorobj] = useState()
     const outerTheme = useTheme()
     const componentref = useRef()
@@ -39,11 +47,8 @@ const Chillingcom = () => {
     const [showtable, setshowtable] = useState(false)
     const [slrcalc, setslrcalc] = useState('')
     const [snfcal, setsnfcal] = useState()
-    const [selwarehouse, setwarehouse] = useState('')
-    const [collecttype, setcollecttype] = useState('')
-    const [selmilktype, setselmilktype] = useState('')
+
     const [chillingdata, setchillingdata] = useState([])
-    const [vendor, setvendor] = useState('')
     const [updatecenterform, setupdatechilling] = useState({})
     const [chillingform, setchillingform] = useState({
         "inwordId": "",
@@ -274,7 +279,6 @@ const Chillingcom = () => {
 
     const save = () => {
         try {
-
             let newform = {
                 "inwordId": String(chillingform.inwordId),
                 "date": String(chillingform.date),
@@ -317,7 +321,7 @@ const Chillingcom = () => {
             }
             console.log("new form => ", newform)
             axios.post('http://103.38.50.113:8080/DairyApp/savePurchesInvoice', newform).then((data) => {
-                alert(data.data.message)
+            alert(data.data.message)
                 let toatsuccessmsg = toast.success(`${data.data.message}`, {
                     position: "top-center",
                     autoClose: 5000,
@@ -388,7 +392,7 @@ const Chillingcom = () => {
             "tDate": null,
             "entryBy": "prny"
         }
-      
+
 
         axios.post('http://103.38.50.113:8080/DairyApp/savePurchesInvoice', newform2).then((data) => {
             let toatsuccessmsg = toast.success('Data Updated Succefully!!', {
@@ -408,7 +412,7 @@ const Chillingcom = () => {
                 }, 5000)
 
             }
-            
+
         }).catch((e) => {
             console.log("Error => ", e)
         })
@@ -482,18 +486,16 @@ const Chillingcom = () => {
         });
 
     const print = async () => {
-         const resp = await fetch('http://103.38.50.113:8080/DairyApp/printChillingCenter')
-         console.log(resp)
-         if(resp.redirected === false){
+        const resp = await fetch('http://103.38.50.113:8080/DairyApp/printChillingCenter')
+        console.log(resp)
+        if (resp.redirected === false) {
             window.location.href = resp.url
-         }else
-         {
+        } else {
             console.log("request was not redirected")
-         }
+        }
     }
-    const clearfields = ()=>{
-        if(updateid!=="2")
-        {
+    const clearfields = () => {
+        if (updateid !== "2") {
             setchillingform({
                 "inwordId": "",
                 "date": "",
@@ -534,8 +536,7 @@ const Chillingcom = () => {
                 "tDate": null,
                 "entryBy": ""
             })
-        }else
-        {
+        } else {
             setupdatechilling({
                 "inwordId": "",
                 "date": "",
@@ -600,7 +601,7 @@ const Chillingcom = () => {
     useEffect(() => {
         obj()
         console.log(vendorobj, "hello")
-       
+
     }, [vendorcode])
 
     return (
@@ -619,17 +620,19 @@ const Chillingcom = () => {
                         pauseOnFocusLoss
                         draggable
                         pauseOnHover
-                        theme="light"></ToastContainer>
+                        theme="light">
+                    </ToastContainer>
 
-                    <div className='text-center animationtxt' style={{ fontSize: '2rem' }}>Chilling Center</div>
-                    <div className='container' style={{ boxShadow: '10px 10px 10px 0px gray', padding: '0.5rem 0.9rem' }}>
+                    <div className='container mt-4 chillingCenterCont' style={{ height: "95vh" }}>
                         {dailoge()}
-                        <div className='row'>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+                        <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Chilling Center</h3></div>
+                        <div className='row mt-4'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         contentEditable={false}
-
                                         value={updateid === "2" ? updatecenterform.inwordId : chillingform.inwordId}
                                         onChange={(e) => {
                                             if (updateid !== "2") {
@@ -645,34 +648,52 @@ const Chillingcom = () => {
                                                     inwordId: e.target.value
                                                 })
                                             }
-
                                         }}
-                                        style={{ width: '95%', pointerEvents: updateid === "2" ? 'none' : 'auto' }}
-                                        label="Invoice Id" className='txtsize' variant="standard" />
-                                </ThemeProvider>
-
+                                        style={{ pointerEvents: updateid === "2" ? 'none' : 'auto' }}
+                                        label="Invoice Id" variant="standard" />
+                                </Box>
                             </div>
-                            <div className='col-12  col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         onChange={(e) => {
                                             setchillingform({
                                                 ...chillingform,
-
                                             })
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Inward No'}
-                                        className='txtsize' variant="standard"
+                                        label='Inward No'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
+                                </Box>
 
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <div>
-                                    InWard Date
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <div className='d-flex flex-column'>
+                                    <label style={{ fontSize: "14px" }}>Inward Date</label>
+                                    <TextField
+                                        style={{ width: '95ch', marginBottom: "5px" }}
+                                        value={updateid === "2" ? updatecenterform.date : chillingdata.date}
+                                        className='txtsize' variant="standard" type="date"
+                                        onChange={(e) => {
+                                            if (updateid !== "2") {
+                                                setchillingform({
+                                                    ...chillingform,
+                                                    date: e.target.value
+                                                })
+                                            } else {
+                                                setupdatechilling({
+                                                    ...updatecenterform,
+                                                    date: e.target.value
+                                                })
+                                            }
+                                        }}
+                                    />
                                 </div>
-                                <div>
+                                {/* <div>
                                     <input
                                         value={updateid === "2" ? updatecenterform.date : chillingdata.date}
                                         onChange={(e) => {
@@ -691,13 +712,54 @@ const Chillingcom = () => {
                                         }}
                                         style={{ width: '80%', padding: '0px', fontSize: '0.8rem' }}
                                         type='date' />
-                                </div>
+                                </div> */}
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
+                            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div>
-                                    Collection Type
+                                    <TextField
+                                        variant='standard'
+                                        label="Collection Type"
+                                        value={updateid === "2" ? updatecenterform.collectionType :
+                                            (chillingform.collectionType === '' ? 'Select' : chillingform.collectionType)}
+                                        sx={{ width: "25ch" }}
+                                    />
+
+                                    {
+                                        togg1 ?
+                                            <div className='milkpurchaseselect'>
+                                                <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                                                    {
+                                                        collection.map((item) => (
+                                                            <li style={{ listStyle: 'none' }}
+                                                                onClick={() => {
+                                                                    if (updateid !== "2") {
+                                                                        setchillingform({
+                                                                            ...chillingform,
+                                                                            collectionType: item.name
+                                                                        })
+                                                                        setTogg1(false)
+                                                                    } else {
+                                                                        setupdatechilling({
+                                                                            ...updatecenterform,
+                                                                            collectionType: item.name
+                                                                        })
+                                                                        setTogg1(false)
+                                                                    }
+                                                                }
+                                                                }
+                                                            >{item.name}</li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div> : null
+                                    }
                                 </div>
-                                <div>
+                                <div className='mt-4'>
+                                    <IconButton onClick={() => setTogg1(!togg1)}>
+                                        <KeyboardArrowDownIcon />
+                                    </IconButton>
+                                </div>
+                                {/* <div>
                                     <div className="dropdown">
                                         <button
                                             style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
@@ -705,7 +767,6 @@ const Chillingcom = () => {
                                             {updateid === "2" ? updatecenterform.collectionType :
                                                 (chillingform.collectionType === '' ? 'Select' : chillingform.collectionType)}
                                             <div className='dropdown-toggle'>
-
                                             </div>
                                         </button>
                                         <ul className="dropdown-menu">
@@ -734,50 +795,82 @@ const Chillingcom = () => {
 
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 
-                        <div className='row  mt-3 p-1'>
-                            <div className='col-12  col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
-
                                         onChange={(e) => {
                                             console.log(e.target.value)
                                             setvendorcode({
                                                 id: e.target.value
                                             })
                                         }}
-                                        style={{ width: '95%' }}
-                                        type='text'
-                                        label={'Vendor Code'}
-                                        className='txtsize' variant="standard"
+                                        label='Vendor Code' variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <div>
-                                    Vendor Date
-                                </div>
-                                <div>
-                                    <input type='date' value={chillingform?.vendorInvoiceDate}
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <div className='d-flex flex-column'>
+                                    <label style={{ fontSize: "14px" }}>Vendor Date</label>
+                                    <TextField
+                                        style={{ width: '30ch', marginBottom: "5px" }}
+                                        value={chillingform?.vendorInvoiceDate}
+                                        variant="standard" type="date"
                                         onChange={(e) => {
                                             setchillingform({
                                                 ...chillingform,
                                                 vendorInvoiceDate: e.target.value
                                             })
                                         }}
-                                        style={{width:'90%',padding: '0px', fontSize: '0.8rem'}}
                                     />
                                 </div>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
+
+
+                            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div>
-                                    Vendor Name
+                                    <TextField
+                                        variant='standard'
+                                        label="Vendor Name"
+                                        value={updateid === "2" ? updatecenterform.vendorName : (chillingform.vendorName === '' ? 'Select' : chillingform.vendorName)}
+                                        sx={{ width: "25ch" }}
+                                    />
+                                    {
+                                        togg2 ?
+                                            <div className='milkpurchaseselect'>
+                                                <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                                                    <li style={{ listStyle: 'none' }}
+                                                        onClick={() => {
+                                                            if (!vendorobj.vendorName) {
+                                                                setchillingform({
+                                                                    ...chillingform,
+                                                                    vendorName: ""
+                                                                })
+                                                            } else {
+                                                                setchillingform({
+                                                                    ...chillingform,
+                                                                    vendorName: vendorobj.vendorName
+                                                                })
+                                                            }
+                                                        }}
+                                                    >{!vendorobj ? "" : vendorobj.vendorName}</li>
+                                                </ul>
+                                            </div> : null
+                                    }
                                 </div>
-                                <div>
+                                <div className='mt-4'>
+                                    <IconButton onClick={() => setTogg2(!togg2)}>
+                                        <KeyboardArrowDownIcon />
+                                    </IconButton>
+                                </div>
+                                {/* <div>
                                     <div className="dropdown">
                                         <button
                                             style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.7rem' }}
@@ -807,14 +900,16 @@ const Chillingcom = () => {
 
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
-                            <div className='col-12 mt-2 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.address : chillingform.address}
                                         onChange={(e) => {
-
                                             if (updateid !== "2") {
                                                 setloader(false)
                                                 setchillingform({
@@ -828,14 +923,18 @@ const Chillingcom = () => {
                                                 })
                                             }
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Address'}
-                                        className='txtsize' variant="standard"
+                                        label='Address'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
+                                </Box>
                             </div>
-                            <div className='col-12 mt-2 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+                        </div>
+
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.mobileNo : chillingform.mobileNo}
                                         onChange={(e) => {
@@ -855,17 +954,56 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Mobile No'}
-                                        className='txtsize' variant="standard"
+                                        type='number'
+                                        label='Mobile No'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
+
+                            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div>
-                                    Milk Type
+                                    <TextField
+                                        variant='standard'
+                                        label="Milk Type"
+                                        value={updateid === "2" ? updatecenterform.milkType : (chillingform.milkType === '' ? 'Select' : chillingform.milkType)}
+                                        sx={{ width: "25ch" }}
+                                    />
+                                    {
+                                        togg3 ?
+                                            <div className='milkpurchaseselect'>
+                                                <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                                                    {
+                                                        milktype.map((item) => (
+                                                            <li style={{ listStyle: 'none' }}
+                                                                onClick={() => {
+                                                                    if (updateid !== "2") {
+                                                                        setchillingform({
+                                                                            ...chillingform,
+                                                                            milkType: item.name
+                                                                        })
+                                                                        setTogg3(false)
+                                                                    } else {
+                                                                        setupdatechilling({
+                                                                            ...updatecenterform,
+                                                                            milkType: item.name
+                                                                        })
+                                                                        setTogg3(false)
+                                                                    }
+                                                                }}
+                                                            >{item.name}</li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div> : null
+                                    }
                                 </div>
-                                <div>
+                                <div className='mt-4'>
+                                    <IconButton onClick={() => setTogg3(!togg3)}>
+                                        <KeyboardArrowDownIcon />
+                                    </IconButton>
+                                </div>
+                                {/* <div>
                                     <div className="dropdown">
                                         <button
                                             style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.7rem' }}
@@ -900,16 +1038,53 @@ const Chillingcom = () => {
 
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 
-                        <div className='row'>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
+                        <div className='row mt-3'>
+                            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div>
-                                    Item Name
+                                    <TextField
+                                        variant='standard'
+                                        label="Item Name"
+                                        value={updateid === "2" ? updatecenterform.itemName : (chillingform.itemName === '' ? 'Select' : chillingform.itemName)}
+                                        sx={{ width: "25ch" }}
+                                    />
+                                    {
+                                        togg4 ?
+                                            <div className='milkpurchaseselect'>
+                                                <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                                                    {
+                                                        itemname.map((item) => (
+                                                            <li style={{ listStyle: 'none' }}
+                                                                onClick={() => {
+                                                                    if (updateid !== "2") {
+                                                                        setchillingform({
+                                                                            ...chillingform,
+                                                                            itemName: item.name
+                                                                        })
+                                                                    } else {
+                                                                        setupdatechilling({
+                                                                            ...updatecenterform,
+                                                                            itemName: item.name
+                                                                        })
+                                                                    }
+
+                                                                }}
+                                                            >{item.name}</li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div> : null
+                                    }
                                 </div>
-                                <div>
+                                <div className='mt-4'>
+                                    <IconButton onClick={() => setTogg4(!togg4)}>
+                                        <KeyboardArrowDownIcon />
+                                    </IconButton>
+                                </div>
+                                {/* <div>
                                     <div className="dropdown">
                                         <button
                                             style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
@@ -945,10 +1120,14 @@ const Chillingcom = () => {
 
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
-                            <div className='col-12 mt-2 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.unit : chillingform.unit}
                                         onChange={(e) => {
@@ -965,15 +1144,16 @@ const Chillingcom = () => {
                                                 })
                                             }
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Unit'}
-                                        className='txtsize' variant="standard"
+                                        label='Unit'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 mt-2 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.batch : chillingform.batch}
                                         onChange={(e) => {
@@ -990,15 +1170,17 @@ const Chillingcom = () => {
                                                 })
                                             }
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Batch'}
-                                        className='txtsize' variant="standard"
-                                    />
-                                </ThemeProvider>
 
+                                        label='Batch'
+                                        variant="standard"
+                                    />
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.mbrt : chillingform.mbrt}
                                         onChange={(e) => {
@@ -1015,23 +1197,22 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'MBRT'}
-                                        className='txtsize' variant="standard"
+                                        label='MBRT'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
                         </div>
 
-                        <div className='row  mt-3 p-2'>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         type='number'
                                         value={updateid === "2" ? updatecenterform.fat : chillingform.fat}
                                         onChange={(e) => {
-                                            // setfatcal(e.target.value)
                                             if (updateid !== "2") {
                                                 setchillingform({
                                                     ...chillingform,
@@ -1045,20 +1226,21 @@ const Chillingcom = () => {
                                                 })
                                             }
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'FAT'}
-                                        className='txtsize' variant="standard"
-                                    />
-                                </ThemeProvider>
 
+                                        label='FAT'
+                                        variant="standard"
+                                    />
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         type='number'
                                         value={updateid === "2" ? updatecenterform.clr : chillingform.clr}
                                         onChange={(e) => {
-                                            // setslrcalc(e.target.value)
                                             if (e.target.value) {
                                                 setloader(false)
                                             }
@@ -1076,18 +1258,48 @@ const Chillingcom = () => {
                                                 })
                                             }
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'CLR'}
-                                        className='txtsize' variant="standard"
+                                        label='CLR'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
+
+                            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div>
-                                    Counting Factor
+                                    <TextField
+                                        variant='standard'
+                                        label="Counting Factor"
+                                        value={chillingform.countingfactor === '' ? 'Select' : chillingform.countingfactor}
+                                        sx={{ width: "25ch" }}
+                                    />
+
+                                    {
+                                        togg5 ?
+                                            <div className='milkpurchaseselect'>
+                                                <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                                                    {
+                                                        countingfactor.map((item) => (
+                                                            <li style={{ listStyle: 'none' }}
+                                                                onClick={() => {
+                                                                    setchillingform({
+                                                                        ...chillingform,
+                                                                        countingfactor: item.name
+                                                                    })
+                                                                    setTogg5(false)
+                                                                }}
+                                                            >{item.name}</li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div> : null
+                                    }
                                 </div>
-                                <div>
+                                <div className='mt-4'>
+                                    <IconButton onClick={() => setTogg5(!togg5)}>
+                                        <KeyboardArrowDownIcon />
+                                    </IconButton>
+                                </div>
+                                {/* <div>
                                     <div className="dropdown">
                                         <button
                                             style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
@@ -1116,13 +1328,14 @@ const Chillingcom = () => {
 
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         contentEditable={false}
-                                        // value={parseInt(chillingform.clr)/4 + 0.2 * parseInt(chillingform.fat) + parseFloat(chillingform.countingfactor)}
                                         value={updateid === "2" ? (updatecenterform.snf ? parseInt(updatecenterform.clr) / 4 + 0.2 * parseInt(updatecenterform.fat) + 0.66 : updatecenterform.snf) : Math.round(parseInt(chillingform.clr) / 4 + 0.2 * parseInt(chillingform.fat) + parseFloat(chillingform.countingfactor)).toString().slice(0, 4)}
                                         onChange={(e) => {
                                             console.log("SNF =>", e.target.value)
@@ -1142,18 +1355,58 @@ const Chillingcom = () => {
 
                                         }}
                                         type='number'
-                                        style={{ width: '95%' }}
-                                        label={'SNF'}
-                                        className='txtsize' variant="standard"
+                                        label='SNF'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
+                                </Box>
+
 
                             </div>
-                            <div className='col-12 mt-0 col-md-3 col-sm-12'>
+                        </div>
+                        <div className='row mt-3'>
+                            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div>
-                                    Warehouse
+                                    <TextField
+                                        variant='standard'
+                                        label="Warehouse"
+                                        value={updateid === "2" ? updatecenterform.warehouse : (chillingform.warehouse === '' ? 'Select' : chillingform.warehouse)}
+                                        sx={{ width: "25ch" }}
+                                    />
+                                    {
+                                        togg6 ?
+                                            <div className='milkpurchaseselect'>
+                                                <ul className='d-flex justify-content-center flex-column m-0 p-0'>
+                                                    {
+                                                        warehouse.map((item) => (
+                                                            <li style={{ listStyle: 'none' }}
+                                                                onClick={() => {
+                                                                    if (updateid !== "2") {
+                                                                        setchillingform({
+                                                                            ...chillingform,
+                                                                            warehouse: item.name
+                                                                        })
+                                                                    } else {
+                                                                        setupdatechilling({
+                                                                            ...updatecenterform,
+                                                                            warehouse: item.name
+                                                                        })
+                                                                    }
+                                                                }
+                                                                }
+                                                            >{item.name}</li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div> : null
+                                    }
+
                                 </div>
-                                <div>
+                                <div className='mt-4'>
+                                    <IconButton onClick={() => setTogg6(!togg6)}>
+                                        <KeyboardArrowDownIcon />
+                                    </IconButton>
+                                </div>
+                                {/* <div>
                                     <div className="dropdown">
                                         <button
                                             style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.7rem' }}
@@ -1189,10 +1442,13 @@ const Chillingcom = () => {
 
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.temp : chillingform.temp}
                                         onChange={(e) => {
@@ -1209,18 +1465,20 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'temp'}
-                                        className='txtsize' variant="standard"
-                                    />
-                                </ThemeProvider>
 
+                                        label='Temp'
+                                        variant="standard"
+                                    />
+                                </Box>
                             </div>
                         </div>
 
-                        <div className='row'>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         type='number'
                                         value={updateid === "2" ? updatecenterform.rate : chillingform.rate}
@@ -1238,15 +1496,16 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Rate'}
-                                        className='txtsize' variant="standard"
+                                        label='Rate'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         type='number'
                                         value={updateid === "2" ? updatecenterform.transportRate : chillingform.transportRate}
@@ -1264,16 +1523,16 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Commission Rate'}
-                                        className='txtsize' variant="standard"
+                                        label='Commission Rate'
+                                        variant="standard"
                                     />
-
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         type='number'
                                         value={updateid === "2" ? updatecenterform.overCharge : chillingform.overCharge}
@@ -1291,18 +1550,17 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Over Charge'}
-                                        className='txtsize' variant="standard"
+                                        label='Over Charge'
+                                        variant="standard"
                                     />
-
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
-                                    <TextField
 
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
+                                    <TextField
                                         type='number'
                                         value={updateid === "2" ? updatecenterform.acidity : chillingform.acidity}
                                         onChange={(e) => {
@@ -1319,18 +1577,18 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Acidity'}
-                                        className='txtsize' variant="standard"
+                                        label='Acidity'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
                         </div>
 
-                        <div className='row  mt-3 p-2'>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         type='number'
                                         value={updateid === "2" ? updatecenterform.weight : chillingform.weight}
@@ -1348,15 +1606,16 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Weight'}
-                                        className='txtsize' variant="standard"
+                                        label='Weight'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? (updatecenterform.inKg ? parseInt(updatecenterform.weight) * 1.03 : '') : parseFloat(chillingform.weight) * 1.03}
                                         type='number'
@@ -1375,15 +1634,16 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'In Kg'}
-                                        className='txtsize' variant="standard"
+                                        label='In Kg'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? (updatecenterform.total ? (parseInt(updatecenterform.rate) + parseInt(updatecenterform.transportRate) + parseInt(updatecenterform.overCharge)) * (parseInt(updatecenterform.weight)) : "") : (parseInt(chillingform.rate) + parseInt(chillingform.transportRate) + parseInt(chillingform.overCharge)) * (parseInt(chillingform.weight))}
                                         onChange={(e) => {
@@ -1401,15 +1661,15 @@ const Chillingcom = () => {
 
                                         }}
                                         type='number'
-                                        style={{ width: '95%' }}
-                                        label={'Total'}
-                                        className='txtsize' variant="standard"
+                                        label='Total'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.remark : chillingform.remark}
                                         onChange={(e) => {
@@ -1426,18 +1686,15 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Remarks'}
-                                        className='txtsize' variant="standard"
+                                        label='Remarks'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
                         </div>
                     </div>
 
 
-                    {/* second section */}
                     {/* <div className='container' style={{ boxShadow: '10px 10px 10px 0px gray', padding: '0.5rem 0.9rem', marginTop: '3rem' }}>
                         <div className='row'>
                             <div className='col-12 col-md-3 col-sm-12'>
@@ -1602,10 +1859,12 @@ const Chillingcom = () => {
                     </div> */}
 
                     {/* third section */}
-                    <div className='container' style={{ boxShadow: '10px 10px 10px 0px gray', padding: '0.5rem 0.9rem', marginTop: '3rem' }}>
-                        <div className='row'>
-                            <div className='col-12 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+                    <div className='container mt-4 chillingCenterCont' style={{ height: "30vh" }}>
+                        <div className='row mt-4'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.supplierWeight : chillingform.supplierWeight}
                                         onChange={(e) => {
@@ -1622,15 +1881,16 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Supplier Weight'}
-                                        className='txtsize' variant="standard"
+                                        label='Supplier Weight'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.route : chillingform.route}
                                         onChange={(e) => {
@@ -1647,15 +1907,16 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Route'}
-                                        className='txtsize' variant="standard"
+                                        label='Route'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.vehicalName : chillingform.vehicalName}
                                         onChange={(e) => {
@@ -1672,15 +1933,16 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Vehicle Name'}
-                                        className='txtsize' variant="standard"
+                                        label='Vehicle Name'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.vehicalNo : chillingform.vehicalNo}
                                         onChange={(e) => {
@@ -1697,27 +1959,29 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Vehicle No'}
-                                        className='txtsize' variant="standard"
+                                        label='Vehicle No'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+                        </div>
+
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
-
-
-                                        style={{ width: '95%' }}
-                                        label={'Head Load'}
-                                        className='txtsize' variant="standard"
+                                        label='Head Load'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.driverName : chillingform.driverName}
                                         onChange={(e) => {
@@ -1734,15 +1998,16 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Driver Name'}
-                                        className='txtsize' variant="standard"
+                                        label='Driver Name'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                            <div className='col-12 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.driverNo : chillingform.driverNo}
                                         onChange={(e) => {
@@ -1760,17 +2025,16 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Driver No'}
-                                        className='txtsize' variant="standard"
+                                        label='Driver No'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
+                                </Box>
                             </div>
-                        </div>
-                        <div className='row mt-3'>
-                            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-                                <ThemeProvider theme={customTheme(outerTheme)}>
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <Box component="form"
+                                    sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
+                                    autoComplete="off">
                                     <TextField
                                         value={updateid === "2" ? updatecenterform.dremark : chillingform.dremark}
                                         onChange={(e) => {
@@ -1787,56 +2051,39 @@ const Chillingcom = () => {
                                             }
 
                                         }}
-                                        style={{ width: '95%' }}
-                                        label={'Remark'}
-                                        className='txtsize' variant="standard"
+                                        label='Remark'
+                                        variant="standard"
                                     />
-                                </ThemeProvider>
-
-                            </div>
-                            <div className='col-12 col-md-3 mt-1 col-sm-12'>
-
-                            </div>
-                            <div className='col-12 col-md-3 col-sm-12'>
-
-                            </div>
-                            <div className='col-12 col-md-3 col-sm-12'>
-
+                                </Box>
                             </div>
                         </div>
 
-
                     </div>
 
-                    <div className='container' style={{ boxShadow: '10px 10px 10px 0px gray', padding: '0.5rem 0.9rem', marginTop: '3rem' }}>
-                        <div className='row'>
-
-
-                            <div className='col-12 col-md-3 col-sm-12'>
-                                <button onClick={() => setshowtable(!showtable)} className='bg-primary border border-none text-white'>Show More</button>
-                            </div>
-                            <div className='col-12 col-md-3 col-sm-12'>
-                                <div>
-                                    From Date
-                                </div>
-                                <div>
-                                    <input type='date'
+                    <div className='container mt-4 chillingCenterCont' style={{ height: "13vh" }}>
+                        <div className='row mt-3'>
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <div className='d-flex flex-column'>
+                                    <label style={{ fontSize: "14px" }}>From Date</label>
+                                    <TextField
+                                        sx={{ width: "30ch" }}
+                                        variant="standard" type="date"
                                         onChange={(e) => {
                                             setdates({
                                                 ...dates,
                                                 fdate: e.target.value
                                             })
                                         }}
-                                        style={{ width: '80%' }}
                                     />
                                 </div>
                             </div>
-                            <div className='col-12 col-md-3 col-sm-12'>
-                                <div>
-                                    To Date
-                                </div>
-                                <div>
-                                    <input type='date'
+
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <div className='d-flex flex-column'>
+                                    <label style={{ fontSize: "14px" }}>To Date</label>
+                                    <TextField
+                                        sx={{ width: "30ch" }}
+                                        variant="standard" type="date"
                                         onChange={(e) => {
                                             setdates({
                                                 ...dates,
@@ -1844,137 +2091,133 @@ const Chillingcom = () => {
 
                                             })
                                         }}
-                                        style={{ width: '80%' }}
                                     />
                                 </div>
                                 {/* <button onClick={()=>findbydate()}>find by date</button> */}
                             </div>
-                            {showtable ?
-                                <div className='ms-lg-5' style={{ width: '84vw', overflowX: 'scroll', overflowY: 'scroll', height: '50vh' }}>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Id</th>
-                                                <th scope="col">inwordId</th>
-                                                <th scope="col">collectionType</th>
-                                                <th scope="col">vendorName</th>
-                                                <th scope="col">address</th>
-                                                <th scope="col">mobileNo</th>
-                                                <th scope='col'>milkType</th>
-                                                <th scope='col'>date</th>
-                                                <th scope='col'>itemName</th>
-                                                <th scope='col'>unit</th>
-                                                <th scope='col'>batch</th>
-                                                <th scope='col'>mbrt</th>
-                                                <th scope='col'>fat</th>
-                                                <th scope='col'>snf</th>
-                                                <th scope='col'>warehouse</th>
-                                                <th scope='col'>temp</th>
-                                                <th scope='col'>rate</th>
-                                                <th scope='col'>transportRate</th>
-                                                <th scope='col'>overCharge</th>
-                                                <th scope='col'>acidity</th>
-                                                <th scope='col'>weight</th>
-                                                <th scope='col'>inKg</th>
-                                                <th scope='col'>total</th>
-                                                <th scope='col'>remark</th>
-                                                <th scope='col'>supplierWeight</th>
-                                                <th scope='col'>vendorInvoiceDate</th>
-                                                <th scope='col'>sFat</th>
-                                                <th scope='col'>sSnf</th>
-                                                <th scope='col'>sAcidity</th>
-                                                <th scope='col'>sTemp</th>
-                                                <th scope='col'>vehicalName</th>
-                                                <th scope='col'>vehicalNo</th>
-                                                <th scope='col'>driverName</th>
-                                                <th scope='col'>driverNo</th>
-                                                <th scope='col'>dremark</th>
 
-                                                <th scope='col'>Delete</th>
-                                                <th scope='col'>Update</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                chillingdata.filter((da) => {
-                                                    if (dates.fdate === '' || dates.tdate === '') {
-                                                        return da
-                                                    } else if (da.date >= dates.fdate && da.date <= dates.tdate) {
-                                                        return da
-                                                    }
-                                                }).map((item, i) => (
-                                                    <tr>
-                                                        <th scope="row">{item.id}</th>
-                                                        <td>{item.inwordId}</td>
-                                                        <td>{item.collectionType}</td>
-                                                        <td>{item.vendorName}</td>
-                                                        <td>{item.address}</td>
-                                                        <td>{item.mobileNo}</td>
-                                                        <td>{item.milkType}</td>
-                                                        <td>{item.date}</td>
-                                                        <td>{item.itemName}</td>
-                                                        <td>{item.unit}</td>
-                                                        <td>{item.batch}</td>
-                                                        <td>{item.mbrt}</td>
-                                                        <td>{item.fat}</td>
-                                                        <td>{item.snf}</td>
-                                                        <td>{item.warehouse}</td>
-                                                        <td>{item.temp}</td>
-                                                        <td>{item.rate}</td>
-                                                        <td>{item.transportRate}</td>
-                                                        <td>{item.overCharge}</td>
-                                                        <td>{item.acidity}</td>
-                                                        <td>{item.weight}</td>
-                                                        <td>{item.inKg}</td>
-                                                        <td>{item.total}</td>
-                                                        <td>{item.remark}</td>
-                                                        <td>{item.supplierWeight}</td>
-                                                        <td>{item.vendorInvoiceDate}</td>
-                                                        <td>{item.sFat}</td>
-                                                        <td>{item.sSnf}</td>
-                                                        <td>{item.sAcidity}</td>
-                                                        <td>{item.sTemp}</td>
-                                                        <td>{item.vehicalName}</td>
-                                                        <td>{item.vehicalNo}</td>
-                                                        <td>{item.driverName}</td>
-                                                        <td>{item.driverNo}</td>
-                                                        <td>{item.dremark}</td>
-
-                                                        <td className='text-center mt-2'>
-                                                            <DeleteIcon
-                                                                onClick={() => delet(item.id)}
-                                                                style={{ color: 'red', fontSize: '1rem' }} className='' /></td>
-                                                        <td className='text-center mt-2'>
-                                                            <EditIcon
-                                                                onClick={() => editform(item, "2")}
-                                                                style={{ color: 'green', fontSize: '1rem' }} className='' />
-                                                        </td>
-                                                    </tr>
-                                                ))
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div> : null
-                            }
-
-
+                            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+                                <button onClick={() => setshowtable(!showtable)} className='btn btn-primary'>Show More</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div className='container mt-3' >
+                    {showtable ?
+                        <div className='container mt-4 milklisttable mb-3 p-0'>
+                            <table className="table table-stripped tableMilkList">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style={{ width: "150px" }}>Id</th>
+                                        <th scope="col" style={{ width: "150px" }}>inwordId</th>
+                                        <th scope="col" style={{ width: "150px" }}>collectionType</th>
+                                        <th scope="col" style={{ width: "150px" }}>vendorName</th>
+                                        <th scope="col" style={{ width: "150px" }}>address</th>
+                                        <th scope="col" style={{ width: "150px" }}>mobileNo</th>
+                                        <th scope='col' style={{ width: "150px" }}>milkType</th>
+                                        <th scope='col' style={{ width: "150px" }}>date</th>
+                                        <th scope='col' style={{ width: "150px" }}>itemName</th>
+                                        <th scope='col' style={{ width: "150px" }}>unit</th>
+                                        <th scope='col' style={{ width: "150px" }}>batch</th>
+                                        <th scope='col' style={{ width: "150px" }}>mbrt</th>
+                                        <th scope='col' style={{ width: "150px" }}>fat</th>
+                                        <th scope='col' style={{ width: "150px" }}>snf</th>
+                                        <th scope='col' style={{ width: "150px" }}>warehouse</th>
+                                        <th scope='col' style={{ width: "150px" }}>temp</th>
+                                        <th scope='col' style={{ width: "150px" }}>rate</th>
+                                        <th scope='col' style={{ width: "150px" }}>transportRate</th>
+                                        <th scope='col' style={{ width: "150px" }}>overCharge</th>
+                                        <th scope='col' style={{ width: "150px" }}>acidity</th>
+                                        <th scope='col' style={{ width: "150px" }}>weight</th>
+                                        <th scope='col' style={{ width: "150px" }}>inKg</th>
+                                        <th scope='col' style={{ width: "150px" }}>total</th>
+                                        <th scope='col' style={{ width: "150px" }}>remark</th>
+                                        <th scope='col' style={{ width: "150px" }}>supplierWeight</th>
+                                        <th scope='col' style={{ width: "150px" }}>vendorInvoiceDate</th>
+                                        <th scope='col' style={{ width: "150px" }}>sFat</th>
+                                        <th scope='col' style={{ width: "150px" }}>sSnf</th>
+                                        <th scope='col' style={{ width: "150px" }}>sAcidity</th>
+                                        <th scope='col' style={{ width: "150px" }}>sTemp</th>
+                                        <th scope='col' style={{ width: "150px" }}>vehicalName</th>
+                                        <th scope='col' style={{ width: "150px" }}>vehicalNo</th>
+                                        <th scope='col' style={{ width: "150px" }}>driverName</th>
+                                        <th scope='col' style={{ width: "150px" }}>driverNo</th>
+                                        <th scope='col' style={{ width: "150px" }}>dremark</th>
+                                        <th scope='col' style={{ width: "150px" }}>Delete</th>
+                                        <th scope='col' style={{ width: "150px" }}>Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        chillingdata.filter((da) => {
+                                            if (dates.fdate === '' || dates.tdate === '') {
+                                                return da
+                                            } else if (da.date >= dates.fdate && da.date <= dates.tdate) {
+                                                return da
+                                            }
+                                        }).map((item, i) => (
+                                            <tr>
+                                                <th scope="row" className='text-center'>{item.id}</th>
+                                                <td>{item.inwordId}</td>
+                                                <td>{item.collectionType}</td>
+                                                <td>{item.vendorName}</td>
+                                                <td>{item.address}</td>
+                                                <td>{item.mobileNo}</td>
+                                                <td>{item.milkType}</td>
+                                                <td>{item.date}</td>
+                                                <td>{item.itemName}</td>
+                                                <td>{item.unit}</td>
+                                                <td>{item.batch}</td>
+                                                <td>{item.mbrt}</td>
+                                                <td>{item.fat}</td>
+                                                <td>{item.snf}</td>
+                                                <td>{item.warehouse}</td>
+                                                <td>{item.temp}</td>
+                                                <td>{item.rate}</td>
+                                                <td>{item.transportRate}</td>
+                                                <td>{item.overCharge}</td>
+                                                <td>{item.acidity}</td>
+                                                <td>{item.weight}</td>
+                                                <td>{item.inKg}</td>
+                                                <td>{item.total}</td>
+                                                <td>{item.remark}</td>
+                                                <td>{item.supplierWeight}</td>
+                                                <td>{item.vendorInvoiceDate}</td>
+                                                <td>{item.sFat}</td>
+                                                <td>{item.sSnf}</td>
+                                                <td>{item.sAcidity}</td>
+                                                <td>{item.sTemp}</td>
+                                                <td>{item.vehicalName}</td>
+                                                <td>{item.vehicalNo}</td>
+                                                <td>{item.driverName}</td>
+                                                <td>{item.driverNo}</td>
+                                                <td>{item.dremark}</td>
+                                                <td className='text-center mt-2'><DeleteIcon onClick={() => delet(item.id)} style={{ color: 'red'}}/></td>
+                                                <td className='text-center mt-2'><EditIcon onClick={() => editform(item, "2")} style={{ color: 'green'}}/></td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                        </div> : null
+                    }
+
+
+
+                    <div className='container mt-3 mb-3' >
                         {
                             updateid === "2" ? <button
                                 onClick={() => saveupdate()}
-                                className='bg-primary border border-none text-white mx-3'>Update</button> :
+                                className='btn btn-primary mx-3'>Update</button> :
                                 <button
                                     onClick={() => save()}
-                                    className='bg-primary border border-none text-white mx-3'>Save</button>}
+                                    className='btn btn-primary mx-3'>Save</button>
+                        }
                         <button
                             onClick={() => print()}
-                            className='bg-primary border border-none text-white mx-3'>Print</button>
+                            className='btn btn-primary mx-3'>Print</button>
                         <button
-                        onClick={()=>clearfields()}
-                        className='bg-primary border border-none text-white mx-3'>Clear</button>
+                            onClick={() => clearfields()}
+                            className='btn btn-primary mx-3'>Clear</button>
                     </div>
                 </div>
             }

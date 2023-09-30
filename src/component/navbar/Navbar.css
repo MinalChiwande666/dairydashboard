@@ -1,0 +1,7 @@
+.logoutbtn{
+    font-weight: 700;
+    color: black !important;
+}
+.logoutbtn:hover{
+    background-color: rgb(210, 249, 249) !important;
+}

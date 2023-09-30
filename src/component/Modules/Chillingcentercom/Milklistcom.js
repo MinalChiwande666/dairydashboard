@@ -20,6 +20,7 @@ const Milklistcom = () => {
     const [lisid,setlistid] = useState()
     const [togg2, settogg2] = useState(false)
     const [togg3, settogg3] = useState(false)
+    const [idinc,setidinc] = useState('')
 
     const [miltype, setmilktype] = useState('')
     const [basis, setbasis] = useState('')
@@ -170,6 +171,17 @@ const Milklistcom = () => {
         })
     }, [])
 
+
+    useEffect(()=>{
+        fetch('http://103.38.50.113:8080/DairyApp/getListNo').then((data)=>{
+         return data.json()
+        }).then((res)=>{
+         let id = res.pop()
+         setidinc(id)
+        })
+      },[])
+
+
     const deletetable = () => {
         console.log(code)
         fetch(`http://103.38.50.113:8080/DairyApp/deleteMilkRateByListNo?listNo=${code}`, {
@@ -190,13 +202,6 @@ const Milklistcom = () => {
         })
     }
 
-
-
-
-    useEffect(() => {
-
-
-    }, [])
 
     const save = () => {
         let obj = {
@@ -219,11 +224,11 @@ const Milklistcom = () => {
                 console.log(resp.data.listNo)
                 localStorage.setItem("inclistno", JSON.stringify(resp.data.listNo))
                 alert(resp.message)
-                if (resp.message === 'Milk Rate data saved successfully.') {
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 4000)
-                }
+                // if (resp.message === 'Milk Rate data saved successfully.') {
+                //     setTimeout(() => {
+                //         window.location.reload()
+                //     }, 4000)
+                // }
                 // 
             })
         } catch (e) {
@@ -256,6 +261,7 @@ const Milklistcom = () => {
     const handleupdsnfchange = (itemID, newval) => {
         setsnffatdata((prev) =>
             prev.map((item) =>
+             
                 itemID === item.id ? { ...item, snf: newval } : item
             )
         )
@@ -422,7 +428,7 @@ const Milklistcom = () => {
                                 />
                                 {
                                     togg3 ?
-                                        <div className='masterSelect' style={{ height: "20vh", overflowY: "scroll" }}>
+                                        <div className='masterSelect' style={{ height: "13vh", overflowY: "scroll" }}>
                                             <ul className='d-flex justify-content-center flex-column m-0 p-0' >
                                                 {
                                                     listnos.map((item) => (
@@ -463,7 +469,7 @@ const Milklistcom = () => {
                     </div>
                     <div className='row mt-3'>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-                            <h3 className='mt-3'>SNF RANGE</h3>
+                            <h5 className='mt-3'>SNF RANGE</h5>
                         </div>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                             <Box
@@ -489,7 +495,7 @@ const Milklistcom = () => {
 
                     <div className='row mt-3'>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-                            <h3 className='mt-3'>FAT RANGE</h3>
+                            <h5 className='mt-3'>FAT RANGE</h5>
                         </div>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                             <Box
@@ -572,12 +578,14 @@ const Milklistcom = () => {
                                                 </td>
                                                 <td>
                                                     <button className='btn btn-primary' onClick={() => {
+                                                         alert(fatdata)
                                                         let newobj = {
                                                             fat: parseFloat(fatdata.fat),
                                                             snf: parseFloat(fatdata.snf),
                                                             rate: parseFloat(fatdata.rate)
                                                         }
-                                                        setentries([...entries, newobj])
+                                                        console.log(newobj)
+                                                        setnewarr([...newarr, newobj])
                                                     }}>Add</button>
                                                 </td>
                                             </tr>

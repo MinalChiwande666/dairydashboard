@@ -9,6 +9,8 @@ import { BiPurchaseTagAlt } from "react-icons/bi";
 import { SlBookOpen } from "react-icons/sl";
 import { BsListCheck } from "react-icons/bs";
 import { TbReportMoney } from "react-icons/tb";
+import { GiProfit } from "react-icons/gi";
+import { PiPlantFill } from "react-icons/pi";
 
 export const dashboardDummyData = [
     {
@@ -67,6 +69,16 @@ export const dashboardDummyData = [
         title: "Bill Generation",
         link: "/Billgeneration",
         icon: <TbReportMoney style={{ fontSize: "40px" }} />
+    },
+    {
+        title: "Plant In",
+        link: "/plantin",
+        icon: <PiPlantFill style={{ fontSize: "40px" }} />
+    },
+    {
+        title: "Plant Profit/Loss",
+        link: "/plantprofitlosscollection",
+        icon: <GiProfit style={{ fontSize: "40px" }} />
     },
 
 ]

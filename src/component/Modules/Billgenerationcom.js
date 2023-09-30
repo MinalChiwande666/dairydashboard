@@ -1,35 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
-
-// import axios from 'axios'
 import { useReactToPrint } from 'react-to-print';
 import './Billgeneration.css'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import TextField from '@mui/material/TextField'
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
-import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
-// import { convertLength } from '@mui/material/styles/cssUtils';
+import { useTheme } from '@mui/material/styles'
 import Billtablecom from './sansthamilk/Billtablecom';
 
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { IconButton } from '@mui/material';
 
 
 
 const Billgenerationcom = () => {
-  // const [geneartebill, setgeneartebill] = useState(false)
   const [suppid, setsuppid] = useState(JSON.parse(localStorage.getItem('suppid')))
-  // const [selectmilktype, setselectmilktype] = useState('')
   const [drop, setdrop] = useState(false)
   const [code, setcode] = useState('')
   const [fcode, setfcode] = useState()
+  const [databyid,setdatabyid] = useState([])
   const [tcode, settcode] = useState()
   const [showTable, setshowtable] = useState(false)
   const [data, setdata] = useState([])
@@ -45,10 +32,8 @@ const Billgenerationcom = () => {
     fetch("http://103.38.50.113:8080/DairyApp/getAllMilkPurchase").then((res) => {
       return res.json()
     }).then((data) => {
-      console.log(data)
       setdata(data)
     })
-    console.log("daya")
   }
   const componentRef = useRef()
 
@@ -56,12 +41,11 @@ const Billgenerationcom = () => {
     content: () => componentRef.current,
   })
 
-
+console.log("list id=>",listid)
   useEffect(() => {
     fetch('http://103.38.50.113:8080/DairyApp/getSupplierId').then((data) => {
       return data.json()
     }).then((res) => {
-      console.log("list nos =>", res)
       setlistno([...listno, ...res])
 
     })
@@ -69,11 +53,27 @@ const Billgenerationcom = () => {
 
   useEffect(() => {
     getbillgenerationdata()
-    console.log(suppid)
   }, [])
+  
 
+  useEffect(()=>{
+    if(listid)
+    {
+      fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=${listid}`).then((data) => {
+        return data.json()
+    }).then((res) => {
+      
+      //  console.log(res?.filteredMilkPurchases)
+        setdatabyid(res?.filteredMilkPurchases)
+        
 
+    }).catch((e)=>{
+        console.log(e)
+    })
+    }
+  },[listid])
 
+//  console.log(databyid)
   const outerTheme = useTheme();
 
 
@@ -95,7 +95,7 @@ const Billgenerationcom = () => {
 
                 {
                   drop ?
-                    <div className='billgenSelect'>
+                    <div className='billgenSelect billgenscroll'>
                       <ul className='d-flex justify-content-center flex-column m-0 p-0'>
                         {
                           listno.map((item) => (
@@ -243,7 +243,7 @@ const Billgenerationcom = () => {
         <div>
           {
             showTable &&
-            <Billtablecom code={code} fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} form={form} listid={listid} data={data} setdata={setdata} />
+            <Billtablecom code={code} databyid={databyid} fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} form={form} listid={listid} data={data} setdata={setdata} />
           }
         </div>
       </div>

@@ -63,6 +63,17 @@
     background: rgb(212, 211, 211);
 }
 
+.billgenscroll{
+    height: 20vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.billgenscroll::-webkit-scrollbar{
+    display: none;
+}
+
 @media (max-width:480px) {
     .billgenSelect{
         left: 55px;

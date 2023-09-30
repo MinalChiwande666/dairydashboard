@@ -7,48 +7,7 @@ import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar'
 import Header from './Header'
 const Sidebarcom = () => {
     const [show, setshow] = useState(false)
-    const data = [
-        {
-            id: 1,
-            name: 'hello'
-        },
-        {
-            id: 1,
-            name: 'hello'
-        },
-        {
-            id: 1,
-            name: 'hello'
-        },
-        {
-            id: 1,
-            name: 'hello'
-        },
-        {
-            id: 1,
-            name: 'hello'
-        },
-        {
-            id: 1,
-            name: 'hello'
-        },
-        {
-            id: 1,
-            name: 'hello'
-        },
-        {
-            id: 1,
-            name: 'hello'
-        },
-        {
-            id: 1,
-            name: 'hello'
-        },
-        {
-            id: 1,
-            name: 'hello'
-        }
-    ]
+
     return (
         <div style={{ display: "flex", height: "100vh" }}>
 
@@ -56,16 +15,16 @@ const Sidebarcom = () => {
                 show &&
                 <Sidebar className="sidebar">
                     <Menu
-                     menuItemStyles={{
-                        button: ({ level, active, disabled }) => {
-                          // only apply styles on first level elements of the tree
-                          if (level === 0)
-                            return {
-                              color: disabled ? '#f5d9ff' : '#d359ff',
-                              backgroundColor: active ? '#eecef9' : undefined,
-                            };
-                        },
-                      }}
+                        menuItemStyles={{
+                            button: ({ level, active, disabled }) => {
+                                // only apply styles on first level elements of the tree
+                                if (level === 0)
+                                    return {
+                                        color: disabled ? '#f5d9ff' : '#d359ff',
+                                        backgroundColor: active ? '#eecef9' : undefined,
+                                    };
+                            },
+                        }}
                     >
                         <MenuItem
                             icon={<HorizontalSplitIcon />}
@@ -165,160 +124,160 @@ const Sidebarcom = () => {
                             </SubMenu>
                         </SubMenu>
                         <SubMenu
-                        label="Sanstha Milk Module"
-                        icon={<HorizontalSplitIcon />}
-                        style={{ fontSize: '0.9rem' }}
+                            label="Sanstha Milk Module"
+                            icon={<HorizontalSplitIcon />}
+                            style={{ fontSize: '0.9rem' }}
                         >
-                        <SubMenu
-                        label="Sanstha Master"
-                        icon={<HorizontalSplitIcon />}
-                        style={{ fontSize: '0.9rem' }}
-                        >
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        </SubMenu>
-                        <SubMenu
-                        label="Milk Collection"
-                        icon={<HorizontalSplitIcon />}
-                        style={{ fontSize: '0.9rem' }}
-                        >
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        </SubMenu>
-                        <SubMenu
-                        label="Sanstha Machine Integration"
-                        icon={<HorizontalSplitIcon />}
-                        style={{ fontSize: '0.9rem' }}
-                        >
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        </SubMenu>
-                        <SubMenu
-                        label="Sanstha posting"
-                        icon={<HorizontalSplitIcon />}
-                        style={{ fontSize: '0.9rem' }}
-                        >
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        </SubMenu>
-                        <SubMenu
-                        label="Sanstha core report"
-                        icon={<HorizontalSplitIcon />}
-                        style={{ fontSize: '0.9rem' }}
-                        >
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        <MenuItem
-                        icon={<DoneOutlinedIcon/>}
-                        style={{ fontSize: '0.9rem' }}
-                        >hello</MenuItem>
-                        </SubMenu>
+                            <SubMenu
+                                label="Sanstha Master"
+                                icon={<HorizontalSplitIcon />}
+                                style={{ fontSize: '0.9rem' }}
+                            >
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                            </SubMenu>
+                            <SubMenu
+                                label="Milk Collection"
+                                icon={<HorizontalSplitIcon />}
+                                style={{ fontSize: '0.9rem' }}
+                            >
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                            </SubMenu>
+                            <SubMenu
+                                label="Sanstha Machine Integration"
+                                icon={<HorizontalSplitIcon />}
+                                style={{ fontSize: '0.9rem' }}
+                            >
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                            </SubMenu>
+                            <SubMenu
+                                label="Sanstha posting"
+                                icon={<HorizontalSplitIcon />}
+                                style={{ fontSize: '0.9rem' }}
+                            >
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                            </SubMenu>
+                            <SubMenu
+                                label="Sanstha core report"
+                                icon={<HorizontalSplitIcon />}
+                                style={{ fontSize: '0.9rem' }}
+                            >
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                                <MenuItem
+                                    icon={<DoneOutlinedIcon />}
+                                    style={{ fontSize: '0.9rem' }}
+                                >hello</MenuItem>
+                            </SubMenu>
                         </SubMenu>
                         <MenuItem> Invoices </MenuItem>
                         <SubMenu label="Charts">

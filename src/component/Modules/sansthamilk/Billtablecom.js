@@ -3,27 +3,39 @@ import React, { useEffect, useState } from 'react'
 const Billtablecom = React.forwardRef((props, ref) => {
     const [suppiddata, setsuppiddata] = useState([])
     const [totalamt,settotalamt] = useState()
-    const { data, suppid, tcode, fcode, form, code, setdata, listid } = props
+    const { data, suppid, tcode, fcode, form, code, setdata, listid,databyid } = props
     let namt;
     let nsamt;
     let sum2;
     const [netamount, setnetamount] = useState(0)
-    // console.log("list id =>",listid)
+    console.log("list id =>",listid)
     useEffect(() => {
-        if(listid){
-            fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=${listid}`).then((data) => {
-                return data.json()
-            }).then((res) => {
-              
-                console.log("res by id=>", res.filteredMilkPurchases)
-                setsuppiddata(res?.filteredMilkPurchases)
-                settotalamt(res?.totalNetAmount)
-                
-
-            })
-        }
         
-    }, [listid])
+    //    if(listid)
+    //    {
+    //       try{
+    //         fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=${listid}`).then((data) => {
+    //             return data.json()
+    //         }).then((res) => {
+              
+    //             console.log("res by id=>", res.filteredMilkPurchases)
+    //             setsuppiddata(res?.filteredMilkPurchases)
+    //             settotalamt(res?.totalNetAmount)
+                
+    
+    //         }).catch((e)=>{
+    //             console.log(e)
+    //         })
+    //       }catch(e){
+    //         console.log(e)
+    //       }
+       
+    //    }
+      
+        
+        
+    }, [databyid])
+    console.log("data y id =>",databyid)
 
     console.log(sum2, "second ntamnt")
     const gettotal = () => {
@@ -120,8 +132,10 @@ const Billtablecom = React.forwardRef((props, ref) => {
 
                             <>
                                 {
-                                    listid === "Select"? "Select Id To View" :
-                                        suppiddata.map((item, i) => (
+                                    listid === "Select"? "Select Id To View" :(databyid ===undefined?
+                                        
+                                        <h4 style={{flex:"1"}} className="text-center mx-auto">Loading...</h4>:
+                                        databyid.map((item, i) => (
                                             <tr>
                                                 <td className='text-center'>{item.id}</td>
                                                 <td className='text-center'>{item.supplierName}</td>
@@ -135,7 +149,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
                                                 <td className='text-center'>{item.milkRate}</td>
                                                 <td>{item.netAmount}</td>
                                             </tr>
-                                        ))
+                                        )))
                                 }
                             </>
                         )
