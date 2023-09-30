@@ -2279,7 +2279,7 @@ const VendorNamcom = () => {
                                         <th style={{ width: "150px" }}>Acount Group</th>
                                         <th style={{ width: "150px" }}>Area</th>
                                         <th style={{ width: "150px" }}>Mobile No</th>
-                                        <th style={{ width: "150px" }}>Sales Person</th>
+                                        {/* <th style={{ width: "150px" }}>Sales Person</th> */}
                                         <th style={{ width: "150px" }}>Contact Person</th>
                                         <th style={{ width: "150px" }}>Email Id</th>
                                         <th style={{ width: "150px" }}>Date of birth</th>
@@ -2302,7 +2302,7 @@ const VendorNamcom = () => {
                                                 <td>{item.accountGroup}</td>
                                                 <td>{item.area}</td>
                                                 <td>{item.mobileNo}</td>
-                                                <td>{item.salesPerson}</td>
+                                                {/* <td>{item.salesPerson}</td> */}
                                                 <td>{item.contactPerson}</td>
                                                 <td>{item.emailID}</td>
                                                 <td>{item.dateofBirth}</td>

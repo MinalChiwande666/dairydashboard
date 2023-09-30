@@ -1,9 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Farmertable = React.forwardRef((props, ref) => {
+  
   const { allusers, dates, sid, supplierId } = props
 
+  const gettotalamount = ()=>{
+    let namt;
+    const total = ()=>{
 
+    let sumtot = []
+      allusers.filter((da) => {
+        if (supplierId) {
+          // Check if da.supplierId matches the provided supplierId
+          if (da.supplierId === Number(supplierId)) {
+            return true;
+          }
+        }
+
+        // Check if da.date is within the date range
+        if (da.date >= dates.fdate && da.date <= dates.tdate) {
+          return true;
+        }
+        return false
+
+
+      }).map((item,i)=>{
+        console.log("item =>",item.id)
+
+       sumtot.push(Number(item.netAmount))
+      })
+     console.log(sumtot)
+     let sum = sumtot.reduce((amt,cal)=>{
+      // console.log("net amount =>",amt + cal)
+      return amt + cal
+     },0)
+     console.log("sum =>",sum)
+     namt = sum
+    }
+    total()
+    return(
+      <>
+       <div>{namt}</div>
+      </>
+    )
+  }
+
+  useEffect(()=>{
+  //  gettotalamount()
+  },[])
   return (
     <>
       <div className='container mt-4 accMastTable mb-3 p-0'>
@@ -22,6 +66,7 @@ const Farmertable = React.forwardRef((props, ref) => {
               <th scope="col">Fat Kg</th>
               <th scope="col">SNF Kg</th>
               <th scope="col"> Total Amount</th>
+            
             </tr>
           </thead>
           <tbody>
@@ -43,7 +88,7 @@ const Farmertable = React.forwardRef((props, ref) => {
 
               }).map((item, i) => (
                 <tr>
-                  <th scope="row">{i}</th>
+                  <th scope="row" className='text-center'>{i}</th>
                   <td>{item.id}</td>
                   <td>{item.supplierId}</td>
                   <td>{item.supplier}</td>
@@ -60,10 +105,13 @@ const Farmertable = React.forwardRef((props, ref) => {
               ))
             }
 
-
+<tr>
+<td colSpan={"11"} className='totalAmt'>Total</td>
+<td colSpan={"2"} className='totalAmt text-center'>{gettotalamount()}</td>
+</tr>
           </tbody>
         </table >
-
+     
       </div>
     </>
   )

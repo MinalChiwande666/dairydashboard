@@ -228,6 +228,7 @@ const Chillingcom = () => {
             </>
         )
     }
+
     const getalldata = () => {
         try {
             setloader(true)
@@ -302,7 +303,7 @@ const Chillingcom = () => {
                 "inKg": "",
                 "total": "",
                 "remark": String(chillingform.remark),
-                "supplierWeight": "",
+                "supplierWeight": String(chillingform.supplierWeight),
                 "vendorInvoiceDate": String(chillingform.vendorInvoiceDate),
                 "vehicalName": String(chillingform.vehicalName),
                 "vehicalNo": String(chillingform.vehicalNo),
@@ -853,11 +854,13 @@ const Chillingcom = () => {
                                                                     ...chillingform,
                                                                     vendorName: ""
                                                                 })
-                                                            } else {
+                                                                setTogg2(false)
+                                                            } else{
                                                                 setchillingform({
                                                                     ...chillingform,
                                                                     vendorName: vendorobj.vendorName
                                                                 })
+                                                                setTogg2(false)
                                                             }
                                                         }}
                                                     >{!vendorobj ? "" : vendorobj.vendorName}</li>
@@ -1385,11 +1388,13 @@ const Chillingcom = () => {
                                                                             ...chillingform,
                                                                             warehouse: item.name
                                                                         })
+                                                                        setTogg6(false)
                                                                     } else {
                                                                         setupdatechilling({
                                                                             ...updatecenterform,
                                                                             warehouse: item.name
                                                                         })
+                                                                        setTogg6(false)
                                                                     }
                                                                 }
                                                                 }
@@ -2124,7 +2129,7 @@ const Chillingcom = () => {
                                         <th scope='col' style={{ width: "150px" }}>warehouse</th>
                                         <th scope='col' style={{ width: "150px" }}>temp</th>
                                         <th scope='col' style={{ width: "150px" }}>rate</th>
-                                        <th scope='col' style={{ width: "150px" }}>transportRate</th>
+                                        {/* <th scope='col' style={{ width: "150px" }}>transportRate</th> */}
                                         <th scope='col' style={{ width: "150px" }}>overCharge</th>
                                         <th scope='col' style={{ width: "150px" }}>acidity</th>
                                         <th scope='col' style={{ width: "150px" }}>weight</th>
@@ -2133,10 +2138,6 @@ const Chillingcom = () => {
                                         <th scope='col' style={{ width: "150px" }}>remark</th>
                                         <th scope='col' style={{ width: "150px" }}>supplierWeight</th>
                                         <th scope='col' style={{ width: "150px" }}>vendorInvoiceDate</th>
-                                        <th scope='col' style={{ width: "150px" }}>sFat</th>
-                                        <th scope='col' style={{ width: "150px" }}>sSnf</th>
-                                        <th scope='col' style={{ width: "150px" }}>sAcidity</th>
-                                        <th scope='col' style={{ width: "150px" }}>sTemp</th>
                                         <th scope='col' style={{ width: "150px" }}>vehicalName</th>
                                         <th scope='col' style={{ width: "150px" }}>vehicalNo</th>
                                         <th scope='col' style={{ width: "150px" }}>driverName</th>
@@ -2173,7 +2174,7 @@ const Chillingcom = () => {
                                                 <td>{item.warehouse}</td>
                                                 <td>{item.temp}</td>
                                                 <td>{item.rate}</td>
-                                                <td>{item.transportRate}</td>
+                                                {/* <td>{item.transportRate}</td> */}
                                                 <td>{item.overCharge}</td>
                                                 <td>{item.acidity}</td>
                                                 <td>{item.weight}</td>
@@ -2182,10 +2183,6 @@ const Chillingcom = () => {
                                                 <td>{item.remark}</td>
                                                 <td>{item.supplierWeight}</td>
                                                 <td>{item.vendorInvoiceDate}</td>
-                                                <td>{item.sFat}</td>
-                                                <td>{item.sSnf}</td>
-                                                <td>{item.sAcidity}</td>
-                                                <td>{item.sTemp}</td>
                                                 <td>{item.vehicalName}</td>
                                                 <td>{item.vehicalNo}</td>
                                                 <td>{item.driverName}</td>

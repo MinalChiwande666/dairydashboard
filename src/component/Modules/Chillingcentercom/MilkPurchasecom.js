@@ -12,8 +12,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Box from '@mui/material/Box';
 
 
-
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -30,11 +28,12 @@ const MilkPurchasecom = () => {
   const [snfinp, setsnfinp] = useState('')
   const [milrate, setmilkrate] = useState()
   const [type, settype] = useState('')
-  const [suppname,setsuppname] = useState('')
+  const [suppname, setsuppname] = useState('')
   const [ntamt, setntamt] = useState()
   const [qtyval, setqtyval] = useState()
   const [milkpurchaseform, setmilkpurchaseform] = useState({
     "supplier": "",
+    "supplierName":"",
     "qty": "",
     "fat": "",
     "snf": "",
@@ -55,6 +54,7 @@ const MilkPurchasecom = () => {
     console.log("net amount=>", milkpurchaseform.netAmount)
     let newform = {
       "supplierId": String(milkpurchaseform.supplier),
+      "supplierName":String(suppname),
       "qty": String(milkpurchaseform.qty),
       "fat": String(milkpurchaseform.fat),
       "snf": String(milkpurchaseform.snf),
@@ -250,24 +250,24 @@ const MilkPurchasecom = () => {
   }
 
 
- useEffect(()=>{
-  if(milkpurchaseform.supplier){
- fetch(`http://103.38.50.113:8080/DairyApp/getdatabysupplierId?supplierId=${milkpurchaseform.supplier}`).then((data)=>{
-  return data.json()
- }).then((res)=>{
-  console.log(res)
-  res.filter((item)=>{
-    console.log(item.supplierName)
-    setsuppname(item.supplierName)
-  })
+  useEffect(() => {
+    if (milkpurchaseform.supplier) {
+      fetch(`http://103.38.50.113:8080/DairyApp/getdatabysupplierId?supplierId=${milkpurchaseform.supplier}`).then((data) => {
+        return data.json()
+      }).then((res) => {
+        console.log(res)
+        res.filter((item) => {
+          console.log(item.supplierName)
+          setsuppname(item.supplierName)
+        })
 
- })
-}
- },[milkpurchaseform.supplier])
+      })
+    }
+  }, [milkpurchaseform.supplier])
   return (
     <>
       <div className='p-2 sm-0'>
-        <div className='container mt-4 chillingCenterCont' style={{height:"52vh"}}>
+        <div className='container mt-4 chillingCenterCont' style={{ height: "52vh" }}>
           {dailoge()}
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Milk Purchase</h3></div>
           <div className='row mt-4'>
@@ -365,9 +365,8 @@ const MilkPurchasecom = () => {
                 sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
                 autoComplete="off">
                 <TextField
-                value={suppname}
-                
-                label="Supplier Name" variant="standard" />
+                  value={suppname}
+                  label="Supplier Name" variant="standard" />
               </Box>
             </div>
 
@@ -405,13 +404,13 @@ const MilkPurchasecom = () => {
               </Box>
             </div>
 
-            
+
 
           </div>
 
           <div className='row mt-4'>
 
-          <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
+            <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
               <Box
                 component="form"
                 sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
@@ -505,7 +504,7 @@ const MilkPurchasecom = () => {
                     })
 
                   }}
-                  InputLabelProps={{shrink:true}}
+                  InputLabelProps={{ shrink: true }}
                   type='number'
                   label="Net Amount" variant="standard" />
               </Box>
@@ -520,7 +519,7 @@ const MilkPurchasecom = () => {
 
         <div className='container mt-4 accMastTable mb-3 p-0'>
           <table className='tableAccMaster table table-stripped'>
-            <thead style={{zIndex:"1000"}}>
+            <thead style={{ zIndex: "1000" }}>
               <tr>
                 <th scope="col">sr.no</th>
                 <th scope="col">SupplierId</th>
@@ -543,7 +542,7 @@ const MilkPurchasecom = () => {
                   <tr>
                     <th scope="row" className='text-center'>{item.id}</th>
                     <td>{item.supplierId}</td>
-                    <td>{item.supplierId}</td>
+                    <td>{item.supplierName}</td>
                     <td>{item.qty}</td>
                     <td>{item.fat}</td>
                     <td>{item.snf}</td>
@@ -552,7 +551,7 @@ const MilkPurchasecom = () => {
                     <td>{item.netAmount}</td>
                     <td>{item.date}</td>
                     <td>{item.shift}</td>
-                    <td><DeleteIcon onClick={() => deleteMilkPurData(item.id)} style={{color:"red"}} /></td>
+                    <td><DeleteIcon onClick={() => deleteMilkPurData(item.id)} style={{ color: "red" }} /></td>
                   </tr>
                 ))
               }

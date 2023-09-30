@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 
 import './accountmaster.css'
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -2068,7 +2069,7 @@ const Customermastercom = () => {
                                                 <td>{item.emailID}</td>
                                                 <td>{item.dateofBirth}</td>
                                                 <td>{item.selectRouteName}</td>
-                                                <td><DeleteIcon onClick={() => dele(item.id)} /></td>
+                                                <td><DeleteIcon onClick={() => dele(item.id)} style={{color:"red"}}/></td>
                                             </tr>
                                         ))
 

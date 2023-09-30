@@ -16,7 +16,8 @@ const Billgenerationcom = () => {
   const [drop, setdrop] = useState(false)
   const [code, setcode] = useState('')
   const [fcode, setfcode] = useState()
-  const [databyid,setdatabyid] = useState([])
+  const [totalamount, settotalamount] = useState()
+  const [databyid, setdatabyid] = useState([])
   const [tcode, settcode] = useState()
   const [showTable, setshowtable] = useState(false)
   const [data, setdata] = useState([])
@@ -41,7 +42,7 @@ const Billgenerationcom = () => {
     content: () => componentRef.current,
   })
 
-console.log("list id=>",listid)
+  console.log("list id=>", listid)
   useEffect(() => {
     fetch('http://103.38.50.113:8080/DairyApp/getSupplierId').then((data) => {
       return data.json()
@@ -54,26 +55,26 @@ console.log("list id=>",listid)
   useEffect(() => {
     getbillgenerationdata()
   }, [])
-  
 
-  useEffect(()=>{
-    if(listid)
-    {
+
+  useEffect(() => {
+    if (listid) {
       fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=${listid}`).then((data) => {
         return data.json()
-    }).then((res) => {
-      
-      //  console.log(res?.filteredMilkPurchases)
+      }).then((res) => {
+
+        //  console.log(res?.filteredMilkPurchases)
+        settotalamount(res?.totalNetAmount)
         setdatabyid(res?.filteredMilkPurchases)
-        
 
-    }).catch((e)=>{
+
+      }).catch((e) => {
         console.log(e)
-    })
+      })
     }
-  },[listid])
+  }, [listid])
 
-//  console.log(databyid)
+  //  console.log(databyid)
   const outerTheme = useTheme();
 
 
@@ -243,7 +244,7 @@ console.log("list id=>",listid)
         <div>
           {
             showTable &&
-            <Billtablecom code={code} databyid={databyid} fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} form={form} listid={listid} data={data} setdata={setdata} />
+            <Billtablecom code={code} totalamount={totalamount} databyid={databyid} fcode={fcode} tcode={tcode} ref={componentRef} suppid={suppid} form={form} listid={listid} data={data} setdata={setdata} />
           }
         </div>
       </div>
