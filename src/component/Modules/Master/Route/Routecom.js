@@ -8,6 +8,7 @@ import { useReactToPrint } from 'react-to-print';
 
 
 const Routecom = () => {
+    const [routeincid,setrouteincid] = useState()
     const [routeform, setrouteform] = useState({
         km: '',
         routeName: '',
@@ -40,6 +41,9 @@ const Routecom = () => {
         fetch('http://103.38.50.113:8080/DairyApp/getAllRouteMasterData').then((data) => {
             return data.json()
         }).then((res) => {
+            let id = res.pop()
+            console.log(id)
+            setrouteincid(id.id)
             setroutedata(res)
         })
     }, [])
@@ -61,6 +65,7 @@ const Routecom = () => {
         const data = new Blob([excelBuffer], { type: fileType });
         FileSaver.saveAs(data, fileName + fileExtension);
     }
+
     return (
         <>
             <div className='p-2 sm-0'>
@@ -72,7 +77,7 @@ const Routecom = () => {
                                 component="form"
                                 sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
                                 autoComplete="off">
-                                <TextField InputLabelProps={{ shrink: "true" }} value={3} label="ID" variant="standard" />
+                                <TextField InputLabelProps={{ shrink: "true" }} value={routeincid} label="ID" variant="standard" />
                             </Box>
                         </div>
 
@@ -130,6 +135,7 @@ const Routecom = () => {
                             routeName: '',
                             areaName: ''
                         })}>Clear</button>
+                        <button className='btn-primary btn' onClick={()=>exporttoexcel()}>Export To Excel</button>
                         <button className='btn btn-primary mx-3 mt-2 mt-sm-0' onClick={() => print()}>Print</button>
                     </div>
                 </div >
