@@ -4,7 +4,15 @@ import * as FileSaver from 'file-saver'
 import * as XLSX from "xlsx";
 import Box from '@mui/material/Box';
 import { useReactToPrint } from 'react-to-print';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { DialogActions, DialogTitle, Button, IconButton} from '@mui/material';
+import Dialog from '@mui/material/Dialog'
+import Slide from '@mui/material/Slide';
+import CancelIcon from '@mui/icons-material/Cancel';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 
 const Routecom = () => {
@@ -14,8 +22,12 @@ const Routecom = () => {
         routeName: '',
         areaName: ''
     })
+    const [loader, setloader]=useState(false)
+    const [opendailogdel, setopendailogdel] = useState(false)
+    const [delById, setDelById] = useState()
     const [showtable, setshowtable] = useState(false)
     const [routedata, setroutedata] = useState([])
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
     const save = () => {
         try {
@@ -51,8 +63,8 @@ const Routecom = () => {
 
     const componentRef = useRef()
     const print = useReactToPrint({
-    content: () => componentRef.current,
-  })
+        content: () => componentRef.current,
+    })
 
     const exporttoexcel = async () => {
         const fileName = "myfile";
@@ -70,6 +82,7 @@ const Routecom = () => {
         <>
             <div className='p-2 sm-0'>
                 <div className='container mt-4 RouteCont'>
+                    {dailoge()}
                     <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Route Master</h3></div>
                     <div className='row mt-4'>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -137,6 +150,7 @@ const Routecom = () => {
                         })}>Clear</button>
                         <button className='btn-primary btn' onClick={()=>exporttoexcel()}>Export To Excel</button>
                         <button className='btn btn-primary mx-3 mt-2 mt-sm-0' onClick={() => print()}>Print</button>
+                        <button className='btn-primary btn' onClick={() => exporttoexcel()} >Export To Excel</button>
                     </div>
                 </div >
 
@@ -149,6 +163,7 @@ const Routecom = () => {
                                     <th scope="col">Id</th>
                                     <th scope="col">Route Name</th>
                                     <th scope="col">KM</th>
+                                    <th scope='col'>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -158,7 +173,7 @@ const Routecom = () => {
                                         <td>{item.id}</td>
                                         <td>{item.routeName}</td>
                                         <td>{item.km}</td>
-
+                                        <td><DeleteIcon style={{color:'red'}} onClick={() => deleteRMid(item.id)} /></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -249,7 +264,6 @@ const Routecom = () => {
                         </tbody>
                     </table>
 
-                        <button className='btn-primary btn'>Export To Excel</button>
                     </>
 
                 }

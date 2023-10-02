@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 const Billtablecom = React.forwardRef((props, ref) => {
     const [suppiddata, setsuppiddata] = useState([])
     const [totalamt,settotalamt] = useState()
-    const { data, suppid, tcode, fcode, form, code, setdata, listid,databyid } = props
+    const { data, suppid, tcode, fcode, form, code, setdata, listid,databyid,totalamount } = props
     let namt;
     let nsamt;
     let sum2;
@@ -36,6 +36,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
         
     }, [databyid])
     console.log("data y id =>",databyid)
+    // console.log("total amount =>",totalamount)
 
     console.log(sum2, "second ntamnt")
     const gettotal = () => {
@@ -65,7 +66,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
                 return accum + cal
             }, 0)
             namt = sum
-            console.log(namt)
+            console.log("netamt=>",namt)
 
         }
         total()
@@ -73,7 +74,9 @@ const Billtablecom = React.forwardRef((props, ref) => {
             <p>{namt}</p>
         )
     }
-
+   useEffect(()=>{
+    gettotal()
+   },[])
     return (
         <div className='container mt-4 p-0 billCont mb-3'>
             <table ref={ref} className="tableBillCont table table-striped">
@@ -158,7 +161,7 @@ const Billtablecom = React.forwardRef((props, ref) => {
                         listid === "Select" ? "" :
                         <tr>
                             <td colSpan={"10"} className='totalAmt'>Total</td>
-                            <td className='totalAmt' style={{color:"red"}}>{totalamt}</td>
+                            <td className='totalAmt' style={{color:"red"}}>{!listid?gettotal():totalamount}</td>
                         </tr>
                     }
                     

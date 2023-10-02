@@ -305,6 +305,9 @@ const Employeemastercom = () => {
         })
         console.log(res)
       })
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000);
     } catch (e) {
       console.log(e, "error")
     }

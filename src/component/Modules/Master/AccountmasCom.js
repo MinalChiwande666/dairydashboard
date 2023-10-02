@@ -243,7 +243,7 @@ const AccountmasCom = () => {
     }
   ]
   const print = async () => {
-    alert("hello")
+    // alert("hello")
     const resp = await fetch('http://103.38.50.113:8080/DairyApp/print')
     console.log(resp)
     if (resp.redirected === false) {

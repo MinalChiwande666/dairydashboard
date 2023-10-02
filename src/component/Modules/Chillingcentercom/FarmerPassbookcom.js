@@ -104,7 +104,7 @@ const FarmerPassbookcom = () => {
     fetch("http://103.38.50.113:8080/DairyApp/getAllMilkPurchase").then((res) => {
       return res.json()
     }).then((data) => {
-
+      console.log("farmer data =>",data)
       setallusers(data)
 
       for (let i = 0; i <= data.length; i++) {
