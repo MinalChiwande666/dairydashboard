@@ -254,7 +254,6 @@ const Chillingcom = () => {
     const delet = (id) => {
         setopendailogdel(true)
         setdelid(id)
-
     }
 
     const editform = (data, typeId) => {

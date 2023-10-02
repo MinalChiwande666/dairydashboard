@@ -52,7 +52,7 @@ const PlantProfitLossCom = () => {
             </thead>
             <tbody>
               <tr>
-                <th scope="row">1</th>
+                <th scope="row" className='text-center'>1</th>
                 <td></td>
                 <td></td>
                 <td></td>

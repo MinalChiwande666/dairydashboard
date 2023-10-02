@@ -135,7 +135,7 @@ const PlantInCom = () => {
     return (
         <>
             <div className='p-2 sm-0'>
-                <div className='container mt-4 PlantCont' style={{height:"40vh"}}>
+                <div className='container mt-4 PlantCont' style={{height:"45vh"}}>
                     <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Plant In</h3></div>
                     <div className='row mt-4'>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
