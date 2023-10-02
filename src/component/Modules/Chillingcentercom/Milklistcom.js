@@ -18,6 +18,7 @@ const Milklistcom = () => {
     const [gettype, settype] = useState('')
     const [togg, settogg] = useState(false)
     const [lisid,setlistid] = useState()
+    
     const [togg2, settogg2] = useState(false)
     const [togg3, settogg3] = useState(false)
     const [idinc,setidinc] = useState('')

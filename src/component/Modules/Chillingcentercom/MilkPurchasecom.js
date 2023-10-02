@@ -267,7 +267,7 @@ const MilkPurchasecom = () => {
   return (
     <>
       <div className='p-2 sm-0'>
-        <div className='container mt-4 chillingCenterCont' style={{ height: "52vh" }}>
+        <div className='container mt-4 chillingCenterCont' style={{ height: "55vh" }}>
           {dailoge()}
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Milk Purchase</h3></div>
           <div className='row mt-4'>

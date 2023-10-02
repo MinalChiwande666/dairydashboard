@@ -71,6 +71,7 @@ const Customermastercom = () => {
         "anniveryDate": "",
         "milkRateContract": "",
         "byProductRate": "",
+        "milkrate":"",
         "iceCreamRate": "",
         "otherRate": "",
         "address": "",

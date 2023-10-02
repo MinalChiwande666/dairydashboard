@@ -132,6 +132,11 @@ const PlantInCom = () => {
             console.log("Error=>", e)
         }
     }
+
+    const plantDiv = () =>{
+        alert("hello")
+    }
+
     return (
         <>
             <div className='p-2 sm-0'>

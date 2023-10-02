@@ -44,6 +44,7 @@ const Suppliercom = () => {
     const [togg8, setTogg8] = useState(false)
     const [togg9, setTogg9] = useState(false)
     const [togg10, setTogg10] = useState(false)
+    const [suppno,setSuppno] = useState()
 
 
     const [customerform, setcustomerform] = useState({
@@ -51,6 +52,8 @@ const Suppliercom = () => {
         "grp": "",
         "openingBalance": "",
         "alias": "",
+        "salesPerson":"",
+        "gstState":"",
         "gstNo": "",
         "category": "",
         "debitCredit": "",
@@ -299,7 +302,7 @@ const Suppliercom = () => {
         }
     ]
     const save = () => {
-        alert(customerform)
+        // alert(customerform)
         console.log(customerform)
         try {
             fetch('http://103.38.50.113:8080/DairyApp/saveSupplierMaster',
@@ -312,7 +315,7 @@ const Suppliercom = () => {
                 }).then((data) => {
                     return data.json()
                 }).then((res) => {
-                    console.log(res)
+                    // console.log(res)
                     toast.success(`${res.message}`, {
                         position: "top-center",
                         autoClose: 5000,
@@ -323,6 +326,9 @@ const Suppliercom = () => {
                         progress: undefined,
                         theme: "light",
                     })
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 2000);
                 })
         } catch (e) {
             alert(e, " <= Error")
@@ -408,7 +414,17 @@ const Suppliercom = () => {
     }
     useEffect(() => {
         getcustomeralldata()
-    }, [])
+        fetch("http://103.38.50.113:8080/DairyApp/getNextSupplierId").then((data)=>{
+            return data.json()
+        }).then((res)=>{
+            console.log(res)
+            setSuppno(res)
+        })
+    })
+
+
+    
+
     return (
         <>
             {loader ? <div className="loader-container">
@@ -436,7 +452,7 @@ const Suppliercom = () => {
                                     sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
                                     autoComplete="off">
                                     <TextField
-                                        value={1}
+                                        value={suppno}
                                         style={{ pointerEvents: 'none' }}
                                         contentEditable={false}
                                         label="Supplier No." variant="standard"
@@ -449,9 +465,15 @@ const Suppliercom = () => {
                                     sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
                                     autoComplete="off">
                                     <TextField
-                                        // value="Neeraj"
+                                        value={customerform.supplierName}
                                         // style={{ pointerEvents: 'none' }}
                                         label="Supplier Name." variant="standard"
+                                        onChange={(e)=>{
+                                            setcustomerform({
+                                                ...customerform,
+                                                supplierName: e.target.value
+                                            })
+                                        }}
                                     />
                                 </Box>
                             </div>
