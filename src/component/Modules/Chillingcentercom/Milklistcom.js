@@ -21,7 +21,7 @@ const Milklistcom = () => {
     const [togg2, settogg2] = useState(false)
     const [togg3, settogg3] = useState(false)
     const [idinc,setidinc] = useState('')
-
+    const [objupdate,setupdateobj] = useState({})
     const [miltype, setmilktype] = useState('')
     const [basis, setbasis] = useState('')
     const [listno, setlistno] = useState('')
@@ -328,7 +328,29 @@ const Milklistcom = () => {
             setlistid(res)
         })
     })
-    console.log("newarr=>", newarr)
+    
+    const updatelist = ()=>{
+        try{
+          if(code)
+          {
+            fetch(`http://103.38.50.113:8080/DairyApp/findByListNo/${code}`,{
+                method:'PUT',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(objupdate)
+            }).then((data)=>{
+                return data.json()
+            }).then((res)=>{
+                console.log(res)
+                alert(res.message)
+            })
+          }
+        }catch(e)
+        {
+
+        }
+    }
     return (
         <>
             <div className='p-2 sm-0' onClick={()=>{
@@ -439,7 +461,7 @@ const Milklistcom = () => {
                                                             onClick={() => {
                                                                 setcode(item)
                                                                 if (item) {
-                                                                    fetch(`http://103.38.50.113:8080/DairyApp/findByListNo/${item}`).then((data) => {
+                                                                    fetch(`http://103.38.50.113:8080/DairyApp/getListNo/${item}`).then((data) => {
                                                                         return data.json()
                                                                     }).then((res) => {
                                                                         console.log(res)
@@ -467,7 +489,7 @@ const Milklistcom = () => {
 
                 <div className='container mt-4 chillingCenterCont'>
                     <div className='d-flex justify-content-center align-items-center'>
-                        <input contentEditable={false} style={{ width: "100px", pointerEvents: 'none', color: 'white', border: 'none', padding: '5px', fontWeight: '700', borderRadius: '0.4rem' }} className='bg-primary my-2 text-center' type='text' value={`List No.${lisid}`} />
+                        <input contentEditable={false} style={{ width: "100px", pointerEvents: 'none', color: 'white', border: 'none', padding: '5px', fontWeight: '700', borderRadius: '0.4rem' }} className='bg-primary my-2 text-center' type='text' value={`List No.${!code?lisid:code}`} />
                     </div>
                     <div className='row mt-3'>
                         <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -587,7 +609,8 @@ const Milklistcom = () => {
                                                             rate: parseFloat(fatdata.rate)
                                                         }
                                                         console.log(newobj)
-                                                        setnewarr([...newarr, newobj])
+                                                        setupdateobj(fatdata)
+                                                        // setnewarr([...newarr, newobj])
                                                     }}>Add</button>
                                                 </td>
                                             </tr>
@@ -606,9 +629,11 @@ const Milklistcom = () => {
                             <button onClick={() => deletetable()} className='btn btn-danger text-white' style={{ width: "80px", fontWeight: "600" }}>Delete</button>
                         </div>
                         <div className='col-12 col-md-1'>
-                            <button
+                           {!code? <button
                                 onClick={() => save()}
-                                className='btn btn-primary mt-sm-0 mt-2' style={{ width: "80px", fontWeight: "600" }}>Save</button>
+                                className='btn btn-primary mt-sm-0 mt-2' style={{ width: "80px", fontWeight: "600" }}>Save</button>: <button
+                                onClick={()=>updatelist()}
+                                className='btn btn-primary mt-sm-0 mt-2' style={{ width: "80px", fontWeight: "600" }}>Update</button>}
                         </div>
 
                     </div>
@@ -617,203 +642,7 @@ const Milklistcom = () => {
 
 
 
-            {/* <div className='container-fluid'>
-                <div className='row'>
-                    <div className='bg-primary py-1 px-3 col-12 col-md-12'>
-                        <div className='row'>
-                            <div className='col-12 col-md-2'>
-                                <div className='text-white mt-3' style={{ fontWeight: "700" }}>MILK RATE LIST</div>
-                            </div>
-
-
-                            <div className='col-10 col-md-10'>
-                                <div className='row'>
-                                    <div className='col-6 col-md-3'>
-                                        <div className='text-white'>
-                                            With effect Date
-                                        </div>
-                                        <div>
-                                            <input type='date' />
-                                        </div>
-                                    </div>
-                                    <div className='col-6 col-md-3'>
-                                        <div style={{ fontSize: '0.8rem' }} className='text-white'>
-                                            Milk Type
-                                        </div>
-                                        <div class="dropdown">
-                                            <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                {milk === "" ? "Select" : milk}
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                {
-                                                    milktype.map((item, i) => (
-
-                                                        <li onClick={() => setmilk(item.name)} class="dropdown-item">{item.name}</li>
-                                                    ))
-                                                }
-
-
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div className='col-6 col-md-3'>
-                                        <div style={{ fontSize: '0.8rem' }} className='text-white'>
-                                            On the Basis of
-                                        </div>
-                                        <div class="dropdown">
-                                            <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                {gettype === "" ? "Select" : gettype}
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                {
-                                                    type.map((item, i) => (
-                                                        <li onClick={() => {
-                                                            if (item) {
-                                                                fetch('')
-                                                            }
-                                                            settype(item.name)
-                                                        }}><a class="dropdown-item" href="#">{item.name}</a></li>
-                                                    ))
-                                                }
-
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className='col-5 col-md-3'>
-                                        <div style={{ fontSize: '0.8rem' }} className='text-white'>
-                                            List No
-                                        </div>
-                                        <div class="dropdown">
-                                            <a class="btn btn-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                {listno === '' ? "Select" : listno}
-                                            </a>
-
-                                            <ul class="dropdown-menu" style={{ overflow: "scroll", height: "35vh" }}>
-                                                {
-                                                    listnos.map((item, i) => (
-                                                        <li
-                                                            onClick={() => {
-
-                                                                if (item) {
-                                                                    fetch(`http://103.38.50.113:8080/DairyApp/findByListNo/${item}`).then((data) => {
-                                                                        return data.json()
-                                                                    }).then((res) => {
-                                                                        console.log(res)
-                                                                        setsnffatdata(res)
-                                                                    })
-                                                                }
-                                                                setlistno(item)
-                                                            }}
-                                                            className="dropdown-item">{item}</li>
-                                                    ))
-                                                }
-
-                                            </ul>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className='container'>
-                    <input contentEditable={false} style={{ width: "80px", pointerEvents: 'none', color: 'white', border: 'none', padding: '5px', fontWeight: '700', borderRadius: '0.4rem' }} className='bg-primary my-2 text-center' type='text' value={`List No.${JSON.parse(localStorage.getItem('inclistno')) + 1}`} />
-                    <h2 className='mx-2'>SNF RANGE</h2>
-                    <input type='text' placeholder='Min Snf' value={fromsnf} onChange={(e) => setfromsnf(e.target.value)} /><input type='text' placeholder='Max Snf' value={tosnf} onChange={(e) => settosnf(e.target.value)} />
-                    <h2 className='mx-2'>FAT RANGE</h2>
-                    <input type='text' placeholder='Min Fat' value={fromfat} onChange={(e) => setfromfat(e.target.value)} /><input type='text' placeholder='Max Fat' value={tofat} onChange={(e) => settofat(e.target.value)} />
-                    <div style={{ overflow: 'scroll', height: "64vh" }}>
-                        {snffatdata.length === 0 ? <table class="table table-bordered">
-                            <thead className='table-primary'>
-                                <tr style={{ width: "100%" }} className='text-center'>
-                                    <th>FAT/SNF</th>
-                                    {
-                                        snfrange.map((col) => (
-                                            <>
-                                                <th>{col}</th>
-                                            </>
-                                        ))
-                                    }
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                {
-                                    fatrange.map((row) => (
-                                        <tr>
-                                            <td>{row}</td>
-                                            {
-                                                snfrange.map((col) => (
-                                                    <>
-                                                        <td><input value={inputdata[`${row}-${col}`] || ""} type='text' onChange={(e) => handlesheet(row, col, e.target.value)} /></td>
-                                                    </>
-                                                ))
-                                            }
-                                        </tr>
-
-                                    ))
-                                }
-                            </tbody>
-                        </table> :
-                            <table class="table table-bordered">
-                                <thead className='table-primary'>
-                                    <tr>
-                                        <th>SNF</th>
-                                        <th>FAT</th>
-                                        <th>RATE</th>
-                                        <th>ADD</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        snffatdata.map((fatdata, i) => (
-                                            <tr>
-                                                <td>
-                                                    <Snfinp item={fatdata} onChange={handleupdsnfchange} />
-                                                </td>
-                                                <td>
-                                                    <Fatinp2 item={fatdata} onChange={handleupdfatchange} />
-                                                </td>
-                                                <td>
-                                                    <Textinputcom2 item={fatdata} onChange={handleupdchange} />
-                                                </td>
-                                                <td>
-                                                    <button onClick={() => {
-                                                        let newobj = {
-                                                            fat: parseFloat(fatdata.fat),
-                                                            snf: parseFloat(fatdata.snf),
-                                                            rate: parseFloat(fatdata.rate)
-                                                        }
-                                                        setentries([...entries, newobj])
-                                                    }}>Add</button>
-                                                </td>
-                                            </tr>
-                                        )
-                                        )
-                                    }
-                                </tbody>
-                            </table>
-                        }
-                    </div>
-                </div>
-                <div className='container'>
-                    <div className='row my-4'>
-                        <div className='col-12 col-md-1'>
-                            <button onClick={() => deletetable()} className='btn btn-danger text-white' style={{ width: "80px", fontWeight: "600" }}>Delete</button>
-                        </div>
-                        <div className='col-12 col-md-1'>
-                            <button
-                                onClick={() => save()}
-                                className='btn btn-primary mt-sm-0 mt-2' style={{ width: "80px", fontWeight: "600" }}>Save</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div> */}
+            
         </>
     )
 }
