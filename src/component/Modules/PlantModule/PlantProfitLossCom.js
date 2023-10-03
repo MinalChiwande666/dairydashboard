@@ -30,7 +30,7 @@ const PlantProfitLossCom = () => {
               </div>
             </div>
             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-
+              <button className='btn btn-primary mt-2 mb-sm-0 mb-2'>Search</button>
             </div>
             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
               <button className='btn btn-secondary mt-2 mb-sm-0 mb-2'>Export</button>
@@ -52,7 +52,7 @@ const PlantProfitLossCom = () => {
             </thead>
             <tbody>
               <tr>
-                <th scope="row">1</th>
+                <th scope="row" className='text-center'>1</th>
                 <td></td>
                 <td></td>
                 <td></td>

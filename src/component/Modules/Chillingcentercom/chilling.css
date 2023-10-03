@@ -165,9 +165,9 @@ td {
     scrollbar-width: none;
 }
 
-.milkpurchaseselect::-webkit-scrollbar {
+/* .milkpurchaseselect::-webkit-scrollbar {
     display: none;
-}
+} */
 
 .milkpurchaseselect ul li {
     padding: 5px;

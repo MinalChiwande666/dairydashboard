@@ -62,25 +62,22 @@ const Billgenerationcom = () => {
       fetch(`http://103.38.50.113:8080/DairyApp/findBySupplierID?supplierId=${listid}`).then((data) => {
         return data.json()
       }).then((res) => {
-
-        //  console.log(res?.filteredMilkPurchases)
         settotalamount(res?.totalNetAmount)
         setdatabyid(res?.filteredMilkPurchases)
-
-
       }).catch((e) => {
         console.log(e)
       })
     }
   }, [listid])
 
-  //  console.log(databyid)
   const outerTheme = useTheme();
-
-
   return (
     <>
-      <div className='p-2 p-sm-0'>
+      <div className='p-2 p-sm-0' onClick={() => {
+        if (drop === true) {
+          setdrop(false)
+        }
+      }}>
         <div className='container mt-4 billCont'>
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Bill Generation</h3></div>
           <div className='row mt-4'>
@@ -110,7 +107,8 @@ const Billgenerationcom = () => {
                           ))
                         }
                       </ul>
-                    </div> : null}
+                    </div> : null
+                }
               </div>
               <div className='mt-4'>
                 <IconButton onClick={() => setdrop(!drop)}>

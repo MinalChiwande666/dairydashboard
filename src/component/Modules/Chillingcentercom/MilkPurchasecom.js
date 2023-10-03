@@ -63,8 +63,6 @@ const MilkPurchasecom = () => {
       "netAmount": String(ntamt),
       "date": String(milkpurchaseform.date),
       "shift": String(milkpurchaseform.shift),
-      // "Route": String(milkpurchaseform.Route),
-      // "collector": String(milkpurchaseform.collector)
     }
     console.log(newform)
     try {
@@ -117,7 +115,6 @@ const MilkPurchasecom = () => {
     return (
       <>
         <Dialog
-
           open={openDailogDel}
           TransitionComponent={Transition}
           keepMounted
@@ -192,11 +189,6 @@ const MilkPurchasecom = () => {
 
   const calculation = () => {
     console.log("milk qty=>", qtyval)
-    // fetch(`http://103.38.50.113:8080/DairyApp/netAmountCalculate?qty=20&milkRate=12`).then((data)=>{
-    //   return data.json()
-    // }).then((res)=>{
-    //   console.log("net amt=>",res)
-    // })
   }
 
 
@@ -266,8 +258,16 @@ const MilkPurchasecom = () => {
   }, [milkpurchaseform.supplier])
   return (
     <>
-      <div className='p-2 sm-0'>
-        <div className='container mt-4 chillingCenterCont' style={{ height: "52vh" }}>
+      <div className='p-2 sm-0' onClick={()=>{
+        if(togg === true){
+          settogg(false)
+        }else if (togg2 === true){
+          settogg2(false)
+        }else if (togg3 === true){
+          settogg3(false)
+        }
+      }}>
+        <div className='container mt-4 chillingCenterCont' style={{ height: "55vh" }}>
           {dailoge()}
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Milk Purchase</h3></div>
           <div className='row mt-4'>

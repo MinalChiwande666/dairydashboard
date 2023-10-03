@@ -5,78 +5,11 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField'
 import * as FileSaver from 'file-saver'
 import * as XLSX from "xlsx";
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
 import { IconButton } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-const customTheme = (outerTheme) =>
 
-  createTheme({
-    palette: {
-      mode: outerTheme.palette.mode,
-    },
-    components: {
-      MuiTextField: {
-        styleOverrides: {
-          root: {
-            '--TextField-brandBorderColor': '#E0E3E7',
-            '--TextField-brandBorderHoverColor': '#B2BAC2',
-            '--TextField-brandBorderFocusedColor': '#6F7E8C',
-            '& label.Mui-focused': {
-              color: 'var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-      MuiOutlinedInput: {
-        styleOverrides: {
-          notchedOutline: {
-            borderColor: 'var(--TextField-brandBorderColor)',
-          },
-          root: {
-            [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-              borderColor: 'var(--TextField-brandBorderHoverColor)',
-            },
-            [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-              borderColor: 'var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-      MuiFilledInput: {
-        styleOverrides: {
-          root: {
-            '&:before, &:after': {
-              borderBottom: '2px solid var(--TextField-brandBorderColor)',
-            },
-            '&:hover:not(.Mui-disabled, .Mui-error):before': {
-              borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-            },
-            '&.Mui-focused:after': {
-              borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-      MuiInput: {
-        styleOverrides: {
-          root: {
-            '&:before': {
-              borderBottom: '2px solid var(--TextField-brandBorderColor)',
-            },
-            '&:hover:not(.Mui-disabled, .Mui-error):before': {
-              borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-            },
-
-            '&.Mui-focused:after': {
-              borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-    },
-  });
 const AccountmasCom = () => {
   const [selectaccounaset, setaccountasset] = useState('')
   const [status, setstatus] = useState('')
@@ -90,10 +23,6 @@ const AccountmasCom = () => {
   const [togg1, settogg1] = useState(false)
   const [togg2, settogg2] = useState(false)
   const [togg3, settogg3] = useState(false)
-
-
-
-
   const [accountform, setaccountform] = useState(
     {
       accountName: '',
@@ -110,7 +39,7 @@ const AccountmasCom = () => {
     }
   )
 
-  const getData = () =>{
+  const getData = () => {
     axios.get('http://103.38.50.113:8080/DairyApp/getAllAccountMasterData').then((data) => {
       console.log(data.data)
       setallusers(data.data)
@@ -243,7 +172,6 @@ const AccountmasCom = () => {
     }
   ]
   const print = async () => {
-    // alert("hello")
     const resp = await fetch('http://103.38.50.113:8080/DairyApp/print')
     console.log(resp)
     if (resp.redirected === false) {
@@ -252,6 +180,8 @@ const AccountmasCom = () => {
       console.log("request was not redirected")
     }
   }
+
+
   const clear = () => {
     setaccountform({
       accountName: '',
@@ -267,12 +197,24 @@ const AccountmasCom = () => {
       isCostCenterAllocated: ''
     })
   }
-  const outerTheme = useTheme();
+
   return (
     <>
 
-      <div className='p-2 sm-0'>
-        <div className='container mt-4 accCont' style={{height:"70vh"}}>
+      <div className='p-2 sm-0' onClick={()=>{
+        if(togg === true){
+          settogg(false)
+        }else if(togg1 === true){
+          settogg1(false)
+        }else if(togg2 === true){
+          settogg2(false)
+        }else if(togg3 === true){
+          settogg3(false)
+        }else if(drop === true){
+          setdrop(false)
+        }
+      }}>
+        <div className='container mt-4 accCont' style={{ height: "70vh" }}>
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Account Master</h3></div>
           <div className='row mt-4'>
             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -568,431 +510,52 @@ const AccountmasCom = () => {
       </div>
 
 
-      {/* Table Code */}
       {
-        showtable && 
+        showtable &&
         <>
-      
-      <div className='container mt-4 accMastTable mb-3 p-0'>
-        <table className='tableAccMaster table table-stripped'>
-          <thead>
-            <tr>
-              <th scope="col" style={{width:"150px"}}>Account Id</th>
-              <th scope="col" style={{width:"150px"}}>Account Name</th>
-              <th scope="col" style={{width:"150px"}}>Account Type</th>
-              <th scope="col" style={{width:"150px"}}>Group</th>
-              <th scope="col" style={{width:"150px"}}>Main Ledger</th>
-              <th scope="col" style={{width:"150px"}}>Opening Balance</th>
-              <th scope="col" style={{width:"150px"}}>Opening Type</th>
-              <th scope="col" style={{width:"150px"}}>GST No</th>
-              <th scope="col" style={{width:"150px"}}>PAN Card No</th>
-              <th scope="col" style={{width:"150px"}}>Adhaar Card No</th>
-              <th scope="col" style={{width:"150px"}}>Account Group</th>
-              <th scope="col" style={{width:"150px"}}>Cost Center</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              allusers.map((item, i) => (
+
+          <div className='container mt-4 accMastTable mb-3 p-0'>
+            <table className='tableAccMaster table table-stripped'>
+              <thead>
                 <tr>
-                  <th scope="row" className='text-center'>{item.id}</th>
-                  <td>{item.accountName}</td>
-                  <td>{item.accountType}</td>
-                  <td>Current Assets</td>
-                  <td>{item.mainLegger}</td>
-                  <td>{item.openingBalance}</td>
-                  <td>{item.openingType}</td>
-                  <td>{item.gstNo}</td>
-                  <td>{item.panCardNo}</td>
-                  <td>{item.aadharcardNo}</td>
-                  <td>{item.accountGroup}</td>
-                  <td>{item.isCostCenterAllocated}</td>
+                  <th scope="col" style={{ width: "150px" }}>Account Id</th>
+                  <th scope="col" style={{ width: "150px" }}>Account Name</th>
+                  <th scope="col" style={{ width: "150px" }}>Account Type</th>
+                  <th scope="col" style={{ width: "150px" }}>Group</th>
+                  <th scope="col" style={{ width: "150px" }}>Main Ledger</th>
+                  <th scope="col" style={{ width: "150px" }}>Opening Balance</th>
+                  <th scope="col" style={{ width: "150px" }}>Opening Type</th>
+                  <th scope="col" style={{ width: "150px" }}>GST No</th>
+                  <th scope="col" style={{ width: "150px" }}>PAN Card No</th>
+                  <th scope="col" style={{ width: "150px" }}>Adhaar Card No</th>
+                  <th scope="col" style={{ width: "150px" }}>Account Group</th>
+                  <th scope="col" style={{ width: "150px" }}>Cost Center</th>
                 </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-      </>}
-
-
-
-      {/* <div className='container-fluid' >
-        <div
-          style={{ fontSize: '2rem', }}
-          className='text-center'>
-          Account Master
-        </div>
-        <div className='container accountmastercon'>
-          <div className='row justify-content-center'>
-            <div className='col-12 mt-2 col-md-3 col-sm-12 '>
-              <div >
-                <ThemeProvider theme={customTheme(outerTheme)}>
-                  <TextField
-                    style={{ width: '95%' }}
-                    label="Account No." className='txtsize' variant="standard" />
-                </ThemeProvider>
-              </div>
-            </div>
-            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-              <div>
-                Account Type.
-              </div>
-              <div>
-                <div className="dropdown">
-                  <button
-                    style={{ width: '95%', fontSize: '0.8rem', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-                    className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {selectaccounaset === '' ? 'Select' : selectaccounaset}
-                    <div className='dropdown-toggle'>
-
-                    </div>
-                  </button>
-                  <ul className="dropdown-menu">
-                    {
-                      items.map((item, i) => (
-                        <>
-                          <li
-                            onClick={() => setaccountasset(item.name)}
-                            className='dropdown-item'>{item.name}</li>
-                        </>
-                      ))
-                    }
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-              <div style={{ fontSize: '0.8rem' }}>
-                Status
-              </div>
-              <div>
-                <div>
-                  <div className="dropdown">
-                    <button
-                      style={{ width: '95%', fontSize: '0.8rem', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-                      className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      {status === '' ? 'Select' : status}
-                      <div className='dropdown-toggle'>
-
-                      </div>
-                    </button>
-                    <ul className="dropdown-menu">
-                      {
-                        Status.map((item, i) => (
-                          <>
-                            <li
-                              onClick={() => setstatus(item.stat)}
-                              className='dropdown-item'>{item.stat}</li>
-                          </>
-                        ))
-                      }
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className='row mt-3 justify-content-center'>
-
-            <div className='col-12 mt-2 col-md-3 col-sm-12 '>
-              <div >
-                <ThemeProvider theme={customTheme(outerTheme)}>
-                  <TextField
-                    value={accountform.accountName}
-                    onChange={(e) => {
-                      setaccountform({
-                        ...accountform,
-                        accountName: e.target.value
-                      })
-                    }}
-                    style={{ width: '80%' }}
-                    label="Account Name" className='txtsize' variant="standard" />
-                </ThemeProvider>
-              </div>
-            </div>
-
-
-            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-              <div style={{ fontSize: '0.8rem' }}>
-                Account Group
-              </div>
-              <div>
-                <div className="dropdown">
-                  <button
-                    style={{ width: '80%', fontSize: '0.8rem', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-                    className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {selaccountgroup === '' ? 'Select' : selaccountgroup}
-                    <div className='dropdown-toggle'>
-
-                    </div>
-                  </button>
-                  <ul className="dropdown-menu">
-                    {
-                      accountgroup.map((item, i) => (
-                        <>
-                          <li
-                            onClick={() => setselaccountgroup(item.name)}
-                            className='dropdown-item'>{item.name}</li>
-                        </>
-                      ))
-                    }
-
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-              <div >
-                <ThemeProvider theme={customTheme(outerTheme)}>
-                  <TextField
-                    value={accountform.gstNo}
-                    onChange={(e) => {
-                      setaccountform({
-                        ...accountform,
-                        gstNo: e.target.value
-                      })
-                    }}
-                    style={{ width: '80%' }}
-                    label="GST No" className='txtsize' variant="standard" />
-                </ThemeProvider>
-              </div>
-            </div>
-          </div>
-
-          <div className='row mt-3 justify-content-center'>
-            <div className='col-12 mt-2 col-md-3 col-sm-12 '>
-              <div >
-                <ThemeProvider theme={customTheme(outerTheme)}>
-                  <TextField
-                    value={accountform.openingBalance}
-                    onChange={(e) => {
-                      setaccountform({
-                        ...accountform,
-                        openingBalance: e.target.value
-                      })
-                    }}
-                    style={{ width: '80%' }}
-                    label="Opening Balance" className='txtsize' variant="standard" />
-                </ThemeProvider>
-              </div>
-            </div>
-            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-              <div style={{ fontSize: '0.8rem' }}>
-                Opening type
-              </div>
-              <div>
-                <div className="dropdown">
-                  <button
-                    style={{ width: '80%', fontSize: '0.8rem', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-                    className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {selopentype === '' ? 'Select' : selopentype}
-                    <div className='dropdown-toggle'>
-
-                    </div>
-                  </button>
-                  <ul className="dropdown-menu">
-                    {
-                      opentype.map((item, i) => (
-                        <>
-                          <li
-                            onClick={() => setopentype(item.name)}
-                            className='dropdown-item'>{item.name}</li>
-                        </>
-                      ))
-                    }
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-              <div>
-                <ThemeProvider theme={customTheme(outerTheme)}>
-                  <TextField
-                    value={accountform.mainLegger}
-                    onChange={(e) => {
-                      setaccountform({
-                        ...accountform,
-                        mainLegger: e.target.value
-                      })
-                    }}
-                    style={{ width: '80%' }}
-                    label="Main Ledger" className='txtsize' variant="standard" />
-                </ThemeProvider>
-              </div>
-            </div>
-          </div>
-
-          <div className='row mt-3 justify-content-center'>
-            <div className='col-12 mt-2 col-md-3 col-sm-12 '>
-              <div>
-                <ThemeProvider theme={customTheme(outerTheme)}>
-                  <TextField
-                    value={accountform.panCardNo}
-                    onChange={(e) => {
-                      setaccountform({
-                        ...accountform,
-                        panCardNo: e.target.value
-                      })
-                    }}
-                    style={{ width: '80%' }}
-                    label="PAN Card No" className='txtsize' variant="standard" />
-                </ThemeProvider>
-              </div>
-            </div>
-            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-              <div>
-                <ThemeProvider theme={customTheme(outerTheme)}>
-                  <TextField
-                    value={accountform.aadharcardNo}
-                    onChange={(e) => {
-                      setaccountform({
-                        ...accountform,
-                        aadharcardNo: e.target.value
-                      })
-                    }}
-                    style={{ width: '80%' }}
-                    label="Adhaar Card No" className='txtsize' variant="standard" />
-                </ThemeProvider>
-              </div>
-            </div>
-            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-              <div>
-
-              </div>
-              <div>
-                <div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className='row mt-3 justify-content-center'>
-            <div className='text-center' style={{ fontSize: '2rem' }}>Cost Center</div>
-            <div className='col-12 mt-2 col-md-3 col-sm-12 '>
-              <div>
-                Is Cost Center Allocated
-              </div>
-              <div>
-
-              </div>
-            </div>
-            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-
-              <div>
-                <div className="dropdown">
-                  <button
-                    style={{ width: '100%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-                    className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {costecenter === '' ? 'Select' : costecenter}
-                    <div className='dropdown-toggle'>
-
-                    </div>
-                  </button>
-                  <ul className="dropdown-menu">
-                    {
-                      costcenterstat.map((item, i) => (
-                        <>
-                          <li
-                            onClick={() => setcostcenter(item.status)}
-                            className='dropdown-item'>{item.status}</li>
-                        </>
-                      ))
-                    }
-
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className='col-12 mt-1 col-md-3 col-sm-12'>
-              <div>
-
-              </div>
-              <div>
-                <div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className='mt-5 '>
-            <button
-              onClick={() => setshowtable(!showtable)}
-              className='bg-primary border border-none border-radius-rounded text-white'>
-              Show Data
-            </button>
-            {
-              showtable &&
-              <><div style={{ height: '50vh', overflowY: 'scroll' }}>
-                <table class="table">
-                  <thead>
+              </thead>
+              <tbody>
+                {
+                  allusers.map((item, i) => (
                     <tr>
-                      <th scope="col">Account Id</th>
-                      <th scope="col">Account Name</th>
-                      <th scope="col">Account Type</th>
-                      <th scope="col">Group</th>
-                      <th scope="col">Main Ledger</th>
-                      <th scope="col">Opening Balance</th>
-                      <th scope="col">Opening Type</th>
-                      <th scope="col">GST No</th>
-                      <th scope="col">PAN Card No</th>
-                      <th scope="col">Adhaar Card No</th>
-                      <th scope="col">Account Group</th>
-                      <th scope="col">Cost Center</th>
+                      <th scope="row" className='text-center'>{item.id}</th>
+                      <td>{item.accountName}</td>
+                      <td>{item.accountType}</td>
+                      <td>Current Assets</td>
+                      <td>{item.mainLegger}</td>
+                      <td>{item.openingBalance}</td>
+                      <td>{item.openingType}</td>
+                      <td>{item.gstNo}</td>
+                      <td>{item.panCardNo}</td>
+                      <td>{item.aadharcardNo}</td>
+                      <td>{item.accountGroup}</td>
+                      <td>{item.isCostCenterAllocated}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      allusers.map((item, i) => (
-                        <tr>
-                          <th scope="row">{item.id}</th>
-                          <td>{item.accountName}</td>
-                          <td>{item.accountType}</td>
-                          <td>Current Assets</td>
-                          <td>{item.mainLegger}</td>
-                          <td>{item.openingBalance}</td>
-                          <td>{item.openingType}</td>
-                          <td>{item.gstNo}</td>
-                          <td>{item.panCardNo}</td>
-                          <td>{item.aadharcardNo}</td>
-                          <td>{item.accountGroup}</td>
-                          <td>{item.isCostCenterAllocated}</td>
-                        </tr>
-                      ))
-                    }
-
-                  </tbody>
-                </table>
-              </div><div>
-                  <button
-                    onClick={() => exporttoexcel()}
-                    className='bg-primary border border-none border-radius-rounded text-white'>
-                    Export to Excel
-                  </button>
-                </div></>}
-            <div className='text-center d-flex'>
-              <button
-                onClick={() => saveform()}
-                className='bg-primary border border-none border-radius-rounded text-white'>
-                Save
-              </button>
-              <button
-
-                onClick={() => print()}
-                className='bg-primary border border-none border-radius-rounded text-white'>
-                Print
-              </button>
-              <button onClick={() => clear()} className='bg-primary border border-none border-radius-rounded text-white'>
-                Clear
-              </button>
-            </div>
+                  ))
+                }
+              </tbody>
+            </table>
           </div>
-
-        </div>
-      </div> */}
+        </>
+      }
     </>
   )
 }

@@ -64,15 +64,15 @@
 }
 
 .billgenscroll{
-    height: 20vh;
+    height: 15vh;
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
-.billgenscroll::-webkit-scrollbar{
+/* .billgenscroll::-webkit-scrollbar{
     display: none;
-}
+} */
 
 @media (max-width:480px) {
     .billgenSelect{
