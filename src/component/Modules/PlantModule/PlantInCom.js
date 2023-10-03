@@ -133,13 +133,17 @@ const PlantInCom = () => {
         }
     }
 
-    const plantDiv = () =>{
-        alert("hello")
-    }
-
     return (
         <>
-            <div className='p-2 sm-0'>
+            <div className='p-2 sm-0' onClick={()=>{
+                if(togg === true){
+                    setTogg(false)
+                }else if(togg1 === true){
+                    setTogg1(false)
+                }else if(togg2=== true){
+                    setTogg2(false)
+                }
+            }}>
                 <div className='container mt-4 PlantCont' style={{height:"45vh"}}>
                     <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Plant In</h3></div>
                     <div className='row mt-4'>

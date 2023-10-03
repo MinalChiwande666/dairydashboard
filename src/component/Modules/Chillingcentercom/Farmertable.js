@@ -55,9 +55,9 @@ const Farmertable = React.forwardRef((props, ref) => {
           <thead>
             <tr >
               <th scope="col">Sr No.</th>
-              <th scope="col">Id</th>
+              {/* <th scope="col">Id</th> */}
               <th scope="col">Supplier Id</th>
-              <th scope="col">Supplier </th>
+              <th scope="col">Supplier Name</th>
               <th scope="col">Date</th>
               <th scope="col">Milk Type</th>
               <th scope="col">Ltr</th>
@@ -89,9 +89,9 @@ const Farmertable = React.forwardRef((props, ref) => {
               }).map((item, i) => (
                 <tr>
                   <th scope="row" className='text-center'>{i}</th>
-                  <td>{item.id}</td>
+                  {/* <td>{item.id}</td> */}
                   <td>{item.supplierId}</td>
-                  <td>{item.supplier}</td>
+                  <td>{item.supplierName}</td>
                   <td>{item.date}</td>
                   <td>{item.milk}</td>
                   <td>{item.qty}</td>

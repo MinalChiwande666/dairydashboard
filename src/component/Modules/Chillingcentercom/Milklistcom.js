@@ -16,9 +16,8 @@ import TextField from '@mui/material/TextField'
 const Milklistcom = () => {
     const [milk, setmilk] = useState('')
     const [gettype, settype] = useState('')
-    const [togg, settogg] = useState(false)
     const [lisid,setlistid] = useState()
-    
+    const [togg, settogg] = useState(false)
     const [togg2, settogg2] = useState(false)
     const [togg3, settogg3] = useState(false)
     const [idinc,setidinc] = useState('')
@@ -225,12 +224,6 @@ const Milklistcom = () => {
                 console.log(resp.data.listNo)
                 localStorage.setItem("inclistno", JSON.stringify(resp.data.listNo))
                 alert(resp.message)
-                // if (resp.message === 'Milk Rate data saved successfully.') {
-                //     setTimeout(() => {
-                //         window.location.reload()
-                //     }, 4000)
-                // }
-                // 
             })
         } catch (e) {
             console.log("Error", e)
@@ -338,7 +331,15 @@ const Milklistcom = () => {
     console.log("newarr=>", newarr)
     return (
         <>
-            <div className='p-2 sm-0'>
+            <div className='p-2 sm-0' onClick={()=>{
+                if(togg === true){
+                    settogg(false)
+                }else if(togg2 === true){
+                    settogg2(false)
+                }else if(togg3 === true){
+                    settogg3(false)
+                }
+            }}>
                 <div className='container mt-4 chillingCenterCont'>
                     <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Milk Rate List</h3></div>
                     <div className='row mt-3'>

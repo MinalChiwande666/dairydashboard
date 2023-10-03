@@ -21,7 +21,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 const Customermastercom = () => {
     const [loader, setloader] = useState(false)
-    const [togg1, setTogg1] = useState(false)
     const [togg2, setTogg2] = useState(false)
     const [togg3, setTogg3] = useState(false)
     const [togg4, setTogg4] = useState(false)
@@ -42,14 +41,8 @@ const Customermastercom = () => {
     const [customerdata, setcustomerdata] = useState([])
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    const [hide1, sethide1] = useState(false)
-    const [inwardid, setinwardid] = useState()
     const [showtable, setshowtable] = useState(false)
     const [delid, setdelid] = useState()
-    const [hide2, sethide2] = useState(false)
-    const [hide3, sethide3] = useState(false)
-    const [hide4, sethide4] = useState(false)
-    const [hide5, sethide5] = useState(false)
     const [customerform, setcustomerform] = useState({
         "inwardId": "" || JSON.parse(localStorage.getItem("inwardId")) + 1,
         "customerName": "",
@@ -71,7 +64,7 @@ const Customermastercom = () => {
         "anniveryDate": "",
         "milkRateContract": "",
         "byProductRate": "",
-        "milkrate":"",
+        "milkrate": "",
         "iceCreamRate": "",
         "otherRate": "",
         "address": "",
@@ -111,16 +104,6 @@ const Customermastercom = () => {
 
     })
 
-    const customername = [
-        {
-            id: 1,
-            name: 'Neeraj'
-        },
-        {
-            id: 2,
-            name: 'pranay'
-        }
-    ]
     const accountgroup = [
         {
             id: 1,
@@ -251,10 +234,6 @@ const Customermastercom = () => {
                 }).then((res) => {
                     console.log(res)
                     localStorage.setItem('inwardid', JSON.stringify(res.data.inwardId))
-                    //    setcustomerform({
-                    //     ...customerform,
-                    //     inwardId:res.data.inwardId
-                    //    })
                     toast.success(`${res.message}`, {
                         position: "top-center",
                         autoClose: 5000,
@@ -267,79 +246,12 @@ const Customermastercom = () => {
                     })
                     setTimeout(() => {
                         window.location.reload()
-                      }, 2000);
+                    }, 2000);
                 })
         } catch (e) {
             alert(e, " <= Error")
         }
     }
-    const outerTheme = useTheme()
-    const customTheme = (outerTheme) =>
-        createTheme({
-            palette: {
-                mode: outerTheme.palette.mode,
-            },
-            components: {
-                MuiTextField: {
-                    styleOverrides: {
-                        root: {
-                            '--TextField-brandBorderColor': '#E0E3E7',
-                            '--TextField-brandBorderHoverColor': '#B2BAC2',
-                            '--TextField-brandBorderFocusedColor': '#6F7E8C',
-                            '& label.Mui-focused': {
-                                color: 'var(--TextField-brandBorderFocusedColor)',
-                            },
-                        },
-                    },
-                },
-                MuiOutlinedInput: {
-                    styleOverrides: {
-                        notchedOutline: {
-                            borderColor: 'var(--TextField-brandBorderColor)',
-                        },
-                        root: {
-                            [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-                                borderColor: 'var(--TextField-brandBorderHoverColor)',
-                            },
-                            [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-                                borderColor: 'var(--TextField-brandBorderFocusedColor)',
-                            },
-                        },
-                    },
-                },
-                MuiFilledInput: {
-                    styleOverrides: {
-                        root: {
-                            '&:before, &:after': {
-                                borderBottom: '2px solid var(--TextField-brandBorderColor)',
-                            },
-                            '&:hover:not(.Mui-disabled, .Mui-error):before': {
-                                borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-                            },
-                            '&.Mui-focused:after': {
-                                borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-                            },
-                        },
-                    },
-                },
-                MuiInput: {
-                    styleOverrides: {
-                        root: {
-                            '&:before': {
-                                borderBottom: '2px solid var(--TextField-brandBorderColor)',
-                            },
-                            '&:hover:not(.Mui-disabled, .Mui-error):before': {
-                                borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-                            },
-
-                            '&.Mui-focused:after': {
-                                borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-                            },
-                        },
-                    },
-                },
-            },
-        });
 
     const getcustomeralldata = async () => {
         setloader(true)
@@ -438,16 +350,50 @@ const Customermastercom = () => {
             </>
         )
     }
+
     useEffect(() => {
         getcustomeralldata()
     }, [])
+
     return (
 
         <>
             {loader ? <div className="loader-container">
                 <div className="spinner"></div>
             </div> :
-                <div className='container-fluid'>
+                <div className='container-fluid' onClick={() => {
+                    if (togg2 === true) {
+                        setTogg2(false)
+                    } else if (togg3 === true) {
+                        setTogg3(false)
+                    } else if (togg4 === true) {
+                        setTogg4(false)
+                    } else if (togg5 === true) {
+                        setTogg5(false)
+                    } else if (togg6 === true) {
+                        setTogg6(false)
+                    } else if (togg7 === true) {
+                        setTogg7(false)
+                    } else if (togg8 === true) {
+                        setTogg8(false)
+                    } else if (togg9 === true) {
+                        setTogg9(false)
+                    } else if (togg10 === true) {
+                        setTogg10(false)
+                    } else if (togg11 === true) {
+                        setTogg11(false)
+                    } else if (togg12 === true) {
+                        setTogg12(false)
+                    } else if (togg13 === true) {
+                        setTogg13(false)
+                    } else if (togg14 === true) {
+                        setTogg14(false)
+                    } else if (togg15 === true) {
+                        setTogg15(false)
+                    } else if (togg16 === true) {
+                        setTogg16(false)
+                    }
+                }}>
                     <ToastContainer position="top-center"
                         autoClose={5000}
                         hideProgressBar={false}
@@ -460,7 +406,7 @@ const Customermastercom = () => {
                         theme="light">
                     </ToastContainer>
 
-                    <div className='container mt-4 accCont' style={{ height: "80vh" }}>
+                    <div className='container mt-4 accCont' style={{ height: "84vh" }}>
                         {dailoge()}
                         <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Customer Master</h3></div>
                         <div className='row mt-4'>
@@ -478,80 +424,13 @@ const Customermastercom = () => {
                                 </Box>
                             </div>
 
-                            {/* <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-                                <div>
-                                    <TextField
-                                        variant='standard'
-                                        label="Customer Name"
-                                        value={customerform.customerName}
-                                        sx={{ width: "25ch" }}
-                                    />
-                                    {
-                                        togg1 ?
-                                            <div className='milkpurchaseselect'>
-                                                <ul className='d-flex justify-content-center flex-column m-0 p-0'>
-                                                    <>
-                                                        <li style={{ listStyle: 'none' }} onClick={(e) => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                customerName: e.target.value
-                                                            })
-                                                            setTogg1(false)
-                                                        }}>Neeraj</li>
-                                                    </>
-                                                </ul>
-                                            </div> : null
-                                    }
-                                </div>
-                                <div className='mt-4'>
-                                    <IconButton onClick={() => setTogg1(!togg1)}>
-                                        <KeyboardArrowDownIcon />
-                                    </IconButton>
-                                </div>
-                                <div className='col-12 col-md-3'>
 
-                                    <ThemeProvider theme={customTheme(outerTheme)}>
-                                        <TextField
-                                            value={customerform.customerName}
-                                            label="Customer name"
-                                            variant='standard'
-                                            onChange={(e) => {
-                                                setcustomerform({
-                                                    ...customerform,
-                                                    customerName: e.target.value
-                                                })
-                                            }}
-                                        />
-                                        <IconButton onClick={handleClick} >
-                                            <KeyboardArrowDownIcon className='dropicon' />
-
-                                        </IconButton>
-
-                                    </ThemeProvider>
-                                    <Menu
-                                        open={open}
-                                        anchorEl={anchorEl}
-                                        onClose={handleClose}
-                                        id="basic-menu">
-                                        <MenuItem>
-                                            Neeraj
-                                        </MenuItem>
-                                        <MenuItem>
-                                            Neeraj
-                                        </MenuItem>
-                                        <MenuItem>
-                                            Neeraj
-                                        </MenuItem>
-                                    </Menu>
-                                </div>
-                            </div> */}
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <Box component="form"
                                     sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
                                     autoComplete="off">
                                     <TextField
                                         value={customerform.customerName}
-                                        // style={{ pointerEvents: 'none' }}
                                         contentEditable={false}
                                         label="Customer Name" variant="standard"
                                         onChange={(e) => {
@@ -599,32 +478,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.accountGroup === "" ? "Select account type" : customerform.accountGroup}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                accountgroup.map((item, i) => (
-                                                    <>
-                                                        <li className="dropdown-item" onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                accountGroup: item.acctype
-                                                            })
-                                                        }}>{item.acctype}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -662,32 +515,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.gstState === "" ? "Select state" : customerform.gstState}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                gststate.map((item, i) => (
-                                                    <>
-                                                        <li className="dropdown-item" onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                gstState: item.name
-                                                            })
-                                                        }}>{item.name}
-                                                        </li></>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
 
@@ -726,32 +553,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.status === "" ? "Select status" : customerform.status}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                cstatus.map((item, i) => (
-                                                    <>
-                                                        <li className="dropdown-item" onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                status: item.stat
-                                                            })
-                                                        }}>{item.stat}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -788,32 +589,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.salesPerson === "" ? "Select sales person" : customerform.salesPerson}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                salesemployee.map((item, i) => (
-                                                    <>
-                                                        <li className="dropdown-item" onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                salesPerson: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -848,30 +623,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.category === "" ? "Select" : customerform.category}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                categories.map((item, i) => (
-                                                    <li className="dropdown-item" onClick={() => {
-                                                        setcustomerform({
-                                                            ...customerform,
-                                                            category: item.name
-                                                        })
-                                                    }}>{item.name}</li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -908,32 +659,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.typeOfGst === "" ? "Select" : customerform.typeOfGst}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                typegst.map((item, i) => (
-                                                    <>
-                                                        <li className="dropdown-item" onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                typeOfGst: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
 
@@ -966,27 +691,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.alias === "" ? "Select" : customerform.alias}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            <li className="dropdown-item" onClick={() => {
-                                                setcustomerform({
-                                                    ...customerform,
-                                                    alias: "Hlleo"
-                                                })
-                                            }}>Hello</li>
-
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -1035,28 +739,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.group1 === "" ? 'Select' : customerform.group1}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            <li className="dropdown-item" onClick={() => {
-                                                setcustomerform({
-                                                    ...customerform,
-
-                                                    group1: "hello"
-                                                })
-                                            }}>Hello</li>
-
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -1095,17 +777,6 @@ const Customermastercom = () => {
                                             })
                                         }} />
                                 </div>
-                                {/* <div>
-                                    <input type='date'
-                                        value={customerform.anniveryDate}
-                                        onChange={(e) => {
-                                            setcustomerform({
-                                                ...customerform,
-                                                anniveryDate: e.target.value
-                                            })
-                                        }}
-                                    />
-                                </div> */}
                             </div>
 
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -1160,32 +831,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.debitCredit === "" ? "Select" : customerform.debitCredit}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                creditdebit.map((item, i) => (
-                                                    <>
-                                                        <li className="dropdown-item" onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                debitCredit: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -1222,32 +867,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.selectRouteName === "" ? "Select" : customerform.selectRouteName}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                routename.map((item, i) => (
-                                                    <>
-                                                        <li className="dropdown-item" onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                selectRouteName: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
 
@@ -1304,32 +923,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.taxType === "" ? "Select" : customerform.taxType}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                taxtype.map((item, i) => (
-                                                    <>
-                                                        <li className="dropdown-item" onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                taxType: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -1366,32 +959,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                        <div className="dropdown">
-                                            <button
-                                                style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                                className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                {customerform.milkrate === "" ? "Select" : customerform.milkrate}
-                                                <div className='dropdown-toggle'>
-
-                                                </div>
-                                            </button>
-                                            <ul className="dropdown-menu">
-                                                {
-                                                    milkrate.map((item, i) => (
-                                                        <>
-                                                            <li className="dropdown-item" onClick={() => {
-                                                                setcustomerform({
-                                                                    ...customerform,
-                                                                    milkrate: item.name
-                                                                })
-                                                            }}>{item.name}</li>
-                                                        </>
-                                                    ))
-                                                }
-                                            </ul>
-                                        </div>
-                                    </div> */}
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -1428,32 +995,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                        <div className="dropdown">
-                                            <button
-                                                style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                                className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                {customerform.byProductRate === "" ? "Select" : customerform.byProductRate}
-                                                <div className='dropdown-toggle'>
-
-                                                </div>
-                                            </button>
-                                            <ul className="dropdown-menu">
-                                                {
-                                                    product.map((item, i) => (
-                                                        <>
-                                                            <li className="dropdown-item" onClick={() => {
-                                                                setcustomerform({
-                                                                    ...customerform,
-                                                                    byProductRate: item.name
-                                                                })
-                                                            }}>{item.name}</li>
-                                                        </>
-                                                    ))
-                                                }
-                                            </ul>
-                                        </div>
-                                    </div> */}
                             </div>
                         </div>
 
@@ -1494,32 +1035,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.iceCreamRate === "" ? "Select" : customerform.iceCreamRate}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                icecream.map((item, i) => (
-                                                    <>
-                                                        <li className="dropdown-item" onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                iceCreamRate: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div>
@@ -1555,32 +1070,6 @@ const Customermastercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.otherRate === "" ? "Select" : customerform.otherRate}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                otherate.map((item, i) => (
-                                                    <>
-                                                        <li className="dropdown-item" onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                otherRate: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -2030,23 +1519,23 @@ const Customermastercom = () => {
                             <table className="tableAccMaster table table-stripped">
                                 <thead >
                                     <tr >
-                                        <th style={{width:"150px"}}>Id</th>
-                                        <th style={{width:"150px"}}>Customer Name</th>
-                                        <th style={{width:"150px"}}>Opening Balance</th>
-                                        <th style={{width:"150px"}}>Debit/Credit</th>
-                                        <th style={{width:"150px"}}>Gst No</th>
-                                        <th style={{width:"150px"}}>Category</th>
-                                        <th style={{width:"150px"}}>Gst State</th>
-                                        <th style={{width:"150px"}}>Status</th>
-                                        <th style={{width:"150px"}}>Acount Group</th>
-                                        <th style={{width:"150px"}}>Area</th>
-                                        <th style={{width:"150px"}}>Mobile No</th>
-                                        <th style={{width:"150px"}}>Sales Person</th>
-                                        <th style={{width:"150px"}}>Contact Person</th>
-                                        <th style={{width:"150px"}}>Email Id</th>
-                                        <th style={{width:"150px"}}>Date of birth</th>
-                                        <th style={{width:"150px"}}>Route</th>
-                                        <th style={{width:"150px"}}>Delete</th>
+                                        <th style={{ width: "150px" }}>Id</th>
+                                        <th style={{ width: "150px" }}>Customer Name</th>
+                                        <th style={{ width: "150px" }}>Opening Balance</th>
+                                        <th style={{ width: "150px" }}>Debit/Credit</th>
+                                        <th style={{ width: "150px" }}>Gst No</th>
+                                        <th style={{ width: "150px" }}>Category</th>
+                                        <th style={{ width: "150px" }}>Gst State</th>
+                                        <th style={{ width: "150px" }}>Status</th>
+                                        <th style={{ width: "150px" }}>Acount Group</th>
+                                        <th style={{ width: "150px" }}>Area</th>
+                                        <th style={{ width: "150px" }}>Mobile No</th>
+                                        <th style={{ width: "150px" }}>Sales Person</th>
+                                        <th style={{ width: "150px" }}>Contact Person</th>
+                                        <th style={{ width: "150px" }}>Email Id</th>
+                                        <th style={{ width: "150px" }}>Date of birth</th>
+                                        <th style={{ width: "150px" }}>Route</th>
+                                        <th style={{ width: "150px" }}>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody className='border'>
@@ -2070,336 +1559,15 @@ const Customermastercom = () => {
                                                 <td>{item.emailID}</td>
                                                 <td>{item.dateofBirth}</td>
                                                 <td>{item.selectRouteName}</td>
-                                                <td><DeleteIcon onClick={() => dele(item.id)} style={{color:"red"}}/></td>
+                                                <td><DeleteIcon onClick={() => dele(item.id)} style={{ color: "red" }} /></td>
                                             </tr>
                                         ))
 
                                     }
                                 </tbody>
                             </table>
-                        </div> : null}
-
-                    {/* <>
-                        <div>
-                            <div className='row mt-4'>
-                                <div className='col-1 col-md-1'>
-                                    <IconButton
-                                        onClick={() => sethide1(!hide1)}
-                                    >
-                                        {hide1 ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                                    </IconButton>
-                                </div>
-                                <div className='col-11 col-md-11'>
-                                    <h6 className='text-center'>Contact And Address details</h6>
-                                    {
-                                        hide1 &&
-                                        <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
-                                            <table class="table ">
-                                                <caption>List of users</caption>
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Sr No</th>
-                                                        <th scope="col">Address</th>
-                                                        <th scope="col">Area</th>
-                                                        <th scope="col">Taluka</th>
-                                                        <th scope='col'>District</th>
-                                                        <th scope='col'>City</th>
-                                                        <th scope='col'>PinCode</th>
-                                                        <th scope='col'>State</th>
-                                                        <th scope='col'>Phone No</th>
-                                                        <th scope='col'>Mobile No</th>
-                                                        <th scope='col'>Transit Days</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><input value={customerform.address} onChange={(e) => setcustomerform({ ...customerform, address: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.area} onChange={(e) => setcustomerform({ ...customerform, area: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.taluka} onChange={(e) => setcustomerform({ ...customerform, taluka: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.district} onChange={(e) => setcustomerform({ ...customerform, district: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.city} onChange={(e) => setcustomerform({ ...customerform, city: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.pinCode} onChange={(e) => setcustomerform({ ...customerform, pinCode: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.state} onChange={(e) => setcustomerform({ ...customerform, state: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.phoneNo} onChange={(e) => setcustomerform({ ...customerform, phoneNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.mobileNo} onChange={(e) => setcustomerform({ ...customerform, mobileNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.transitDays} onChange={(e) => setcustomerform({ ...customerform, transitDays: e.target.value })} type='text' /></td>
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className='row mt-4'>
-                                <div className='col-1 col-md-1'>
-                                    <IconButton
-                                        onClick={() => sethide2(!hide2)}
-                                    >
-                                        {hide2 ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                                    </IconButton>
-                                </div>
-                                <div className='col-11 col-md-11'>
-                                    <h6 className='text-center'>Contact details</h6>
-                                    {
-                                        hide2 &&
-                                        <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
-                                            <table class="table ">
-                                                <caption>List of users</caption>
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Sr No</th>
-                                                        <th scope="col">Contact Person</th>
-                                                        <th scope="col">Mobile</th>
-                                                        <th scope="col">Designation</th>
-                                                        <th scope='col'>District</th>
-                                                        <th scope='col'>E-Mail</th>
-                                                        <th scope='col'>Date of Birth</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><input value={customerform.contactPerson} onChange={(e) => setcustomerform({ ...customerform, contactPerson: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.mobile} onChange={(e) => setcustomerform({ ...customerform, mobile: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.designation} onChange={(e) => setcustomerform({ ...customerform, designation: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.district} onChange={(e) => setcustomerform({ ...customerform, district: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.eMail} onChange={(e) => setcustomerform({ ...customerform, eMail: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.dateofBirth} onChange={(e) => setcustomerform({ ...customerform, dateofBirth: e.target.value })} type='date' /></td>
-
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className='row mt-4'>
-                                <div className='col-1 col-md-1'>
-                                    <IconButton
-                                        onClick={() => sethide3(!hide3)}
-                                    >
-                                        {hide3 ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                                    </IconButton>
-                                </div>
-                                <div className='col-11 col-md-11'>
-                                    <h6 className='text-center'>Account details</h6>
-                                    {
-                                        hide3 &&
-                                        <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
-                                            <table class="table ">
-                                                <caption>List of users</caption>
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Pass No</th>
-                                                        <th scope="col">Credit Days</th>
-                                                        <th scope="col">Intrest Calculation</th>
-                                                        <th scope="col">Customer Type</th>
-                                                        <th scope='col'>Intrest Calculation</th>
-                                                        <th scope='col'>Customer Type</th>
-                                                        <th scope='col'>FSSAI No</th>
-                                                        <th scope='col'>Credit Limit</th>
-                                                        <th scope='col'>Security Check</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><input value={customerform.panNo} onChange={(e) => setcustomerform({ ...customerform, panNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.creditDays} onChange={(e) => setcustomerform({ ...customerform, creditDays: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.interestCalculation} onChange={(e) => setcustomerform({ ...customerform, interestCalculation: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.customerType} onChange={(e) => setcustomerform({ ...customerform, customerType: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.fssaiNo} onChange={(e) => setcustomerform({ ...customerform, fssaiNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.creditLimit} onChange={(e) => setcustomerform({ ...customerform, creditLimit: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.securityCheck} onChange={(e) => setcustomerform({ ...customerform, securityCheck: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.fssaiED} onChange={(e) => setcustomerform({ ...customerform, fssaiED: e.target.value })} type='text' /></td>
-
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className='row mt-4'>
-                                <div className='col-1 col-md-1'>
-                                    <IconButton
-                                        onClick={() => sethide4(!hide4)}
-                                    >
-                                        {hide4 ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                                    </IconButton>
-                                </div>
-                                <div className='col-11 col-md-11'>
-                                    <h6 className='text-center'>Bank details</h6>
-                                    {
-                                        hide4 &&
-                                        <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
-                                            <table class="table ">
-
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Sr No</th>
-                                                        <th scope="col">Account No</th>
-                                                        <th scope="col">Bank Name</th>
-                                                        <th scope="col">Branch</th>
-                                                        <th scope='col'>IFSC No</th>
-                                                        <th scope='col'>MICR No</th>
-                                                        <th scope='col'>Address</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><input value={customerform.accountNo} onChange={(e) => setcustomerform({ ...customerform, accountNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.bankName} onChange={(e) => setcustomerform({ ...customerform, bankName: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.branch} onChange={(e) => setcustomerform({ ...customerform, branch: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.ifscNo} onChange={(e) => setcustomerform({ ...customerform, ifscNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.micrNo} onChange={(e) => setcustomerform({ ...customerform, micrNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.address1} onChange={(e) => setcustomerform({ ...customerform, address1: e.target.value })} type='text' /></td>
-
-
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className='row mt-4'>
-                                <div className='col-1 col-md-1'>
-                                    <IconButton
-                                        onClick={() => sethide5(!hide5)}
-                                    >
-                                        {hide5 ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                                    </IconButton>
-                                </div>
-                                <div className='col-11 col-md-11'>
-                                    <h6 className='text-center'>Create Ledger</h6>
-                                    {
-                                        hide5 &&
-                                        <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
-                                            <table class="table ">
-
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Sr No</th>
-                                                        <th scope="col">Sub Ledger Name</th>
-                                                        <th scope="col">Group</th>
-                                                        <th scope="col">AMID</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><input value={customerform.subLedgerName} type='text' onChange={(e) => setcustomerform({ ...customerform, subLedgerName: e.target.value })} /></td>
-                                                        <td><input value={customerform.grp} onChange={(e) => setcustomerform({ ...customerform, grp: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.amid} onChange={(e) => setcustomerform({ ...customerform, amid: e.target.value })} type='text' /></td>
-
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div className='mt-3'>
-                            <button onClick={() => setshowtable(!showtable)} className='bg-primary border border-none border-rounded text-white'>Customer data</button>
-                        </div>
-
-
-                        {showtable ? <div className='col-12 mt-3 col-md-10' style={{ width: '100%', overflowX: 'scroll', height: '50vh', overflowY: 'scroll' }}>
-                            <table class="table border">
-                                <thead >
-                                    <tr >
-                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Id</th>
-                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Customer Name</th>
-                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Opening Balance</th>
-                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Debit/Credit</th>
-                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Gst No</th>
-                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Category</th>
-                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Gst State</th>
-                                        <th className='bg-light border border-left' scope="col" style={{ fontSize: '0.7rem' }}>Status</th>
-                                        <th className='bg-light border border-left' scope='col' style={{ fontSize: '0.7rem' }}>Acount Group</th>
-                                        <th className='bg-light border border-left' scope='col' style={{ fontSize: '0.7rem' }}>Area</th>
-                                        <th className='bg-light border border-left' scope='col' style={{ fontSize: '0.7rem' }}>Mobile No</th>
-                                        <th className='bg-light border border-left' scope='col' style={{ fontSize: '0.7rem' }}>Sales Person</th>
-                                        <th className='bg-light border border-left' scope='col' style={{ fontSize: '0.7rem' }}>Contact Person</th>
-                                        <th className='bg-light border border-left' scope='col' style={{ fontSize: '0.7rem' }}>Email Id</th>
-                                        <th className='bg-light border border-left' scope='col' style={{ fontSize: '0.7rem' }}>Date of birth</th>
-                                        <th className='bg-light border border-left' scope='col' style={{ fontSize: '0.7rem' }}>Route</th>
-                                        <th className='bg-light border border-left' scope='col' style={{ fontSize: '0.7rem' }}>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody className='border'>
-
-                                    {
-                                        customerdata.map((item, i) => (
-                                            <tr>
-                                                <th scope="row">{item.id}</th>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.customerName}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.openingBalance}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.debitCredit}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.gstNo}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.category}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.gstState}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.status}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.accountGroup}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.area}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.mobileNo}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.salesPerson}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.contactPerson}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.emailID}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.dateofBirth}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}>{item.selectRouteName}</td>
-                                                <td className='border border-left' style={{ fontSize: '0.7rem' }}><DeleteIcon onClick={() => dele(item.id)} /></td>
-                                            </tr>
-                                        ))
-
-                                    }
-                                </tbody>
-                            </table>
-                        </div> : null}
-
-                        <div className='row'>
-                            <div className='col-3 my-3'>
-                                <button
-                                    onClick={() => save()}
-                                    className='bg-primary text-white border border-none rounded'>Save</button>
-                            </div>
-                        </div>
-
-                    </> */}
+                        </div> : null
+                    }
                 </div>
             }
         </>

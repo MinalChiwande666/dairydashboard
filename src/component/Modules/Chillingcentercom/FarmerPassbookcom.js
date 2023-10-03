@@ -1,81 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { TextField } from "@mui/material";
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
-import axios, { all } from "axios";
-import { convertLength } from "@mui/material/styles/cssUtils";
 import Farmertable from "./Farmertable";
 import ReactToPrint, { useReactToPrint } from "react-to-print";
 import { IconButton } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
-
-const customTheme = (outerTheme) =>
-  createTheme({
-    palette: {
-      mode: outerTheme.palette.mode,
-    },
-    components: {
-      MuiTextField: {
-        styleOverrides: {
-          root: {
-            '--TextField-brandBorderColor': '#E0E3E7',
-            '--TextField-brandBorderHoverColor': '#B2BAC2',
-            '--TextField-brandBorderFocusedColor': '#6F7E8C',
-            '& label.Mui-focused': {
-              color: 'var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-      MuiOutlinedInput: {
-        styleOverrides: {
-          notchedOutline: {
-            borderColor: 'var(--TextField-brandBorderColor)',
-          },
-          root: {
-            [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-              borderColor: 'var(--TextField-brandBorderHoverColor)',
-            },
-            [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-              borderColor: 'var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-      MuiFilledInput: {
-        styleOverrides: {
-          root: {
-            '&:before, &:after': {
-              borderBottom: '2px solid var(--TextField-brandBorderColor)',
-            },
-            '&:hover:not(.Mui-disabled, .Mui-error):before': {
-              borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-            },
-            '&.Mui-focused:after': {
-              borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-      MuiInput: {
-        styleOverrides: {
-          root: {
-            '&:before': {
-              borderBottom: '2px solid var(--TextField-brandBorderColor)',
-            },
-            '&:hover:not(.Mui-disabled, .Mui-error):before': {
-              borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-            },
-
-            '&.Mui-focused:after': {
-              borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-    },
-  });
 
 
 
@@ -83,7 +12,6 @@ const FarmerPassbookcom = () => {
   const [togg, settogg] = useState(false)
   const [showtable, setshowtable] = useState(false)
   const [allusers, setallusers] = useState([])
-  const [total, settotal] = useState(0)
   const [suppId, setSuppId] = useState([])
   const [supplierId, setSupplierId] = useState('')
   const outerTheme = useTheme()
@@ -93,10 +21,6 @@ const FarmerPassbookcom = () => {
   })
   const [id, setid] = useState({
     sid: ''
-  })
-
-  const [supplier, setsupplier] = useState({
-    supname: ''
   })
 
   const componentref = useRef()
@@ -132,19 +56,17 @@ const FarmerPassbookcom = () => {
 
   }, [])
 
-
-
   const handleprint = useReactToPrint({
     content: () => componentref.current
   })
 
-
-
-
   return (
     <>
-
-      <div className="p-2 sm-0">
+      <div className="p-2 sm-0" onClick={()=>{
+        if(togg === true){
+          settogg(false)
+        }
+      }}>
         <div className="container mt-4 chillingCenterCont" style={{height:"35vh"}}>
           <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Farmer Passbook</h3></div>
           <div className="row mt-3">
@@ -183,7 +105,6 @@ const FarmerPassbookcom = () => {
 
             <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
               <div className="d-flex flex-column">
-                <ThemeProvider theme={customTheme(outerTheme)}>
                   <label style={{ fontSize: "14px" }}>
                     From Date
                   </label>
@@ -195,14 +116,11 @@ const FarmerPassbookcom = () => {
                         fdate: e.target.value
                       })
                     }} />
-
-                </ThemeProvider>
               </div>
             </div>
 
             <div className='col-12 col-lg-6 col-xl-4 col-md-6 d-flex justify-content-center align-items-center'>
               <div className="d-flex flex-column">
-                <ThemeProvider theme={customTheme(outerTheme)}>
                   <label style={{ fontSize: "14px" }}>
                     To Date
                   </label>
@@ -214,7 +132,6 @@ const FarmerPassbookcom = () => {
                         tdate: e.target.value
                       })
                     }} />
-                </ThemeProvider>
               </div>
             </div>
           </div>

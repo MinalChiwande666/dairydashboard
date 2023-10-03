@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField'
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
-import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { toast, ToastContainer } from 'react-toastify'
@@ -26,14 +22,8 @@ const Suppliercom = () => {
     const [customerdata, setcustomerdata] = useState([])
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    const [hide1, sethide1] = useState(false)
     const [delid, setdelid] = useState()
     const [tableshow, setdshowtable] = useState(false)
-    const [hide2, sethide2] = useState(false)
-    const [hide3, sethide3] = useState(false)
-    const [hide4, sethide4] = useState(false)
-    const [hide5, sethide5] = useState(false)
-
     const [togg1, setTogg1] = useState(false)
     const [togg2, setTogg2] = useState(false)
     const [togg3, setTogg3] = useState(false)
@@ -42,13 +32,12 @@ const Suppliercom = () => {
     const [togg6, setTogg6] = useState(false)
     const [togg7, setTogg7] = useState(false)
     const [togg8, setTogg8] = useState(false)
-    const [togg9, setTogg9] = useState(false)
-    const [togg10, setTogg10] = useState(false)
     const [suppno,setSuppno] = useState()
 
 
     const [customerform, setcustomerform] = useState({
         "supplierName": "",
+        "supplierId":null,
         "grp": "",
         "openingBalance": "",
         "alias": "",
@@ -92,88 +81,8 @@ const Suppliercom = () => {
         "address1": "",
         "subLedgerName": " ",
         "group1": ""
-
-
-
     })
-    const outerTheme = useTheme()
-    const customTheme = (outerTheme) =>
-        createTheme({
-            palette: {
-                mode: outerTheme.palette.mode,
-            },
-            components: {
-                MuiTextField: {
-                    styleOverrides: {
-                        root: {
-                            '--TextField-brandBorderColor': '#E0E3E7',
-                            '--TextField-brandBorderHoverColor': '#B2BAC2',
-                            '--TextField-brandBorderFocusedColor': '#6F7E8C',
-                            '& label.Mui-focused': {
-                                color: 'var(--TextField-brandBorderFocusedColor)',
-                            },
-                        },
-                    },
-                },
-                MuiOutlinedInput: {
-                    styleOverrides: {
-                        notchedOutline: {
-                            borderColor: 'var(--TextField-brandBorderColor)',
-                        },
-                        root: {
-                            [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-                                borderColor: 'var(--TextField-brandBorderHoverColor)',
-                            },
-                            [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-                                borderColor: 'var(--TextField-brandBorderFocusedColor)',
-                            },
-                        },
-                    },
-                },
-                MuiFilledInput: {
-                    styleOverrides: {
-                        root: {
-                            '&:before, &:after': {
-                                borderBottom: '2px solid var(--TextField-brandBorderColor)',
-                            },
-                            '&:hover:not(.Mui-disabled, .Mui-error):before': {
-                                borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-                            },
-                            '&.Mui-focused:after': {
-                                borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-                            },
-                        },
-                    },
-                },
-                MuiInput: {
-                    styleOverrides: {
-                        root: {
-                            '&:before': {
-                                borderBottom: '2px solid var(--TextField-brandBorderColor)',
-                            },
-                            '&:hover:not(.Mui-disabled, .Mui-error):before': {
-                                borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-                            },
 
-                            '&.Mui-focused:after': {
-                                borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-                            },
-                        },
-                    },
-                },
-            },
-        });
-
-    const customername = [
-        {
-            id: 1,
-            name: 'Neeraj'
-        },
-        {
-            id: 2,
-            name: 'pranay'
-        }
-    ]
     const category = [
         {
             id: 1,
@@ -188,12 +97,14 @@ const Suppliercom = () => {
             name: 'Importers'
         }
     ]
+    
     const accountgroup = [
         {
             id: 1,
             acctype: 'Sundry Debtors'
         }
     ]
+
     const gststate = [
         {
             id: 1,
@@ -208,6 +119,7 @@ const Suppliercom = () => {
             name: 'Madhyapradesh'
         }
     ]
+
     const cstatus = [
         {
             id: 1,
@@ -218,6 +130,7 @@ const Suppliercom = () => {
             stat: 'In-Active'
         }
     ]
+
     const salesemployee = [
         {
             id: 1,
@@ -228,6 +141,7 @@ const Suppliercom = () => {
             name: 'Pravin'
         }
     ]
+
     const typegst = [
         {
             id: 1,
@@ -253,16 +167,7 @@ const Suppliercom = () => {
             name: 'Credit'
         }
     ]
-    const routename = [
-        {
-            id: 1,
-            name: 'A'
-        },
-        {
-            id: 2,
-            name: 'B'
-        }
-    ]
+
     const taxtype = [
         {
             id: 1,
@@ -277,33 +182,55 @@ const Suppliercom = () => {
             name: 'TCS'
         }
     ]
-    const milkrate = [
-        {
-            id: 1,
-            name: 'milkrate'
-        }
-    ]
-    const product = [
-        {
-            id: 1,
-            name: 'By Product'
-        }
-    ]
-    const icecream = [
-        {
-            id: 1,
-            name: 'ice cream'
-        }
-    ]
-    const otherate = [
-        {
-            id: 1,
-            name: 'Other Rate'
-        }
-    ]
+
     const save = () => {
-        // alert(customerform)
-        console.log(customerform)
+        let newobj = {
+            "supplierName": String(customerform?.supplierName),
+            "supplierId":Number(suppno),
+            "grp": String(customerform?.grp),
+            "openingBalance": String(customerform?.openingBalance),
+            "alias": String(customerform?.alias),
+            "salesPerson":String(customerform?.salesPerson),
+            "gstState":String(customerform?.gstState),
+            "gstNo": String(customerform?.gstNo),
+            "category": String(customerform?.category),
+            "debitCredit": String(customerform?.debitCredit),
+            "status": String(customerform?.status),
+            "description": String(customerform?.description),
+            "accountgrp": String(customerform?.accountgrp),
+            "taxType": String(customerform?.taxType),
+            "typeOfGst": String(customerform?.typeOfGst),
+            "emailID": String(customerform?.emailID),
+            "mainLedger": String(customerform?.mainLedger),
+            "address": String(customerform?.address),
+            "area": String(customerform?.area),
+            "taluka": String(customerform?.taluka),
+            "district": String(customerform?.district),
+            "city": String(customerform?.city),
+            "pinCode": String(customerform?.pinCode),
+            "state": String(customerform?.state),
+            "phoneNo": String(customerform?.phoneNo),
+            "mobileNo": String(customerform?.mobileNo),
+            "contactPerson": String(customerform?.contactPerson),
+            "mobile": String(customerform?.mobile),
+            "designation": String(customerform?.designation),
+            "eMail": String(customerform?.eMail),
+            "dateofBirth": String(customerform?.dateofBirth),
+            "buyerName": String(customerform?.buyerName),
+            "creditDays": String(customerform?.creditDays),
+            "fssaiNo": String(customerform?.fssaiNo),
+            "creditLimit": String(customerform?.creditLimit),
+            "panNo": String(customerform?.panNo),
+            "interestCalculation": String(customerform?.interestCalculation),
+            "accountNo": String(customerform?.accountNo),
+            "bankName": String(customerform?.bankName),
+            "branch": String(customerform?.branch),
+            "ifscNo": String(customerform?.ifscNo),
+            "micrNo": String(customerform?.micrNo),
+            "address1": String(customerform?.address1),
+            "subLedgerName": String(customerform?.subLedgerName),
+            "group1": String(customerform?.group1)
+        }
         try {
             fetch('http://103.38.50.113:8080/DairyApp/saveSupplierMaster',
                 {
@@ -311,11 +238,10 @@ const Suppliercom = () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(customerform)
+                    body: JSON.stringify(newobj)
                 }).then((data) => {
                     return data.json()
                 }).then((res) => {
-                    // console.log(res)
                     toast.success(`${res.message}`, {
                         position: "top-center",
                         autoClose: 5000,
@@ -326,10 +252,10 @@ const Suppliercom = () => {
                         progress: undefined,
                         theme: "light",
                     })
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 2000);
                 })
+                setTimeout(() => {
+                    window.location.reload()
+                  }, 2000);
         } catch (e) {
             alert(e, " <= Error")
         }
@@ -345,17 +271,21 @@ const Suppliercom = () => {
             setcustomerdata(alldata)
         }
     }
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
         setopendailogdel(false)
     };
+
     const dele = (id) => {
         setdelid(id)
         setopendailogdel(true)
     }
+
     const handledel = () => {
         let delobj = {
             "id": String(delid)
@@ -376,17 +306,18 @@ const Suppliercom = () => {
                 if (resdel) {
                     setopendailogdel(false)
                     getcustomeralldata()
+                    getsuppidnext()
                 }
             })
         } catch (e) {
             console.log(e, "Error")
         }
     }
+
     const dailoge = () => {
         return (
             <>
                 <Dialog
-
                     open={opendailogdel}
                     TransitionComponent={Transition}
                     keepMounted
@@ -412,25 +343,56 @@ const Suppliercom = () => {
             </>
         )
     }
-    useEffect(() => {
-        getcustomeralldata()
+
+    const getsuppidnext = ()=>{
         fetch("http://103.38.50.113:8080/DairyApp/getNextSupplierId").then((data)=>{
             return data.json()
         }).then((res)=>{
             console.log(res)
             setSuppno(res)
         })
-    })
+    }
+    useEffect(() => {
+        getsuppidnext() 
+    },[])
 
-
+    useEffect(() => {
+        getcustomeralldata()
+    },[])
     
+
 
     return (
         <>
             {loader ? <div className="loader-container">
                 <div className="spinner"></div>
             </div> :
-                <div className='container-fluid'>
+                <div className='container-fluid' onClick={()=>{
+                    if(togg1 === true){
+                        setTogg1(false)
+                    }
+                    else if(togg2 === true){
+                        setTogg2(false)
+                    }
+                    else if(togg3 === true){
+                        setTogg3(false)
+                    }
+                    else if(togg4 === true){
+                        setTogg4(false)
+                    }
+                    else if(togg5 === true){
+                        setTogg5(false)
+                    }
+                    else if(togg6 === true){
+                        setTogg6(false)
+                    }
+                    else if(togg7 === true){
+                        setTogg7(false)
+                    }
+                    else if(togg8 === true){
+                        setTogg8(false)
+                    }
+                }}>
                     <ToastContainer position="top-center"
                         autoClose={5000}
                         hideProgressBar={false}
@@ -443,7 +405,7 @@ const Suppliercom = () => {
                         theme="light">
                     </ToastContainer>
 
-                    <div className='container mt-4 accCont' style={{ height: "75vh" }}>
+                    <div className='container mt-4 accCont' style={{ height: "65vh" }}>
                         {dailoge()}
                         <div><h3 className='text-center pt-3' style={{ textDecoration: "underline" }}>Supplier Master</h3></div>
                         <div className='row mt-4'>
@@ -466,7 +428,6 @@ const Suppliercom = () => {
                                     autoComplete="off">
                                     <TextField
                                         value={customerform.supplierName}
-                                        // style={{ pointerEvents: 'none' }}
                                         label="Supplier Name." variant="standard"
                                         onChange={(e)=>{
                                             setcustomerform({
@@ -512,32 +473,6 @@ const Suppliercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.accountgrp === "" ? "Select account type" : customerform.accountgrp}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                accountgroup.map((item, i) => (
-                                                    <>
-                                                        <li className='dropdown-item' onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                accountgrp: item.acctype
-                                                            })
-                                                        }}>{item.acctype}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -575,32 +510,6 @@ const Suppliercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.gstState === "" ? "Select state" : customerform.gstState}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                gststate.map((item, i) => (
-                                                    <>
-                                                        <li className='dropdown-item' onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                gstState: item.name
-                                                            })
-                                                        }}>{item.name}
-                                                        </li></>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
 
@@ -639,32 +548,7 @@ const Suppliercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.status === "" ? "Select status" : customerform.status}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                cstatus.map((item, i) => (
-                                                    <>
-                                                        <li className='dropdown-item' onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                status: item.stat
-                                                            })
-                                                        }}>{item.stat}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
+                               
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -701,32 +585,6 @@ const Suppliercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.salesPerson === "" ? "Select sales person" : customerform.salesPerson}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                salesemployee.map((item, i) => (
-                                                    <>
-                                                        <li className='dropdown-item' onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                salesPerson: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -761,30 +619,6 @@ const Suppliercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.category === "" ? "Select" : customerform.category}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                category.map((item, i) => (
-                                                    <li className='dropdown-item' onClick={() => {
-                                                        setcustomerform({
-                                                            ...customerform,
-                                                            category: item.name
-                                                        })
-                                                    }}>{item.name}</li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -821,87 +655,10 @@ const Suppliercom = () => {
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.typeOfGst === "" ? "Select" : customerform.typeOfGst}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                typegst.map((item, i) => (
-                                                    <>
-                                                        <li className='dropdown-item' onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                typeOfGst: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
 
                         <div className='row mt-3'>
-                            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-                                <div>
-                                    <TextField
-                                        variant='standard'
-                                        label="Alias"
-                                        value={customerform.alias === "" ? "Select" : customerform.alias}
-                                        sx={{ width: "25ch" }}
-                                    />
-                                    {
-                                        togg7 ?
-                                            <div className='milkpurchaseselect'>
-                                                <ul className='d-flex justify-content-center flex-column m-0 p-0'>
-                                                    <li style={{ listStyle: 'none' }} onClick={() => {
-                                                        setcustomerform({
-                                                            ...customerform,
-                                                            alias: "Hello"
-                                                        })
-                                                        setTogg7(false)
-                                                    }}>Hello</li>
-                                                </ul>
-                                            </div> : null
-                                    }
-                                </div>
-                                <div className='mt-4'>
-                                    <IconButton onClick={() => setTogg7(!togg7)}>
-                                        <KeyboardArrowDownIcon />
-                                    </IconButton>
-                                </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.alias === "" ? "Select" : customerform.alias}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            <li className='dropdown-item' onClick={() => {
-                                                setcustomerform({
-                                                    ...customerform,
-                                                    alias: "Hlleo"
-                                                })
-                                            }}>Hello</li>
-
-                                        </ul>
-                                    </div>
-                                </div> */}
-                            </div>
-
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <Box component="form"
                                     sx={{ '& > :not(style)': { m: 1, width: '30ch' } }}
@@ -920,57 +677,6 @@ const Suppliercom = () => {
                                 </Box>
                             </div>
 
-                            <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
-                                <div>
-                                    <TextField
-                                        variant='standard'
-                                        label="Group"
-                                        value={customerform.group1 === "" ? 'Select' : customerform.group1}
-                                        sx={{ width: "25ch" }}
-                                    />
-                                    {
-                                        togg8 ?
-                                            <div className='milkpurchaseselect'>
-                                                <ul className='d-flex justify-content-center flex-column m-0 p-0'>
-                                                    <li style={{ listStyle: 'none' }} onClick={() => {
-                                                        setcustomerform({
-                                                            ...customerform,
-                                                            group1: "hello"
-                                                        })
-                                                        setTogg8(false)
-                                                    }}>Hello</li>
-                                                </ul>
-                                            </div> : null
-                                    }
-                                </div>
-                                <div className='mt-4'>
-                                    <IconButton onClick={() => setTogg8(!togg8)}>
-                                        <KeyboardArrowDownIcon />
-                                    </IconButton>
-                                </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.group1 === "" ? 'Select' : customerform.group1}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            <li className='dropdown-item' onClick={() => {
-                                                setcustomerform({
-                                                    ...customerform,
-
-                                                    group1: "hello"
-                                                })
-                                            }}>Hello</li>
-
-                                        </ul>
-                                    </div>
-                                </div> */}
-                            </div>
 
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <Box component="form"
@@ -989,9 +695,7 @@ const Suppliercom = () => {
                                     />
                                 </Box>
                             </div>
-                        </div>
 
-                        <div className='row mt-3'>
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div className="d-flex flex-column">
                                     <label style={{ fontSize: "14px" }}>
@@ -1008,17 +712,6 @@ const Suppliercom = () => {
                                             })
                                         }} />
                                 </div>
-                                {/* <div>
-                                    <input type='date'
-                                        value={customerform.anniveryDate}
-                                        onChange={(e) => {
-                                            setcustomerform({
-                                                ...customerform,
-                                                anniveryDate: e.target.value
-                                            })
-                                        }}
-                                    />
-                                </div> */}
                             </div>
 
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -1038,7 +731,9 @@ const Suppliercom = () => {
                                     />
                                 </Box>
                             </div>
+                        </div>
 
+                        <div className='row mt-3'>
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div>
                                     <TextField
@@ -1048,7 +743,7 @@ const Suppliercom = () => {
                                         sx={{ width: "25ch" }}
                                     />
                                     {
-                                        togg9 ?
+                                        togg7 ?
                                             <div className='milkpurchaseselect'>
                                                 <ul className='d-flex justify-content-center flex-column m-0 p-0'>
                                                     {
@@ -1059,7 +754,7 @@ const Suppliercom = () => {
                                                                         ...customerform,
                                                                         debitCredit: item.name
                                                                     })
-                                                                    setTogg9(false)
+                                                                    setTogg7(false)
                                                                 }}>{item.name}</li>
                                                             </>
                                                         ))
@@ -1069,36 +764,10 @@ const Suppliercom = () => {
                                     }
                                 </div>
                                 <div className='mt-4'>
-                                    <IconButton onClick={() => setTogg9(!togg9)}>
+                                    <IconButton onClick={() => setTogg7(!togg7)}>
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.debitCredit === "" ? "Select" : customerform.debitCredit}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                creditdebit.map((item, i) => (
-                                                    <>
-                                                        <li className='dropdown-item' onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                debitCredit: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
 
                             <div className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
@@ -1118,9 +787,7 @@ const Suppliercom = () => {
                                     />
                                 </Box>
                             </div>
-                        </div>
 
-                        <div className='row mt-3'>
                             <div style={{ position: 'relative' }} className='col-12 col-lg-6 col-xl-3 col-md-6 d-flex justify-content-center align-items-center'>
                                 <div>
                                     <TextField
@@ -1130,7 +797,7 @@ const Suppliercom = () => {
                                         sx={{ width: "25ch" }}
                                     />
                                     {
-                                        togg10 ?
+                                        togg8 ?
                                             <div className='milkpurchaseselect'>
                                                 <ul className='d-flex justify-content-center flex-column m-0 p-0'>
                                                     {
@@ -1141,7 +808,7 @@ const Suppliercom = () => {
                                                                         ...customerform,
                                                                         taxType: item.name
                                                                     })
-                                                                    setTogg10(false)
+                                                                    setTogg8(false)
                                                                 }}>{item.name}</li>
                                                             </>
                                                         ))
@@ -1149,39 +816,12 @@ const Suppliercom = () => {
                                                 </ul>
                                             </div> : null
                                     }
-
                                 </div>
                                 <div className='mt-4'>
-                                    <IconButton onClick={() => setTogg10(!togg10)}>
+                                    <IconButton onClick={() => setTogg8(!togg8)}>
                                         <KeyboardArrowDownIcon />
                                     </IconButton>
                                 </div>
-                                {/* <div>
-                                    <div className="dropdown">
-                                        <button
-                                            style={{ width: '80%', textAlign: 'start', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem' }}
-                                            className="btn bg-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {customerform.taxType === "" ? "Select" : customerform.taxType}
-                                            <div className='dropdown-toggle'>
-
-                                            </div>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            {
-                                                taxtype.map((item, i) => (
-                                                    <>
-                                                        <li className='dropdown-item' onClick={() => {
-                                                            setcustomerform({
-                                                                ...customerform,
-                                                                taxType: item.name
-                                                            })
-                                                        }}>{item.name}</li>
-                                                    </>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -1581,274 +1221,6 @@ const Suppliercom = () => {
                     </div>
 
 
-
-                    {/* <>
-                        <div>
-                            <div className='row mt-4'>
-                                <div className='col-1 col-md-1'>
-                                    <IconButton
-                                        onClick={() => sethide1(!hide1)}
-                                    >
-                                        {hide1 ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                                    </IconButton>
-                                </div>
-                                <div className='col-11 col-md-11'>
-                                    <h6 className='text-center'>Contact And Address details</h6>
-                                    {
-                                        hide1 &&
-                                        <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
-                                            <table class="table ">
-                                                <caption>List of users</caption>
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Sr No</th>
-                                                        <th scope="col">Address</th>
-                                                        <th scope="col">Area</th>
-                                                        <th scope="col">Taluka</th>
-                                                        <th scope='col'>District</th>
-                                                        <th scope='col'>City</th>
-                                                        <th scope='col'>PinCode</th>
-                                                        <th scope='col'>State</th>
-                                                        <th scope='col'>Phone No</th>
-                                                        <th scope='col'>Mobile No</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><input value={customerform.address} onChange={(e) => setcustomerform({ ...customerform, address: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.area} onChange={(e) => setcustomerform({ ...customerform, area: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.taluka} onChange={(e) => setcustomerform({ ...customerform, taluka: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.district} onChange={(e) => setcustomerform({ ...customerform, district: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.city} onChange={(e) => setcustomerform({ ...customerform, city: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.pinCode} onChange={(e) => setcustomerform({ ...customerform, pinCode: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.state} onChange={(e) => setcustomerform({ ...customerform, state: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.phoneNo} onChange={(e) => setcustomerform({ ...customerform, phoneNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.mobileNo} onChange={(e) => setcustomerform({ ...customerform, mobileNo: e.target.value })} type='text' /></td>
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className='row mt-4'>
-                                <div className='col-1 col-md-1'>
-                                    <IconButton
-                                        onClick={() => sethide2(!hide2)}
-                                    >
-                                        {hide2 ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                                    </IconButton>
-                                </div>
-                                <div className='col-11 col-md-11'>
-                                    <h6 className='text-center'>Contact details</h6>
-                                    {
-                                        hide2 &&
-                                        <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
-                                            <table class="table ">
-                                                <caption>List of users</caption>
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Sr No</th>
-                                                        <th scope="col">Contact Person</th>
-                                                        <th scope="col">Mobile</th>
-                                                        <th scope="col">Designation</th>
-                                                        <th scope='col'>E-Mail</th>
-                                                        <th scope='col'>Date of Birth</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><input value={customerform.contactPerson} onChange={(e) => setcustomerform({ ...customerform, contactPerson: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.mobile} onChange={(e) => setcustomerform({ ...customerform, mobile: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.designation} onChange={(e) => setcustomerform({ ...customerform, designation: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.eMail} onChange={(e) => setcustomerform({ ...customerform, eMail: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.dateofBirth} onChange={(e) => setcustomerform({ ...customerform, dateofBirth: e.target.value })} type='date' /></td>
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className='row mt-4'>
-                                <div className='col-1 col-md-1'>
-                                    <IconButton
-                                        onClick={() => sethide3(!hide3)}
-                                    >
-                                        {hide3 ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                                    </IconButton>
-                                </div>
-                                <div className='col-11 col-md-11'>
-                                    <h6 className='text-center'>Account details</h6>
-                                    {
-                                        hide3 &&
-                                        <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
-                                            <table class="table ">
-
-                                                <thead>
-                                                    <tr>
-
-                                                        <th scope="col">Buyer Name</th>
-                                                        <th scope='col'>FSSAI No</th>
-                                                        <th scope='col'>PAN No</th>
-                                                        <th scope="col">Credit Days</th>
-                                                        <th scope='col'>Credit Limit</th>
-                                                        <th scope='col'>FSSAI Ed</th>
-                                                        <th scope='col'>Intrest Calculation</th>
-
-
-
-
-
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-
-                                                        <td>
-                                                            <div className='dropdown'>
-                                                                <button style={{ fontSize: '0.8rem', width: '7vw' }} className="btn bg-light d-flex align-items-center justify-content-between" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select
-                                                                    <div className='dropdown-toggle'>
-
-                                                                    </div>
-                                                                </button>
-                                                                <ul className='dropdown-menu'>
-                                                                    <li>Hello</li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
-                                                        <td><input style={{ width: '10vw' }} value={customerform.buyerName} onChange={(e) => setcustomerform({ ...customerform, buyerName: e.target.value })} type='text' /></td>
-                                                        <td><input style={{ width: '10vw' }} value={customerform.fssaiNo} onChange={(e) => setcustomerform({ ...customerform, fssaiNo: e.target.value })} type='text' /></td>
-                                                        <td><input style={{ width: '10vw' }} value={customerform.panNo} onChange={(e) => setcustomerform({ ...customerform, panNo: e.target.value })} type='text' /></td>
-                                                        <td><input style={{ width: '10vw' }} value={customerform.creditDays} onChange={(e) => setcustomerform({ ...customerform, creditDays: e.target.value })} type='text' /></td>
-                                                        <td><input style={{ width: '10vw' }} value={customerform.creditLimit} onChange={(e) => setcustomerform({ ...customerform, creditLimit: e.target.value })} type='text' /></td>
-                                                        <td><input style={{ width: '10vw' }} value={customerform.fssaiED} onChange={(e) => setcustomerform({ ...customerform, fssaiED: e.target.value })} type='text' /></td>
-                                                        <td><input style={{ width: '10vw' }} value={customerform.interestCalculation} onChange={(e) => setcustomerform({ ...customerform, interestCalculation: e.target.value })} type='text' /></td>
-
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className='row mt-4'>
-                                <div className='col-1 col-md-1'>
-                                    <IconButton
-                                        onClick={() => sethide4(!hide4)}
-                                    >
-                                        {hide4 ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                                    </IconButton>
-                                </div>
-                                <div className='col-11 col-md-11'>
-                                    <h6 className='text-center'>Bank details</h6>
-                                    {
-                                        hide4 &&
-                                        <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
-                                            <table class="table ">
-
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Sr No</th>
-                                                        <th scope="col">Account No</th>
-                                                        <th scope="col">Bank Name</th>
-                                                        <th scope="col">Branch</th>
-                                                        <th scope='col'>IFSC No</th>
-                                                        <th scope='col'>MICR No</th>
-                                                        <th scope='col'>Address</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><input value={customerform.accountNo} onChange={(e) => setcustomerform({ ...customerform, accountNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.bankName} onChange={(e) => setcustomerform({ ...customerform, bankName: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.branch} onChange={(e) => setcustomerform({ ...customerform, branch: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.ifscNo} onChange={(e) => setcustomerform({ ...customerform, ifscNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.micrNo} onChange={(e) => setcustomerform({ ...customerform, micrNo: e.target.value })} type='text' /></td>
-                                                        <td><input value={customerform.address1} onChange={(e) => setcustomerform({ ...customerform, address1: e.target.value })} type='text' /></td>
-
-
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className='row mt-4'>
-                                <div className='col-1 col-md-1'>
-                                    <IconButton
-                                        onClick={() => sethide5(!hide5)}
-                                    >
-                                        {hide5 ? <RemoveCircleIcon /> : <AddCircleIcon />}
-                                    </IconButton>
-                                </div>
-                                <div className='col-11 col-md-11'>
-                                    <h6 className='text-center'>Create Ledger</h6>
-                                    {
-                                        hide5 &&
-                                        <div className="customerdrop" style={{ width: "100%", overflowX: "scroll" }}>
-                                            <table class="table ">
-
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Sr No</th>
-                                                        <th scope="col">Sub Ledger Name</th>
-                                                        <th scope="col">Group</th>
-
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><input value={customerform.subLedgerName} type='text' onChange={(e) => setcustomerform({ ...customerform, subLedgerName: e.target.value })} /></td>
-                                                        <td><input value={customerform.grp} onChange={(e) => setcustomerform({ ...customerform, grp: e.target.value })} type='text' /></td>
-
-
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </> */}
-
-
                     {
                         tableshow ?
                             <div className='container mt-4 accMastTable mb-3 p-0'>
@@ -1856,7 +1228,8 @@ const Suppliercom = () => {
                                     <thead >
                                         <tr >
                                             <th>Id</th>
-                                            <th>Name</th>
+                                            <th>supplierId</th>
+                                            <th>Supplier Name</th>
                                             <th>Gst No</th>
                                             <th>Group</th>
                                             <th>Category</th>
@@ -1870,6 +1243,7 @@ const Suppliercom = () => {
                                             customerdata.map((item, i) => (
                                                 <tr>
                                                     <th scope="row" className='text-center'>{item.id}</th>
+                                                    <td>{item.supplierId}</td>
                                                     <td>{item.supplierName}</td>
                                                     <td>{item.gstNo}</td>
                                                     <td>{item.grp}</td>
